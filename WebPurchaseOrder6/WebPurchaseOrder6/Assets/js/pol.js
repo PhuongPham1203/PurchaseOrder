@@ -13,6 +13,7 @@ function viewModelPOD() {
     post_code: ko.observable();
 
     self.purchase_order_line = ko.observableArray([]);
+
 }
 
 $(document).ready(function () {
@@ -42,7 +43,7 @@ $(document).ready(function () {
 
 
             for (let i = 0; i < response.part.length; i++) {
-
+                
                 var item_data = {
                     id: response.part[i].id,
                     part_number: response.part[i].part_number,
@@ -52,14 +53,20 @@ $(document).ready(function () {
                     qty_ordered: response.purchase_order_line[i].qty_ordered,
                     order_date: timestamp2Date(response.purchase_order_line[i].order_date),
                     m2_buy_price: response.purchase_order_line[i].m2_buy_price,
-                    memo: response.purchase_order_line[i].memo
+                    memo: response.purchase_order_line[i].memo,
+
+                    total_price_in_line: ko.computed(function () {
+                        
+                        return response.purchase_order_line[i].qty_ordered * response.purchase_order_line[i].m2_buy_price;
+                    })
                 };
                 vm.purchase_order_line.push(item_data);
-                
+
             }
 
 
             ko.applyBindings(vm);
+            console.log(vm);
 
         },
         error: function (response) {
