@@ -12,21 +12,8 @@ function viewModelPOD() {
     country: ko.observable();
     post_code: ko.observable();
 
-    purchase_order_line : ko.observableArray([]);
+    self.purchase_order_line = ko.observableArray([]);
 }
-
-function viewModelPOL() {
-    id: ko.observable();
-    part_number: ko.observable();
-    part_descripttion: ko.observable();
-    manufacturer: ko.observable();
-
-    qty_ordered: ko.observable();
-    order_date: ko.observable();
-    m2_buy_price: ko.observable();
-    memo: ko.observable();
-}
-
 
 $(document).ready(function () {
     $.ajax({
@@ -63,17 +50,17 @@ $(document).ready(function () {
                     manufacturer: response.part[i].manufacturer,
 
                     qty_ordered: response.purchase_order_line[i].qty_ordered,
-                    order_date: response.purchase_order_line[i].order_date,
+                    order_date: timestamp2Date(response.purchase_order_line[i].order_date),
                     m2_buy_price: response.purchase_order_line[i].m2_buy_price,
                     memo: response.purchase_order_line[i].memo
                 };
-                console.log(item_data);
-                //vm.purchase_order_line.push(item_data);
-                //vm.purchase_order_line.push(item_data);
+                vm.purchase_order_line.push(item_data);
+                
             }
 
 
             ko.applyBindings(vm);
+
         },
         error: function (response) {
             console.log("error GetData");
