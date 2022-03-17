@@ -1,0 +1,77 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterPageIndex.cshtml";
+}
+
+<br />
+
+<div class="container">
+    <!--Start Table-->
+    <table id="list_po" class="table table-bordered text-center table-striped">
+        <!--Start Head-->
+        <thead class="table-info">
+            <tr>
+                <th>Order No</th>
+                <th>Supplier</th>
+                <th>Stock Site</th>
+                <th>Stock Name</th>
+                <th>Ord Date</th>
+                <th>Last Update</th>
+                <th>Sent Email</th>
+            </tr>
+        </thead>
+        <!--End Head-->
+        <!--Start Body-->
+        <tbody>
+            <!--body table-->
+            @{ foreach (var item in Model)
+                {
+                    <!--Item-->
+                    <tr>
+                        <td><a href="/purchaseorderdetail/index/@item.order_no">@item.order_no</a></td>
+                        <td><span>@item.supplier.supplier_shortname</span></td>
+                        <td><span>@item.supplier.stock_site</span></td>
+                        <td><span>@item.supplier.stock_name</span></td>
+                        <td><span>@item.order_date.ToString("dd/MM/yyyy hh:mm:ss")</span></td>
+                        <td><span>@item.last_update.ToString("dd/MM/yyyy hh:mm:ss")</span></td>
+                        @{if (item.sent_email)
+                            {
+                                <td><input type="checkbox" checked disabled="disabled" /></td>
+                            }
+                            else
+                            {
+                                <td><input type="checkbox" readonly disabled="disabled"/></td>
+                            }
+                        }
+
+                    </tr>
+
+                }
+            }
+        </tbody>
+        <!--End Body-->
+    </table>
+
+
+
+    <!--Start Pagination-->
+    <!--
+    <div class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#" onclick="">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">2</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">...</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">6</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">7</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">Next</a></li>
+        </ul>
+
+    </div>
+    -->
+    <!--Start Pagination-->
+    <!--End Table-->
+</div>
+

@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterPageIndex.cshtml";
+
+}
+
+
+
+<div class="container text-center text-info">
+    <h3><u>Purchase Order <u id="id_po">@{@ViewBag.indexPO}</u> </u></h3>
+</div>
+
+<!--Start Purchase Order detail-->
+<div class="container border">
+    <br />
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <!--Start container-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="fs-6"><b>Supplier:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: supplier_shortname"  readonly />
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6"><b>Stock Site:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: stock_site"  readonly />
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6"><b>Order Date:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <input id="order_date_head" type="date" class="form-control" data-bind="value: order_date" value="" readonly />
+                        <br />
+                    </div>
+
+
+                    <div class="col-4">
+                        <p class="fs-6"><b>Note:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <textarea class="form-control" data-bind="text: note"> </textarea>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <!--End container-->
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <!--Start container-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="fs-6"><b>Supplier Name:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: supplier_name" value="" readonly />
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6"><b>Stock Name:</b></p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: stock_name" value="" />
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6">
+                            <b>Address<span class="text-danger">*</span>:</b>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <textarea class="form-control" data-bind="text: address"></textarea>
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6">
+                            <b>County<span class="text-danger">*</span>:</b>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: country" value="" />
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <p class="fs-6">
+                            <b>Post Code<span class="text-danger">*</span>:</b>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" data-bind="value: post_code" value="" />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<!--End Purchase Order detail-->
+<!--Start Purchase Order Items-->
+<div class="container table-responsive">
+    <!--Start Table-->
+    <table class="table table-bordered align-middle">
+        <!--Start Head-->
+        <thead class="table-info align-middle">
+            <tr>
+                <th>Part Number</th>
+                <th>Part Description</th>
+                <th>Manufacturer</th>
+                <th class="text-end">Qty Ordered</th>
+                <!--
+                <th class="text-end">Qty Delivered</th>
+                <th class="text-end">Back Order</th>
+                -->
+                <th class="text-end">Order Date</th>
+                <th class="text-end">M2 Buy Price (£)</th>
+                <th>Memo</th>
+                <th class="text-end">Total Price (£)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <!--End Head-->
+        <!--Start Body-->
+        <tbody></tbody>
+        <!--End Body-->
+    </table>
+    <!--End Table-->
+
+
+</div>
+<!--End Purchase Order Items-->
+<!--Start Price and Action-->
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-end">
+            <p>
+                <b>Purchase order price: (£) </b> 3,038.95 <br /><a href="#">Add Purchase order Line</a>
+            </p>
+        </div>
+        <br />
+    </div>
+
+    <!--Start Button-->
+    <div class="row text-end">
+        <div class="col-12">
+            <button type="button" class="btn btn-light">Re-send email</button>
+            <button type="button" class="btn btn-success">Save</button>
+        </div>
+    </div>
+    <!--End Button-->
+</div>
+<!--End Price and Action-->
+<script>
+
+</script>
+<script src="~/Assets/js/pol.js"></script>
