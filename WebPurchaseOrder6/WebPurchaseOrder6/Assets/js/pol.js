@@ -1,7 +1,7 @@
 ﻿// view model Purchase Order Detail
-function viewModelPOD(supplier_shortname) {
+function viewModelPOD() {
     var self = this;
-    supplier_shortname: ko.observable(supplier_shortname);
+    supplier_shortname: ko.observable();
     stock_site: ko.observable();
     order_date: ko.observable();
     note: ko.observable();
@@ -12,7 +12,19 @@ function viewModelPOD(supplier_shortname) {
     country: ko.observable();
     post_code: ko.observable();
 
-    purchase_order_line: ko.observableArray();
+    purchase_order_line : ko.observableArray([]);
+}
+
+function viewModelPOL() {
+    id: ko.observable();
+    part_number: ko.observable();
+    part_descripttion: ko.observable();
+    manufacturer: ko.observable();
+
+    qty_ordered: ko.observable();
+    order_date: ko.observable();
+    m2_buy_price: ko.observable();
+    memo: ko.observable();
 }
 
 
@@ -25,10 +37,10 @@ $(document).ready(function () {
             id: parseInt(document.getElementById("id_po").textContent)
         },
         success: function (response) {
-            console.log(response);
+
             console.log("success GetData");
-            //console.log(response.purchase_order,); # purchase_order, supplier, purchase_order_line
-            
+            //console.log(response.purchase_order,); # purchase_order, supplier, purchase_order_line, part, all_parts
+
             var vm = new viewModelPOD();
             vm.supplier_shortname = response.supplier.supplier_shortname;
             vm.stock_site = response.supplier.stock_site;
@@ -40,6 +52,26 @@ $(document).ready(function () {
             vm.address = response.purchase_order.address;
             vm.country = response.purchase_order.country;
             vm.post_code = response.purchase_order.post_code;
+
+
+            for (let i = 0; i < response.part.length; i++) {
+
+                var item_data = {
+                    id: response.part[i].id,
+                    part_number: response.part[i].part_number,
+                    part_descripttion: response.part[i].part_descripttion,
+                    manufacturer: response.part[i].manufacturer,
+
+                    qty_ordered: response.purchase_order_line[i].qty_ordered,
+                    order_date: response.purchase_order_line[i].order_date,
+                    m2_buy_price: response.purchase_order_line[i].m2_buy_price,
+                    memo: response.purchase_order_line[i].memo
+                };
+                console.log(item_data);
+                //vm.purchase_order_line.push(item_data);
+                //vm.purchase_order_line.push(item_data);
+            }
+
 
             ko.applyBindings(vm);
         },
