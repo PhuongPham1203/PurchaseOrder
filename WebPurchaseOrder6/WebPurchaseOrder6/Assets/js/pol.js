@@ -14,16 +14,15 @@ function viewModelPOD() {
 
     self.purchase_order_line = ko.observableArray([]);
 
-    //self.sum_of_PO = ko.observable();
-    /*
+    
     self.sum_of_PO = ko.computed(function () {
         var sum = 0;
         for (var i = 0; i < self.purchase_order_line().length; i++) {
-            sum += self.purchase_order_line[i].total_price_in_line();
+            sum += parseFloat(self.purchase_order_line()[i].total_price_in_line());
         }
         return sum;
-    });
-    */
+    },self);
+    
     
 }
 
