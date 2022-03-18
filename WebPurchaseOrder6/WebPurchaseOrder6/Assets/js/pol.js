@@ -5,7 +5,7 @@ function viewModelPOD() {
     stock_site: ko.observable();
     order_date: ko.observable();
     note: ko.observable();
-
+    
     supplier_name: ko.observable();
     stock_name: ko.observable();
     address: ko.observable();
@@ -13,17 +13,17 @@ function viewModelPOD() {
     post_code: ko.observable();
 
     self.purchase_order_line = ko.observableArray([]);
-
     
     self.sum_of_PO = ko.computed(function () {
         var sum = 0;
         for (var i = 0; i < self.purchase_order_line().length; i++) {
             sum += parseFloat(self.purchase_order_line()[i].total_price_in_line());
         }
-        return sum;
+        return sum.toFixed(2);
     },self);
     
-    
+    self.list_part = ko.observableArray([]);
+    self.full_list_part = ko.observableArray([]);
 }
 
 function viewModelPOL(qty_oder, m2_price) {
@@ -39,7 +39,7 @@ function viewModelPOL(qty_oder, m2_price) {
     self.memo = ko.observable();
 
     self.total_price_in_line = ko.computed(function () {
-        return (self.qty_ordered() * self.m2_buy_price()).toLocaleString('pl-PL');
+        return (self.qty_ordered() * self.m2_buy_price()).toFixed(2);
     }, self);
 }
 
@@ -68,8 +68,6 @@ $(document).ready(function () {
             vm.country = response.purchase_order.country;
             vm.post_code = response.purchase_order.post_code;
 
-            var sum = 0; 
-
             for (let i = 0; i < response.part.length; i++) {
                 var qty = response.purchase_order_line[i].qty_ordered;
                 var price = response.purchase_order_line[i].m2_buy_price;
@@ -86,6 +84,9 @@ $(document).ready(function () {
                 vm.purchase_order_line.push(item_mode);
                
             }
+
+            // list part
+
 
 
             ko.applyBindings(vm);
