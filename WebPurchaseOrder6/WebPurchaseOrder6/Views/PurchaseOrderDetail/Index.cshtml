@@ -62,7 +62,7 @@
                         <p class="fs-6"><b>Supplier Name:</b></p>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" data-bind="value: supplier_name" value="" readonly />
+                        <input type="text" class="form-control" data-bind="value: supplier_name" readonly />
                         <br />
                     </div>
 
@@ -70,7 +70,7 @@
                         <p class="fs-6"><b>Stock Name:</b></p>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" data-bind="value: stock_name" value="" />
+                        <input type="text" class="form-control" data-bind="value: stock_name" />
                         <br />
                     </div>
 
@@ -80,7 +80,7 @@
                         </p>
                     </div>
                     <div class="col-8">
-                        <textarea class="form-control" data-bind="text: address"></textarea>
+                        <textarea class="form-control" data-bind="text: address" required></textarea>
                         <br />
                     </div>
 
@@ -90,7 +90,7 @@
                         </p>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" data-bind="value: country" value="" />
+                        <input type="text" class="form-control" data-bind="value: country" required />
                         <br />
                     </div>
 
@@ -100,7 +100,7 @@
                         </p>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" data-bind="value: post_code" value="" />
+                        <input type="text" class="form-control" data-bind="value: post_code" required />
                         <br />
                     </div>
                 </div>
@@ -148,16 +148,16 @@
                     <span data-bind="text: manufacturer"></span>
                 </td>
                 <td class="text-end"><input data-bind="value: qty_ordered" class="form-control text-end" type="number" step="1" min="1"></td>
-                <td class="text-end"><input data-bind="value: order_date" class="form-control" type="date"></td>
+                <td class="text-end"><input data-bind="value: order_date" class="form-control order_date_in_Line" type="date" ></td>
                 <td>
-                    <input data-bind="value: m2_buy_price" type="number" class="form-control text-end" />
+                    <input data-bind="value: m2_buy_price" class="form-control text-end" type="number" />
                 </td>
                 <td>
                     <input data-bind="value: memo" type="text" class="form-control" />
                 </td>
                 <td class="text-end"><span data-bind="text: total_price_in_line"></span></td>
                 <td class="text-center">
-                    <span><i class="fa fa-times text-danger" ></i></span>
+                    <span><i class="fa fa-times text-danger"></i></span>
                 </td>
             </tr>
 
@@ -174,7 +174,7 @@
     <div class="row">
         <div class="col-12 text-end">
             <p>
-                <b>Purchase order price: (£) </b> 3,038.95 <br /><a href="#">Add Purchase order Line</a>
+                <b>Purchase order price (£): </b><span data-bind="text: sum_of_PO">3,038.95</span> <br /><a href="#">Add Purchase order Line</a>
             </p>
         </div>
         <br />

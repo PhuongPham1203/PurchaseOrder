@@ -14,24 +14,34 @@ function viewModelPOD() {
 
     self.purchase_order_line = ko.observableArray([]);
 
+    //self.sum_of_PO = ko.observable();
+    /*
+    self.sum_of_PO = ko.computed(function () {
+        var sum = 0;
+        for (var i = 0; i < self.purchase_order_line().length; i++) {
+            sum += self.purchase_order_line[i].total_price_in_line();
+        }
+        return sum;
+    });
+    */
+    
 }
 
-function viewModelPOL() {
+function viewModelPOL(qty_oder, m2_price) {
     var self = this;
-    id: ko.observable();
-    part_number: ko.observable();
-    part_descripttion: ko.observable();
-    manufacturer: ko.observable();
+    self.id = ko.observable();
+    self.part_number = ko.observable();
+    self.part_descripttion = ko.observable();
+    self.manufacturer = ko.observable();
 
-    qty_ordered: ko.observable();
-    order_date: ko.observable();
-    m2_buy_price: ko.observable();
-    memo: ko.observable();
+    self.qty_ordered = ko.observable(qty_oder);
+    self.order_date = ko.observable();
+    self.m2_buy_price = ko.observable(m2_price);
+    self.memo = ko.observable();
 
-    total_price_in_line: ko.computed(function () {
-
-        return self.qty_ordered() * self.m2_buy_price();
-    })
+    self.total_price_in_line = ko.computed(function () {
+        return (self.qty_ordered() * self.m2_buy_price()).toLocaleString('pl-PL');
+    }, self);
 }
 
 $(document).ready(function () {
@@ -59,30 +69,35 @@ $(document).ready(function () {
             vm.country = response.purchase_order.country;
             vm.post_code = response.purchase_order.post_code;
 
+            var sum = 0; 
+
             for (let i = 0; i < response.part.length; i++) {
+                var qty = response.purchase_order_line[i].qty_ordered;
+                var price = response.purchase_order_line[i].m2_buy_price;
+                
+                var item_mode = new viewModelPOL(qty, price);
+                item_mode.id = response.part[i].id;
+                item_mode.part_number = response.part[i].part_number;
+                item_mode.part_descripttion = response.part[i].part_descripttion;
+                item_mode.manufacturer = response.part[i].manufacturer;
 
-                var item_mode = new viewModelPOL();
-                item_mode.id = ko.observable(response.part[i].id)
-                item_mode.part_number = ko.observable(response.part[i].part_number);
-                item_mode.part_descripttion = ko.observable(response.part[i].part_descripttion);
-                item_mode.manufacturer = ko.observable(response.part[i].manufacturer);
+                item_mode.order_date = timestamp2Date(response.purchase_order_line[i].order_date);
+                item_mode.memo = response.purchase_order_line[i].memo;
 
-                item_mode.qty_ordered = ko.observable(response.purchase_order_line[i].qty_ordered);
-                item_mode.order_date = ko.observable(timestamp2Date(response.purchase_order_line[i].order_date));
-                item_mode.m2_buy_price = ko.observable(response.purchase_order_line[i].m2_buy_price);
-                item_mode.memo = ko.observable(response.purchase_order_line[i].memo);
-
-                item_mode.total_price_in_line = ko.computed(function () {
-
-                    return item_mode.qty_ordered() * item_mode.m2_buy_price();
-                })
-                //ko.applyBindings(item_mode);
                 vm.purchase_order_line.push(item_mode);
-
+                //vm.sum_of_PO = item_mode.total_price_in_line();
             }
 
+
             ko.applyBindings(vm);
-            //console.log(vm);
+
+            // validate Date PuchaseOrderLine
+            var pol = document.getElementsByClassName("order_date_in_Line");
+
+            for (var item of pol) {
+                item.setAttribute("min", timestamp2Date(response.purchase_order.order_date));
+            }
+
         },
         error: function (response) {
             console.log("error GetData");
@@ -93,15 +108,6 @@ $(document).ready(function () {
 
 
 })
-
-function validateOrderDate() {
-    var order_date = document.getElementById("order_date").value;
-
-
-    if (new Date(order_date.value).getTime() < Date.now()) {
-        document.getElementById("order_date").value = Date.now();
-    }
-}
 
 function timestamp2Datetime(timestamp) {
     str = timestamp.replace(/\D/g, "");
@@ -130,3 +136,14 @@ function timestamp2Date(timestamp) {
     return dateString;
 }
 
+function validateOrderDateLine(date_in_line) {
+    var order_date_Head = document.getElementById("order_date_head").value;
+    var order_date_Line = date_in_line.value;
+
+    console.log(new Date(order_date_Line.value).getTime() < new Date(order_date_Head.value).getTime());
+
+    if (new Date(order_date_Line).getTime() < new Date(order_date_Head).getTime()) {
+
+        date_in_line.value = order_date_Head;
+    }
+}
