@@ -84,7 +84,7 @@ $(document).ready(function () {
                 item_mode.memo = response.purchase_order_line[i].memo;
 
                 vm.purchase_order_line.push(item_mode);
-                //vm.sum_of_PO = item_mode.total_price_in_line();
+               
             }
 
 
