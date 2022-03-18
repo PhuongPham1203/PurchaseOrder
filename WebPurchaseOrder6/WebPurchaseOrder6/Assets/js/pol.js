@@ -18,17 +18,20 @@ function viewModelPOD() {
 
 function viewModelPOL() {
     var self = this;
-    id: null;
-    part_number: null;
-    part_descripttion: null;
-    manufacturer: null;
+    id: ko.observable();
+    part_number: ko.observable();
+    part_descripttion: ko.observable();
+    manufacturer: ko.observable();
 
-    qty_ordered: null;
-    order_date: null;
-    m2_buy_price: null;
-    memo: null;
+    qty_ordered: ko.observable();
+    order_date: ko.observable();
+    m2_buy_price: ko.observable();
+    memo: ko.observable();
 
-    total_price_in_line: null
+    total_price_in_line: ko.computed(function () {
+
+        return self.qty_ordered() * self.m2_buy_price();
+    })
 }
 
 $(document).ready(function () {
@@ -77,37 +80,6 @@ $(document).ready(function () {
                 vm.purchase_order_line.push(item_mode);
 
             }
-
-            /*
-            for (let i = 0; i < response.part.length; i++) {
-
-                var item_data = {
-                    
-                    id: response.part[i].id,
-                    part_number: response.part[i].part_number,
-                    part_descripttion: response.part[i].part_descripttion,
-                    manufacturer: response.part[i].manufacturer,
-
-                    //qty_ordered: response.purchase_order_line[i].qty_ordered,
-                    order_date: timestamp2Date(response.purchase_order_line[i].order_date),
-                    //m2_buy_price: response.purchase_order_line[i].m2_buy_price,
-                    memo: response.purchase_order_line[i].memo,
-
-                };
-
-                item_data.qty_ordered = ko.observable(response.purchase_order_line[i].qty_ordered);
-                item_data.m2_buy_price = ko.observable(response.purchase_order_line[i].m2_buy_price);
-
-                item_data.total_price_in_line = ko.computed(function () {
-
-                    return item_data.qty_ordered() * item_data.m2_buy_price();
-                })
-
-                vm.purchase_order_line.push(item_data);
-
-            }
-            */
-
 
             ko.applyBindings(vm);
             //console.log(vm);
