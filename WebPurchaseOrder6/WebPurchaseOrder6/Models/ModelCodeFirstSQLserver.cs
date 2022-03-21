@@ -10,7 +10,7 @@ namespace WebPurchaseOrder6.Models
         public ModelCodeFirstSQLserver()
             : base("name=ModelCodeFirstSQLserver")
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            //this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<part> parts { get; set; }

@@ -12,12 +12,12 @@ namespace WebPurchaseOrder6.Controllers
     {
         public ActionResult Index()
         {
-            ModelCodeFirstSQLserver db = new ModelCodeFirstSQLserver();
-            // get 10 purchase order
-            var query = db.purchase_order.OrderBy(p => p.order_no).Skip(0).Take(10)
-                .Include(p => p.supplier);
+            // get 10 purchase order by defaul
+            var unitOfWork = new UnitOfWork(new ModelCodeFirstSQLserver());
 
-            return View(query.ToList());
+            var data = unitOfWork.PurchaseOrder.GetPOWithSupplier(0,10);
+
+            return View(data);
         }
 
         
