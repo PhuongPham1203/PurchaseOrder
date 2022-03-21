@@ -140,15 +140,21 @@
             <!--Item-->
             <tr>
                 <td>
-                    <input data-bind="value: part_number" type="text" class="form-control" />
+                    <!--
+                        <input data-bind="value: part_number" type="text" class="form-control" />
+                    -->
+                    <select data-bind="options: list_part ,value: part.part_number" class="form-select">
+
+                    </select>
+
                 </td>
 
-                <td><span data-bind="text: part_descripttion"></span></td>
+                <td><span data-bind="text: part.part_descripttion"></span></td>
                 <td>
-                    <span data-bind="text: manufacturer"></span>
+                    <span data-bind="text: part.manufacturer"></span>
                 </td>
                 <td class="text-end"><input data-bind="value: qty_ordered" class="form-control text-end" type="number" step="1" min="1"></td>
-                <td class="text-end"><input data-bind="value: order_date" class="form-control order_date_in_Line" type="date" ></td>
+                <td class="text-end"><input data-bind="value: order_date" class="form-control order_date_in_Line" type="date"></td>
                 <td>
                     <input data-bind="value: m2_buy_price" class="form-control text-end" type="number" />
                 </td>
