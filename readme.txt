@@ -2,6 +2,5 @@
 
 WebPurchaseOrder6 is ASP.Net Framework with Knockout
 
-# WebAppAPIWithAngular
+# Web With Angular
 
-WebAppAPIWithAngular is ASP.Net Framework with Angular
