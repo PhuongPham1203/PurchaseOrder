@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.916
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppCoreMVC", "WebAppCoreMVC\WebAppCoreMVC.csproj", "{22D770B5-636C-46DD-962E-30476B8BD0AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22D770B5-636C-46DD-962E-30476B8BD0AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D770B5-636C-46DD-962E-30476B8BD0AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D770B5-636C-46DD-962E-30476B8BD0AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D770B5-636C-46DD-962E-30476B8BD0AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54EDE1FD-AAD5-48B9-8C29-E3967DC2AA6E}
+	EndGlobalSection
+EndGlobal
