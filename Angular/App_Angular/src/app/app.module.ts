@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BoldDirective } from './Directives/bold.directive';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BoldDirective } from './Directives/bold.directive';
     HomeComponent,
     AboutComponent,
     PagenotfoundComponent,
-    BoldDirective
+    BoldDirective,
+    FormComponent
   ],
   imports: [
     BrowserModule,
