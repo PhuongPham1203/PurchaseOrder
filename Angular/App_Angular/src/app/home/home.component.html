@@ -1,0 +1,53 @@
+<h1>Home page !</h1>
+
+<div>
+    <p>I am {{name}}</p>
+    <p>are you {{age}} ?</p>
+</div>
+<div>
+    <h4>Use *ngIf</h4>
+    <span *ngIf="age < 20" class="underAge">you are too young</span>
+    <span *ngIf="age >= 20" class="overAge">you are >=20</span>
+</div>
+<br>
+<div>
+    <h4>Use *ngIf and ng-template</h4>
+
+    <span *ngIf="age < 20 ; then trueCondition ;else falseCondition"></span>
+
+    <ng-template #trueCondition class=""><span fontStyleBold>you are too young</span></ng-template> 
+    <ng-template #falseCondition class=""><span >you are >=20</span></ng-template> 
+    
+</div>
+<br>
+
+<input [(ngModel)]="name">
+<button fontStyleBold (click)="tangtuoi()">Add age</button>
+
+
+
+<!--
+<br>
+<br>
+<br>
+
+
+<div>
+    <h2>List car</h2>
+    <div *ngFor="let vehicle of vehicles">
+        <li>{{vehicle}}</li>
+    </div>
+</div>
+
+
+<div>
+    <h2>List select car</h2>
+    <select>
+        <option *ngFor="let vehicle of vehicles">{{vehicle}}</option>
+    </select>
+
+</div>
+
+<h1>Chao ban {{name | uppercase}} co tuoi la {{age|number:"0.2"}} them 1 lan nua</h1>
+
+-->
