@@ -15,8 +15,29 @@
 <br>
 
 <h3>Display Post Json</h3>
-<div *ngFor="let post of posts">
-    <p>{{post | json}}</p>
+<div class="container">
+   <table class="table table-bordered border-primary">
+       <thead>
+           <tr>
+               <th>id</th>
+               <th>title</th>
+               <th>author</th>
+            </tr>
+       </thead>
+       <tbody *ngFor="let post of posts">
+           <tr>
+               <td>
+                {{post.id}}
+               </td>
+               <td>
+                {{post.title}}
+               </td>
+               <td>
+                {{post.author}}
+               </td>
+           </tr>
+       </tbody>
+   </table>
 
 </div>
 
