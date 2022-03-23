@@ -1,0 +1,63 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Json-server",
+      "author": "Typicode"
+    },
+    {
+      "id": 2,
+      "title": "Json-server 22",
+      "author": "Typicode"
+    },
+    {
+      "id": 3,
+      "title": "Json-server 333",
+      "author": "Typicode"
+    },
+    {
+      "title": "Json-server",
+      "id": 4
+    },
+    {
+      "title": "Json-server",
+      "id": 5
+    },
+    {
+      "title": "testing",
+      "author": "author Testing",
+      "id": 6
+    },
+    {
+      "title": "testing",
+      "author": "author Testing",
+      "id": 7
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 2,
+      "body": "some comment2",
+      "postId": 2
+    }
+  ],
+  "profile": [
+    {
+      "name": "Nguyen van a",
+      "age": 18
+    },
+    {
+      "name": "Pham van b",
+      "age": 19
+    },
+    {
+      "name": "Bui van c",
+      "age": 20
+    }
+  ]
+}

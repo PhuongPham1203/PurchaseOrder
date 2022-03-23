@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   public name = "Pham";
   public age = 15;
-
   public vehicles = ['toyota', 'bmw', 'audi'];
 
   public tangtuoi() {

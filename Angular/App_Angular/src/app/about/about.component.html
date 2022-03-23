@@ -4,5 +4,23 @@
 <p>
     this is page about
 </p>
+<h4>Name : {{name}}</h4>
 <h4>Age : {{age}}</h4>
+<!--
 <button (click)="tangtuoi()">Add Age</button>
+-->
+<h3>Display Profile Json</h3>
+<p>{{datajson | json}}</p>
+
+<br>
+
+<h3>Display Post Json</h3>
+<div *ngFor="let post of posts">
+    <p>{{post | json}}</p>
+
+</div>
+
+<br>
+
+<h3>Add Post</h3>
+<button class="btn btn-primary" (click)="addPost()">Add Post</button>

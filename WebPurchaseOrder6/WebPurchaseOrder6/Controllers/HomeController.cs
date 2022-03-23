@@ -20,6 +20,11 @@ namespace WebPurchaseOrder6.Controllers
             return View(data);
         }
 
+        public ActionResult getAngulartTest()
+        {
+            return Json(Domain.getUrlAngular(),JsonRequestBehavior.AllowGet);
+        }
+
         
     }
 }
