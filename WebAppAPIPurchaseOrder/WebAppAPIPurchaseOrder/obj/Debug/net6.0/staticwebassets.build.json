@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "DOXJLOhD0MZqEuPGWx/qq8/9lTTnONTC7CrEGn8SgHU=",
+  "Source": "WebAppAPIPurchaseOrder",
+  "BasePath": "_content/WebAppAPIPurchaseOrder",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
