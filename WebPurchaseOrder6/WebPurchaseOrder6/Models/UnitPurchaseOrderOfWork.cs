@@ -5,10 +5,10 @@ using System.Web;
 
 namespace WebPurchaseOrder6.Models
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitPurchaseOrderOfWork : IUnitOfWork
     {
         private readonly ModelCodeFirstSQLserver _context;
-        public UnitOfWork(ModelCodeFirstSQLserver context)
+        public UnitPurchaseOrderOfWork(ModelCodeFirstSQLserver context)
         {
             this._context = context;
             PurchaseOrder = new PurchaseOrderRepository(_context);

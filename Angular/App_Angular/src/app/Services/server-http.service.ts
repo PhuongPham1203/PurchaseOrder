@@ -33,7 +33,7 @@ export class ServerHttpService {
 
   public addPosts(data): Observable<any> {
     const url = `${this.REST_API_SERVER}/posts`;
-    return this.httpClient.post<any>(url,data, this.httpOptions).pipe(catchError(this.handleError));
+    return this.httpClient.post<any>(url, data, this.httpOptions).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
