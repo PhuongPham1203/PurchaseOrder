@@ -82,6 +82,8 @@
           },
           "defaultConfiguration": "development",
           "options": {
+            "browserTarget": "App_Angular:build",
+            "proxyConfig":"./src/proxy.conf.json",
             "port": 1234
           }
         },
@@ -89,6 +91,7 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "App_Angular:build"
+            
           }
         },
         "test": {
