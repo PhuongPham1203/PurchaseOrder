@@ -5,7 +5,7 @@ WebAppMVCPurchaseOrder is ASP.Net Core 6.0
 # Web With Angular
 
 *Purchase Order
-![plot](./purchaseorder.png)
+![img text](/purchaseorder.png "Optional title")
 
 *Purchase Order Detail
-![plot](./purchaseorderdetail.png)
+![img text](/purchaseorderdetail.png "Optional title")
