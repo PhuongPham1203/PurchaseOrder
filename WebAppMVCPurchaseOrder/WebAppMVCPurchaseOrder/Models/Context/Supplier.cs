@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebAppMVCPurchaseOrder.Models.Context;
 
 namespace WebAppMVCPurchaseOrder.Models
 {
-    public partial class Supplier
+    public partial class Supplier : IModel
     {
         public Supplier()
         {

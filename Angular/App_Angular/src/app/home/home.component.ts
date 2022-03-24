@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
 	// display List Purchase Order
 	public updateListPurchaserOrder() {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrder/GetListPurchaseOrder";
-		//var url = "http://localhost:3000/posts";
+		
 		this.serverHttp.getAPI(url).subscribe((data) => {
 			//console.log(data);
 			this.dataPO = data;

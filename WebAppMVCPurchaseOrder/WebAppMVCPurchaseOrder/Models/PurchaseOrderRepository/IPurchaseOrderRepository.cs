@@ -1,11 +1,12 @@
-﻿using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
+﻿using WebAppMVCPurchaseOrder.Models.Context;
+using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
 using WebAppMVCPurchaseOrder.Models.Repository;
 
-namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderModel
+namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 {
 
     public interface IPurchaseOrderRepository: IRepository<PurchaseOrder>
     {
-        IEnumerable<POInHomePage> GetListPO(int pageIndex, int pageSize);
+        public IEnumerable<IModel> GetListPO(int pageIndex, int pageSize);
     }
 }

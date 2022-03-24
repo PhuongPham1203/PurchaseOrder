@@ -1,5 +1,6 @@
-﻿using WebAppMVCPurchaseOrder.Models.PurchaseOrderModel;
-using System;
+﻿using System;
+using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
+
 namespace WebAppMVCPurchaseOrder.Services.RepositoryServices
 {
 

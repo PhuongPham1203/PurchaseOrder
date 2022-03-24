@@ -1,7 +1,7 @@
 
 /// <summary>
 /// DDD :
-///     User Interface Layer : Views
+///     User Interface Layer : Views, angular
 ///     Application Layer : Controllers
 ///     Domain Layer : Services
 ///     Infrastructure Layer : Models

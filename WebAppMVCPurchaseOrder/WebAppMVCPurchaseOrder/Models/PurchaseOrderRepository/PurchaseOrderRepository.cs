@@ -1,16 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
+using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Models.Repository;
 
-namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderModel
+namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 {
     public class PurchaseOrderRepository: Repository<PurchaseOrder>, IPurchaseOrderRepository
     {
         public PurchaseOrderRepository(DbContext context) : base(context)
         {
         }
+        public purchaseorderContext ModelSQLserver
+        {
+            get { return Context as purchaseorderContext; }
 
-        public IEnumerable<POInHomePage> GetListPO(int pageIndex = 0, int pageSize = 10)
+        }
+
+        public IEnumerable<IModel> GetListPO(int pageIndex = 0, int pageSize = 10)
         {
             return ModelSQLserver.PurchaseOrders
                 .OrderBy(po => po.OrderNo)
@@ -32,10 +37,6 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderModel
         }
 
 
-        public purchaseorderContext ModelSQLserver
-        {
-            get { return Context as purchaseorderContext; }
-
-        }
+        
     }
 }

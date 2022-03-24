@@ -8,16 +8,13 @@ namespace WebAppMVCPurchaseOrder.Controllers
     public class PurchaseOrderController : Controller
     {
 
+        private PurchaseOrderServices purchaseOrderServices = new PurchaseOrderServices();
 
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [HttpGet]
         public IActionResult GetListPurchaseOrder(string id)
@@ -28,9 +25,8 @@ namespace WebAppMVCPurchaseOrder.Controllers
                 index = int.Parse(id);
             }
 
-            PurchaseOrderServices purchaseOrderServices = new PurchaseOrderServices();
 
-            var data = purchaseOrderServices.GetListPurchaseOrder(index,10);
+            var data = this.purchaseOrderServices.GetListPurchaseOrder(index,10);
 
             return Json(data);
         }

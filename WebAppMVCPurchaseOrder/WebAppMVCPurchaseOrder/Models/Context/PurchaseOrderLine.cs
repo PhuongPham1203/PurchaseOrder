@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebAppMVCPurchaseOrder.Models.Context;
+
 
 namespace WebAppMVCPurchaseOrder.Models
 {
-    public partial class PurchaseOrderLine
+    public partial class PurchaseOrderLine:IModel
     {
         public int IdPurchaseOrder { get; set; }
         public int IdPart { get; set; }
