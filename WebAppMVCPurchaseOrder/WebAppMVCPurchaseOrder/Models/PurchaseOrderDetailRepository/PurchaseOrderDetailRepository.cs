@@ -46,6 +46,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
                     IdPurchaseOrder = pol.IdPurchaseOrder,
                     OrderDate = pol.OrderDate,
                     BackOrder = pol.BackOrder,
+                    QtyOrdered = pol.QtyOrdered,
                     M2BuyPrice = pol.M2BuyPrice,
                     Memo = pol.Memo,
                     Status = pol.Status,
@@ -66,8 +67,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
         public IEnumerable<IModel> GetListPart()
         {
 
-            return ModelSQLserver.Parts
-                .ToList();
+            return ModelSQLserver.Parts.ToList();
 
         }
 

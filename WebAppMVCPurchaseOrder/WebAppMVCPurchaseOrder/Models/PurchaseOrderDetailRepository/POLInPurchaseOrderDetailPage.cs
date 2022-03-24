@@ -6,6 +6,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
     {
         public int IdPurchaseOrder { get; set; }
         public DateTime? OrderDate { get; set; }
+        public int? QtyOrdered { get; set; }
         public bool? BackOrder { get; set; }
         public double? M2BuyPrice { get; set; }
         public string? Memo { get; set; }
