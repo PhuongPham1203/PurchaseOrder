@@ -1,50 +1,54 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { DomainAPIService } from './domain-api.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 
 
 
 export class ServerHttpService {
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": 'application/json',
-      // Authorization : "my-auth-token"
-    })
+	private httpOptions = {
+		headers: new HttpHeaders({
+			"Content-Type": 'application/json',
+			// Authorization : "my-auth-token"
+		})
 
-  };
+	};
 
-  private REST_API_SERVER = 'http://localhost:3000';
 
-  constructor(private httpClient: HttpClient) { }
+	constructor(
+		private domainAPI: DomainAPIService,
+		private httpClient: HttpClient
+	) { }
 
-  public getProfile(): Observable<any> {
-    const url = `${this.REST_API_SERVER}/profile`;
-    return this.httpClient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
-  }
-  public getPosts(): Observable<any> {
-    const url = `${this.REST_API_SERVER}/posts`;
-    return this.httpClient.get<any>(url, this.httpOptions).pipe(catchError(this.handleError));
-  }
+	// Send Get API without data
+	public getAPI(api_url): Observable<any> {
+		return this.httpClient.get<any>(api_url, this.httpOptions).pipe(catchError(this.handleError));
+	}
 
-  public addPosts(data): Observable<any> {
-    const url = `${this.REST_API_SERVER}/posts`;
-    return this.httpClient.post<any>(url, data, this.httpOptions).pipe(catchError(this.handleError));
-  }
+	// Send Get API with data
+	public getAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.get<any>(api_url, this.httpOptions).pipe(catchError(this.handleError));
+	}
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('an error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status},` + ` body was: ${error.error}`
-      );
-    }
+	// Send Post API with data
+	public postAPIWithData(api_url,data): Observable<any> {
+		return this.httpClient.post<any>(api_url, data, this.httpOptions).pipe(catchError(this.handleError));
+	}
 
-    return throwError("Somwthing bad happened; please try again later.");
-  }
+	private handleError(error: HttpErrorResponse) {
+		if (error.error instanceof ErrorEvent) {
+			console.error('an error occurred:', error.error.message);
+		} else {
+			console.error(
+				`Backend returned code ${error.status},` + ` body was: ${error.error}`
+			);
+		}
+
+		return throwError("Somwthing bad happened; please try again later.");
+	}
 }

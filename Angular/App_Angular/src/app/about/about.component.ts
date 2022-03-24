@@ -16,14 +16,7 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.serverHttpService.getProfile().subscribe((data) => {
-      //console.log(data);
-      this.name = data[0].name;
-      this.age = data[0].age;
-      this.datajson = data;
-    });
-
-
+    
     this.getDisplayPost();
 
   }
@@ -42,17 +35,10 @@ export class AboutComponent implements OnInit {
   public addPost() {
     const newData = { title: "testing", author: "author Testing" };
 
-    this.serverHttpService.addPosts(newData).subscribe((data) => {
-      //console.log("addPost", data);
-    });
-
-    this.getDisplayPost();
   }
 
   public getDisplayPost() {
-    this.serverHttpService.getPosts().subscribe((data) => {
-      this.posts = data;
-    });
+    
   }
 
 

@@ -15,12 +15,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Lamviec\Github\PurchaseOrder\WebAppMVCPurchaseOrder\WebAppMVCPurchaseOrder
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Lamviec/Github/PurchaseOrder/WebAppMVCPurchaseOrder/WebAppMVCPurchaseOrder/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/Lamviec/Github/PurchaseOrder/WebAppMVCPurchaseOrder/WebAppMVCPurchaseOrder/Views/PurchaseOrder/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VPcmRlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Lamviec/Github/PurchaseOrder/WebAppMVCPurchaseOrder/WebAppMVCPurchaseOrder/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Lamviec/Github/PurchaseOrder/WebAppMVCPurchaseOrder/WebAppMVCPurchaseOrder/Views/PurchaseOrder/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VPcmRlclxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Lamviec/Github/PurchaseOrder/WebAppMVCPurchaseOrder/WebAppMVCPurchaseOrder/Views/Shared/Error.cshtml]
