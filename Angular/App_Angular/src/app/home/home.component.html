@@ -1,4 +1,3 @@
-
 <br />
 
 <div class="container">
@@ -20,27 +19,25 @@
         <!--Start Body-->
         <tbody>
             <!--body table-->
-           
-                    <!--Item-->
-                    <tr *ngFor="let item of dataPO">
-                        <td><a href="#">{{item.orderNo}}</a></td>
-                        <td><span>{{item.supplierName}}</span></td>
-                        <td><span>{{item.stockSite}}</span></td>
-                        <td><span>{{item.stockName}}</span></td>
-                        <td><span>{{string2DatetimeFormat(item.orderDate)}}</span></td>
-                        <td><span>{{string2DatetimeFormat(item.lastUpdate)}}</span></td>
-                        
-                                <td *ngIf="item.sentEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
-                           
-                                <td *ngIf="item.sentEmail==false"><input type="checkbox" disabled="disabled"/></td>
-                   
-                    </tr>
+
+            <!--Item-->
+            <tr *ngFor="let item of dataPO">
+                <td><a [routerLink]="['/purchaseorderdetail/'+item.orderNo]" routerLinkActive="router-link-active" >{{item.orderNo}}</a></td>
+                <td><span>{{item.supplierName}}</span></td>
+                <td><span>{{item.stockSite}}</span></td>
+                <td><span>{{item.stockName}}</span></td>
+                <td><span>{{datetimeFormat.string2DatetimeFormat(item.orderDate)}}</span></td>
+                <td><span>{{datetimeFormat.string2DatetimeFormat(item.lastUpdate)}}</span></td>
+
+                <td *ngIf="item.sentEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
+
+                <td *ngIf="item.sentEmail==false"><input type="checkbox" disabled="disabled" /></td>
+
+            </tr>
 
         </tbody>
         <!--End Body-->
     </table>
-
-
 
     <!--Start Pagination-->
     <!--
