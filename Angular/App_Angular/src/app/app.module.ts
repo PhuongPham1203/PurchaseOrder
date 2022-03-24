@@ -10,9 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BoldDirective } from './Directives/bold.directive';
-import { FormComponent } from './form/form.component';
-import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import {HttpClientModule} from '@angular/common/http';
+import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import {HttpClientModule} from '@angular/common/http';
     AboutComponent,
     PagenotfoundComponent,
     BoldDirective,
-    FormComponent,
-    ReactiveFormComponent
+    PurchaseOrderDetailComponent
   ],
   imports: [
     BrowserModule,

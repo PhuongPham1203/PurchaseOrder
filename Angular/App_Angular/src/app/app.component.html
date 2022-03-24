@@ -1,10 +1,27 @@
-<div class="container text-center">
-    <a [routerLink]="['/home']" routerLinkActive="router-link-active">go to Home page</a>
-    &nbsp;|
-    <a [routerLink]="['/form']" routerLinkActive="router-link-active">go to Form page</a>
-    &nbsp;|
-    <a [routerLink]="['/about']" routerLinkActive="router-link-active">go to About page</a>
-    &nbsp;|
-    <a [routerLink]="['/reactiveform']" routerLinkActive="router-link-active">go to Reactive Form page</a>
-</div>
-<router-outlet></router-outlet>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+</head>
+
+<body>
+    <!--Start Narbar-->
+    <div class="container">
+        <nav class="navbar navbar-light bg-info">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1"><a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">Purchase Order</a></span>
+            </div>
+        </nav>
+    </div>
+    <!--End Narbar-->
+
+    <router-outlet></router-outlet>
+
+</body>
+
+</html>
