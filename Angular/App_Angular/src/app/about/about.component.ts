@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../Services/common.service';
 import { ServerHttpService } from '../Services/server-http.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { ServerHttpService } from '../Services/server-http.service';
 export class AboutComponent implements OnInit {
 
   constructor(
-    private common: CommonService,
     private serverHttpService: ServerHttpService) {
     //this.age = common.age;
   }

@@ -1,6 +1,7 @@
-# WebPurchaseOrder6
+# WebAppMVCPurchaseOrder
 
-WebPurchaseOrder6 is ASP.Net Framework with Knockout
+WebAppMVCPurchaseOrder is ASP.Net Core 6.0
 
 # Web With Angular
 
+![plot](./purchaseorder.png)

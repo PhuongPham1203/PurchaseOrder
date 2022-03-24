@@ -1,62 +1,62 @@
-<h1 class="text-center">Home page !</h1>
 
+<br />
 
 <div class="container">
-    <p>{{dataPO|json}}</p>
-</div>
+    <!--Start Table-->
+    <table id="list_po" class="table table-bordered text-center table-striped">
+        <!--Start Head-->
+        <thead class="table-info">
+            <tr>
+                <th>Order No</th>
+                <th>Supplier</th>
+                <th>Stock Site</th>
+                <th>Stock Name</th>
+                <th>Ord Date</th>
+                <th>Last Update</th>
+                <th>Sent Email</th>
+            </tr>
+        </thead>
+        <!--End Head-->
+        <!--Start Body-->
+        <tbody>
+            <!--body table-->
+           
+                    <!--Item-->
+                    <tr *ngFor="let item of dataPO">
+                        <td><a href="#">{{item.orderNo}}</a></td>
+                        <td><span>{{item.supplierName}}</span></td>
+                        <td><span>{{item.stockSite}}</span></td>
+                        <td><span>{{item.stockName}}</span></td>
+                        <td><span>{{string2DatetimeFormat(item.orderDate)}}</span></td>
+                        <td><span>{{string2DatetimeFormat(item.lastUpdate)}}</span></td>
+                        
+                                <td *ngIf="item.sentEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
+                           
+                                <td *ngIf="item.sentEmail==false"><input type="checkbox" disabled="disabled"/></td>
+                   
+                    </tr>
+
+        </tbody>
+        <!--End Body-->
+    </table>
 
 
 
+    <!--Start Pagination-->
+    <!--
+    <div class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#" onclick="">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">2</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">...</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">6</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">7</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="">Next</a></li>
+        </ul>
 
-<!--
-<div>
-    <p>I am {{name}}</p>
-    <p>are you {{age}} ?</p>
-</div>
-<div>
-    <h4>Use *ngIf</h4>
-    <span *ngIf="age < 20" class="underAge">you are too young</span>
-    <span *ngIf="age >= 20" class="overAge">you are >=20</span>
-</div>
-<br>
-<div>
-    <h4>Use *ngIf and ng-template</h4>
-
-    <span *ngIf="age < 20 ; then trueCondition ;else falseCondition"></span>
-
-    <ng-template #trueCondition class=""><span fontStyleBold>you are too young</span></ng-template> 
-    <ng-template #falseCondition class=""><span >you are >=20</span></ng-template> 
-    
-</div>
-<br>
-
-<input [(ngModel)]="name">
-<button fontStyleBold (click)="tangtuoi()">Add age</button>
-
-
-
-
-<br>
-<br>
-<br>
-
-
-<div>
-    <h2>List car</h2>
-    <div *ngFor="let vehicle of vehicles">
-        <li>{{vehicle}}</li>
     </div>
+    -->
+    <!--Start Pagination-->
+    <!--End Table-->
 </div>
-
-
-<div>
-    <h2>List select car</h2>
-    <select>
-        <option *ngFor="let vehicle of vehicles">{{vehicle}}</option>
-    </select>
-
-</div>
-
-<h1>Chao ban {{name | uppercase}} co tuoi la {{age|number:"0.2"}} them 1 lan nua</h1>
-
--->
