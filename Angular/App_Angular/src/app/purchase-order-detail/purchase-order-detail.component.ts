@@ -48,5 +48,18 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		})
 	}
 
+	public totalPricePO(){
+		var sum=0;
+		for(let item of this.dataPODetail.purchaseOrderLines){
+			sum+=item.qtyOrdered*item.m2BuyPrice
+		}
+
+		return sum;
+	}
+
+	public deletePurchaseOrderLine(){
+
+		console.log("deletePurchaseOrderLine")
+	}
 
 }

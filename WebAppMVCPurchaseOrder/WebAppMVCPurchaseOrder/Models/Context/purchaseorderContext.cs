@@ -122,9 +122,11 @@ namespace WebAppMVCPurchaseOrder.Models
 
             modelBuilder.Entity<PurchaseOrderLine>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.ToTable("purchase_order_line");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.BackOrder)
                     .HasColumnName("back_order")

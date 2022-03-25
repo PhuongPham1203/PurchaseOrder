@@ -43,6 +43,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
                 .Include(part => part.IdPartNavigation)
                 .Select(pol => new POLInPurchaseOrderDetailPage()
                 {
+                    Id = pol.Id,
                     IdPurchaseOrder = pol.IdPurchaseOrder,
                     OrderDate = pol.OrderDate,
                     BackOrder = pol.BackOrder,

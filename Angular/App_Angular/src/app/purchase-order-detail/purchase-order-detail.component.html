@@ -155,18 +155,18 @@
 					<span>{{pol.manufacturer}}</span>
 				</td>
 				<td class="text-end">
-					<input class="form-control text-end" type="number" step="1" min="1" [(ngModel)]="pol.qtyOrdered">
+					<input class="form-control text-end" type="number" step="1" min="1" [(ngModel)]="pol.qtyOrdered" [disabled]="dataPODetail.cancelPo">
 				</td>
 				<td class="text-end">
-					<input class="form-control" type="date" [(ngModel)]="pol.orderDate" min="{{dataPODetail.orderDate}}">
+					<input class="form-control" type="date" [(ngModel)]="pol.orderDate" min="{{dataPODetail.orderDate}}" [disabled]="dataPODetail.cancelPo">
 				</td>
 				<td>
-					<input class="form-control text-end" type="number" [(ngModel)]="pol.m2BuyPrice" />
+					<input class="form-control text-end" type="number" [(ngModel)]="pol.m2BuyPrice"  [disabled]="dataPODetail.cancelPo"/>
 				</td>
 				<td>
-					<input type="text" class="form-control" [(ngModel)]="pol.memo" />
+					<input type="text" class="form-control" [(ngModel)]="pol.memo"  [disabled]="dataPODetail.cancelPo"/>
 				</td>
-				<td class="text-end"><span>{{pol.qtyOrdered*pol.m2BuyPrice | number:'0.2'}}</span></td>
+				<td class="text-end"><span>{{pol.qtyOrdered*pol.m2BuyPrice | number:'0.0-2'}}</span></td>
 				<td class="text-center">
 					<span><i class="fa fa-times text-danger"></i></span>
 				</td>
@@ -185,7 +185,7 @@
 	<div class="row">
 		<div class="col-12 text-end">
 			<p>
-				<b>Purchase order price (£): </b><span data-bind="text: sum_of_PO">3,038.95</span> <br /><a href="#">Add
+				<b>Purchase order price (£): </b><span *ngIf="dataPODetail">{{totalPricePO()|number:"0.0-2"}}</span> <br /><a href="#">Add
 					Purchase order Line</a>
 			</p>
 		</div>
