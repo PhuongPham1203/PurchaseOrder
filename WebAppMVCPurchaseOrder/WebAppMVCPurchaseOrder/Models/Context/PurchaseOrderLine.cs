@@ -7,6 +7,7 @@ namespace WebAppMVCPurchaseOrder.Models
 {
     public partial class PurchaseOrderLine:IModel
     {
+        public int Id { get; set; }
         public int IdPurchaseOrder { get; set; }
         public int IdPart { get; set; }
         public DateTime? OrderDate { get; set; }

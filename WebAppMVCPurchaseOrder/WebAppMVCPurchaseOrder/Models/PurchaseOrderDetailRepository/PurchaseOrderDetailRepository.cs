@@ -39,10 +39,14 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
                 }).First();
 
             var listPOLine = ModelSQLserver.PurchaseOrderLines
-                .Where(pol => pol.IdPurchaseOrderNavigation.OrderNo == indexPO)
+                .Where(pol => 
+                    pol.IdPurchaseOrderNavigation.OrderNo == indexPO
+                    && pol.Status == true
+                    )
                 .Include(part => part.IdPartNavigation)
                 .Select(pol => new POLInPurchaseOrderDetailPage()
                 {
+                    Id = pol.Id,
                     IdPurchaseOrder = pol.IdPurchaseOrder,
                     OrderDate = pol.OrderDate,
                     BackOrder = pol.BackOrder,

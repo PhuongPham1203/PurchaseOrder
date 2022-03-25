@@ -4,6 +4,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 {
     public class POLInPurchaseOrderDetailPage:IModel
     {
+        public int Id { get; set; }
         public int IdPurchaseOrder { get; set; }
         public DateTime? OrderDate { get; set; }
         public int? QtyOrdered { get; set; }
