@@ -57,9 +57,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		return sum;
 	}
 
-	public deletePurchaseOrderLine(){
+	public deletePurchaseOrderLine(indexPOL){
 
-		console.log("deletePurchaseOrderLine")
+		console.log("deletePurchaseOrderLine: "+indexPOL);
 	}
 
 }
