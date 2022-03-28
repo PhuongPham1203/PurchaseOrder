@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
@@ -16,7 +16,8 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		private domainAPI: DomainAPIService,
 		private serverHttp: ServerHttpService,
 		public datetimeFormat: DatetimeService,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) { }
 
 	public dataPODetail = null;
@@ -25,15 +26,16 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		var index = this.router.url.split("/").pop()
+		//var index = this.router.url.split("/").pop()
+		var index = this.route.snapshot.paramMap.get('id');
 
-		this.UpdatePurchaserOrderDetail(index);
+		this.UpdatePurchaseOrderDetail(index);
 
 
 	}
 
 	// display Purchase Order Detail
-	public UpdatePurchaserOrderDetail(index) {
+	public UpdatePurchaseOrderDetail(index) {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/GetPurchaseOrderDetail/" + index;
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -71,7 +73,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		return sum;
 	}
 
-	
+
 
 	public RemoveMultipleItemFromList(original, remove) {
 		return original.filter(value => !remove.includes(value));
@@ -149,23 +151,23 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	// Add Purchase Order Line
 	public AddPurchaseOrderLine() {
-		if(this.listPartNumberSelected.length == this.dataPODetail.listAvailablePart.length){
+		if (this.listPartNumberSelected.length == this.dataPODetail.listAvailablePart.length) {
 			alert("Cant Add More Purchase order Line!");
 			return;
 		}
 		var part = this.GetListPartCanSelectedInPOL(null)[0];
 		var pol = {
-			"id": null, 
-			"idPurchaseOrder": this.dataPODetail.orderNo, 
-			"orderDate": this.dataPODetail.orderDate, 
-			"qtyOrdered": 1, 
-			"backOrder": true, 
-			"m2BuyPrice": 0, 
-			"memo": "", 
-			"status": true, 
-			"idPart": part.id, 
-			"partNumber": part.partNumber, 
-			"partDescripttion": part.partDescripttion, 
+			"id": null,
+			"idPurchaseOrder": this.dataPODetail.orderNo,
+			"orderDate": this.dataPODetail.orderDate,
+			"qtyOrdered": 1,
+			"backOrder": true,
+			"m2BuyPrice": 0,
+			"memo": "",
+			"status": true,
+			"idPart": part.id,
+			"partNumber": part.partNumber,
+			"partDescripttion": part.partDescripttion,
 			"manufacturer": part.manufacturer
 		};
 
@@ -178,7 +180,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	// delete column POL in PO 
 	public DeletePurchaseOrderLine(indexPOL) {
 
-		if(this.listPartNumberSelected.length<=1){
+		if (this.listPartNumberSelected.length <= 1) {
 			alert("Waring: The PO must have at least one PO line!");
 			return;
 		}
@@ -191,10 +193,27 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		});
 
 		// delete PO Line
-		this.dataPODetail.purchaseOrderLines.splice(indexPOL,1);
+		this.dataPODetail.purchaseOrderLines.splice(indexPOL, 1);
 
 	}
 
-	
+	// POST : Update Purchase Order Detail
+	public POSTUpdatePurchaseOrderDetail() {
+		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
+		
+		var dataPOST = cloneDeep(this.dataPODetail);
+		delete dataPOST.listAvailablePart;
+
+		console.log("INPUT: ",dataPOST)
+
+		let body = new FormData();
+		body.append("pod",JSON.stringify(dataPOST));
+		
+		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+			console.log(data);
+		});
+	}
+
+
 
 }

@@ -75,6 +75,9 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 
         }
 
-        
+        public string PostEditPurchaseOrderDetail(PODetailInPurchaseOrderDetailPage poDetail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

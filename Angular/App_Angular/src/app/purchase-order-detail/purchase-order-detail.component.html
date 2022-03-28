@@ -29,11 +29,11 @@
 					</div>
 
 					<div class="col-4">
-						<p class="fs-6"><b>Order Date:</b></p>
+						<p class="fs-6"><b>Order Date<span class="text-danger">*</span></b></p>
 					</div>
 					<div class="col-8">
 						<input id="order_date_head" type="date" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.orderDate" readonly />
+							[(ngModel)]="dataPODetail.orderDate" max="{{this.datetimeFormat.dateNowFormat()}}" readonly/>
 						<br />
 					</div>
 
@@ -68,7 +68,7 @@
 					</div>
 					<div class="col-8">
 						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" />
+							[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" readonly/>
 						<br />
 					</div>
 
@@ -142,11 +142,6 @@
 						<option *ngFor="let part of this.GetListPartCanSelectedInPOL(pol.partNumber)" [selected]="part.partNumber == this.dataPODetail.purchaseOrderLines[i].partNumber" [value]="part.partNumber">
 							{{part.partNumber}}
 						</option>
-						<!--
-						<option *ngFor="let part of this.dataPODetail.listAvailablePart" [value]="part.partNumber">
-							{{part.partNumber}}
-						</option>
-						-->
 					</select>
 
 				</td>
@@ -225,7 +220,7 @@
 			<ng-template #notCancelPO>
 				<button type="button" class="btn btn-info">Re-send email</button>
 				&nbsp;
-				<button type="button" class="btn btn-success">Save</button>
+				<button type="button" class="btn btn-success" (click)="this.POSTUpdatePurchaseOrderDetail()">Save</button>
 			</ng-template>
 
 		</div>

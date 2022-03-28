@@ -34,12 +34,23 @@ export class DatetimeService {
 		return dateString;
 	}
 
+	public dateNowFormat() {
+
+		var d = new Date();
+		var dateString =
+			d.getFullYear() + "-" +
+			("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+			("0" + d.getDate()).slice(-2);
+
+		return dateString;
+	}
+
 	public string2DataInputForm(stringDate) {
 		var d = new Date(stringDate);
 		var dateString =
-			d.getFullYear()+ "-" +
+			d.getFullYear() + "-" +
 			("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-			("0" + d.getDate()).slice(-2) ;
+			("0" + d.getDate()).slice(-2);
 
 		return dateString;
 	}
