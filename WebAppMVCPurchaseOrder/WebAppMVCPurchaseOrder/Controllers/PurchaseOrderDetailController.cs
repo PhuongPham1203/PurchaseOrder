@@ -28,7 +28,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
         public IActionResult UpdatePurchaseOrderDetail(string pod)
         {
 
-            string status = this.purchaseOrderServices.UpdatePurchaseOrderDetail(pod);
+            var status = this.purchaseOrderServices.UpdatePurchaseOrderDetail(pod);
 
             return Json(status);
         }

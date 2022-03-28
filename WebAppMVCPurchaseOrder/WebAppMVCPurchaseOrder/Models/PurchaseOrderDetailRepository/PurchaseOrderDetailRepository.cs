@@ -2,6 +2,7 @@
 using System.Linq;
 using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Models.Repository;
+using Newtonsoft.Json;
 
 namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 {
@@ -39,7 +40,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
                 }).First();
 
             var listPOLine = ModelSQLserver.PurchaseOrderLines
-                .Where(pol => 
+                .Where(pol =>
                     pol.IdPurchaseOrderNavigation.OrderNo == indexPO
                     && pol.Status == true
                     )
@@ -61,10 +62,10 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
                     Manufacturer = pol.IdPartNavigation.Manufacturer
                 }).ToList();
 
-            
+
 
             poDetail.PurchaseOrderLines = listPOLine;
-            
+
             return poDetail;
         }
 
@@ -77,7 +78,55 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 
         public string PostEditPurchaseOrderDetail(PODetailInPurchaseOrderDetailPage poDetail)
         {
-            throw new NotImplementedException();
+            string status = "Error query update";
+            try
+            {
+                PurchaseOrder po = ModelSQLserver.PurchaseOrders
+                .Where(po => po.OrderNo == poDetail.OrderNo)
+                .First();
+
+                po.Note = poDetail.Note;
+                po.Address = poDetail.Address;
+                po.Country = poDetail.Country;
+                po.PostCode = poDetail.PostCode;
+                po.LastUpdate = DateTime.Now;
+
+                // remove old POL
+                var allPOLs = ModelSQLserver.PurchaseOrderLines
+                .Where(pol => pol.IdPurchaseOrder == poDetail.OrderNo);
+                if (allPOLs.Any())
+                {
+                    ModelSQLserver.RemoveRange(allPOLs);
+                }
+
+                var listPOL = new List<PurchaseOrderLine>();
+                for(int i = 0; i < poDetail.PurchaseOrderLines.Count; i++)
+                {
+                    var line = new PurchaseOrderLine
+                    {
+                        IdPurchaseOrder = poDetail.OrderNo,
+                        IdPart = poDetail.PurchaseOrderLines[i].IdPart,
+                        OrderDate = poDetail.PurchaseOrderLines[i].OrderDate,
+                        QtyOrdered = poDetail.PurchaseOrderLines[i].QtyOrdered,
+                        M2BuyPrice = poDetail.PurchaseOrderLines[i].M2BuyPrice,
+                        Memo = poDetail.PurchaseOrderLines[i].Memo
+                    };
+                    listPOL.Add(line);
+                }
+
+                PurchaseOrderLine[] pols = listPOL.ToArray();
+                
+                ModelSQLserver.PurchaseOrderLines.AddRange(pols);
+
+                status = "Update Success";
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex.ToString());
+            }
+
+
+            return status;
         }
     }
 }

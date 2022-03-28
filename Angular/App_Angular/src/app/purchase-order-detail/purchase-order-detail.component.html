@@ -1,6 +1,21 @@
 <div class="container text-center text-info">
 	<h3><u>Purchase Order <u *ngIf="dataPODetail">{{dataPODetail.orderNo}}</u> </u></h3>
 </div>
+<div id="all-alert" class="alert-z-index1">
+	<div id="alert-success" [style.display]="this.displayAlertSuccess ? 'block' : 'none'" style="display: none;" class="alert alert-success alert-dismissible fade show " role="alert">
+		<span>Update Success !!!</span>
+		<button type="button" class="btn-close" (click)="this.DisableAlertSuccess()" aria-label="Close"> 
+			<span aria-hidden="true"></span>
+		</button>
+	</div>
+	<div id="alert-error" [style.display]="this.displayAlertError ? 'block' : 'none'" style="display: none;" class="alert alert-danger alert-dismissible fade show" role="alert">
+		<span><strong>Error:</strong> Check your input field !!!</span>
+		<button type="button" class="btn-close" (click)="this.DisableAlertError()" aria-label="Close"> 
+			<span aria-hidden="true"></span>
+		</button>
+	</div>
+	
+</div>
 
 <!--Start Purchase Order detail-->
 <div class="container border">
@@ -218,6 +233,8 @@
 			</ng-template>
 
 			<ng-template #notCancelPO>
+				<button type="button" class="btn btn-secondary" (close)="this.CancelPurchaseOrder()">Cancel PO</button>
+				&nbsp;
 				<button type="button" class="btn btn-info">Re-send email</button>
 				&nbsp;
 				<button type="button" class="btn btn-success" (click)="this.POSTUpdatePurchaseOrderDetail()">Save</button>

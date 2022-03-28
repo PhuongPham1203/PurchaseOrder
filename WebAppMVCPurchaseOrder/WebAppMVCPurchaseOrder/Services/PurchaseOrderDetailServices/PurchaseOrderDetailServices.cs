@@ -13,7 +13,7 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
         public IModel GetPurchaseOrderDetail(int indexPO)
         {
             PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
-            
+
             PODetailInPurchaseOrderDetailPage poDetail = (PODetailInPurchaseOrderDetailPage)pors.PurchaseOrderDetail.GetPurchaseOrderDetail(indexPO);
 
             poDetail.ListAvailablePart = (List<Part>)pors.PurchaseOrderDetail.GetListPart();
@@ -39,9 +39,33 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 
         public string UpdatePurchaseOrderDetail(PODetailInPurchaseOrderDetailPage pod)
         {
-            string status = "Update success!!!";
+            string status = "";
+
+            // Validate data in PODetail
+            DateTime datePOHead = (DateTime)pod.OrderDate;
+
+            for (int i = 0; i < pod.PurchaseOrderLines.Count; i++)
+            {
+                DateTime datePOL = (DateTime)pod.PurchaseOrderLines[i].OrderDate;
 
 
+                if (pod.PurchaseOrderLines[i].QtyOrdered > 0 == false ||
+                    pod.PurchaseOrderLines[i].M2BuyPrice > 0 == false ||
+                    DateTime.Compare(datePOHead, datePOL) > 0
+                    )
+                {
+                    return status = "Error Input";
+                }
+
+                
+            }
+
+            // Update in SQL Server
+            PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+
+            status = pors.PurchaseOrderDetail.PostEditPurchaseOrderDetail(pod);
+
+            pors.Complete();
 
 
             return status;
@@ -50,8 +74,11 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
         public string UpdatePurchaseOrderDetail(string stringPODetailInPurchaseOrderDetailPage)
         {
             PODetailInPurchaseOrderDetailPage poDetail = JsonConvert.DeserializeObject<PODetailInPurchaseOrderDetailPage>(stringPODetailInPurchaseOrderDetailPage);
+            
             return this.UpdatePurchaseOrderDetail(poDetail);
         }
+
+
     }
 
 

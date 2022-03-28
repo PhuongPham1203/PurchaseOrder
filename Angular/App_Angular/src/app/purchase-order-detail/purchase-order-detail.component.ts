@@ -22,7 +22,8 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	public dataPODetail = null;
 	public listPartNumberSelected = [];
-	//public listPartsNotAvalibleSelect = [];
+	public displayAlertSuccess = false;
+	public displayAlertError = false;
 
 	ngOnInit(): void {
 
@@ -157,12 +158,12 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		}
 		var part = this.GetListPartCanSelectedInPOL(null)[0];
 		var pol = {
-			"id": null,
+			"id": 0,
 			"idPurchaseOrder": this.dataPODetail.orderNo,
 			"orderDate": this.dataPODetail.orderDate,
 			"qtyOrdered": 1,
 			"backOrder": true,
-			"m2BuyPrice": 0,
+			"m2BuyPrice": 1,
 			"memo": "",
 			"status": true,
 			"idPart": part.id,
@@ -196,6 +197,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.dataPODetail.purchaseOrderLines.splice(indexPOL, 1);
 
 	}
+	
 
 	// POST : Update Purchase Order Detail
 	public POSTUpdatePurchaseOrderDetail() {
@@ -204,16 +206,34 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		var dataPOST = cloneDeep(this.dataPODetail);
 		delete dataPOST.listAvailablePart;
 
-		console.log("INPUT: ",dataPOST)
+		//console.log("INPUT: ",dataPOST)
 
 		let body = new FormData();
 		body.append("pod",JSON.stringify(dataPOST));
 		
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
-			console.log(data);
+			if(data == "Error Input"){
+				this.displayAlertError = true;
+				this.displayAlertSuccess = false;
+			}else if(data == "Update Success"){
+				this.displayAlertError = false;
+				this.displayAlertSuccess = true;
+			}
+			//console.log(data);
 		});
+	}
+
+	// POST : Cancel Purchase Order
+	public CancelPurchaseOrder(){
+		
 	}
 
 
 
+	public DisableAlertError(){
+		this.displayAlertError = false;
+	}
+	public DisableAlertSuccess(){
+		this.displayAlertSuccess = false;
+	}
 }
