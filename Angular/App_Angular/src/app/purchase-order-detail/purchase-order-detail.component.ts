@@ -1,30 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
-//import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal'
+import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-purchase-order-detail',
 	templateUrl: './purchase-order-detail.component.html',
 	styleUrls: ['./purchase-order-detail.component.css']
 })
+
+
 export class PurchaseOrderDetailComponent implements OnInit {
 
 	constructor(
 		private domainAPI: DomainAPIService,
 		private serverHttp: ServerHttpService,
 		public datetimeFormat: DatetimeService,
+		private route: ActivatedRoute,
 		private router: Router,
-		private route: ActivatedRoute
+		private ngbModal: NgbModal
 	) { }
 
 	public dataPODetail = null;
 	public listPartNumberSelected = [];
 	public displayAlertSuccess = false;
 	public displayAlertError = false;
+
 
 	ngOnInit(): void {
 
@@ -37,7 +41,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 	// display Purchase Order Detail
-	public UpdatePurchaseOrderDetail(index) {
+	private UpdatePurchaseOrderDetail(index) {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/GetPurchaseOrderDetail/" + index;
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -146,7 +150,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.dataPODetail.purchaseOrderLines[idPOLine].qtyOrdered = 1;
 		this.dataPODetail.purchaseOrderLines[idPOLine].orderDate = this.dataPODetail.orderDate;
-		this.dataPODetail.purchaseOrderLines[idPOLine].m2BuyPrice = 0;
+		this.dataPODetail.purchaseOrderLines[idPOLine].m2BuyPrice = 1;
 		this.dataPODetail.purchaseOrderLines[idPOLine].memo = "";
 
 	}
@@ -198,25 +202,25 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.dataPODetail.purchaseOrderLines.splice(indexPOL, 1);
 
 	}
-	
+
 
 	// POST : Update Purchase Order Detail
 	public POSTUpdatePurchaseOrderDetail() {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
-		
+
 		var dataPOST = cloneDeep(this.dataPODetail);
 		delete dataPOST.listAvailablePart;
 
 		//console.log("INPUT: ",dataPOST)
 
 		let body = new FormData();
-		body.append("pod",JSON.stringify(dataPOST));
-		
+		body.append("pod", JSON.stringify(dataPOST));
+
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
-			if(data == "Error Input"){
+			if (data == "Error Input") {
 				this.displayAlertError = true;
 				this.displayAlertSuccess = false;
-			}else if(data == "Update Success"){
+			} else if (data == "Update Success") {
 				this.displayAlertError = false;
 				this.displayAlertSuccess = true;
 			}
@@ -225,18 +229,52 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 	// POST : Cancel Purchase Order
-	public CancelPurchaseOrder(){
-		let text="Do you want to cancel this PO?";
-		
+	private CancelPurchaseOrder(index) {
+
+		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
+		let body = new FormData();
+		body.append('id',""+index);
+
+		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+			if (data == "Error Query") {
+				this.displayAlertError = true;
+				this.displayAlertSuccess = false;
+			} else if (data == "Update Success") {
+				this.displayAlertError = false;
+				this.displayAlertSuccess = true;
+				window.location.reload();
+			}
+			
+		});
 
 	}
 
+	public OpenModalCancel(content) {
+		//console.log("click open modal");
+		this.ngbModal.open(content).result.then((result) => {
+			
+			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
+			//console.log(result);
+		}, (reason) => {
+			//console.log(this.GetDismissReason(reason));
+		});
+	}
+
+	private GetDismissReason(reason): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return "click ESC";
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return "Click Back Ground";
+		} else {
+			return "Reason: " + reason;
+		}
+	}
 
 
-	public DisableAlertError(){
+	public DisableAlertError() {
 		this.displayAlertError = false;
 	}
-	public DisableAlertSuccess(){
+	public DisableAlertSuccess() {
 		this.displayAlertSuccess = false;
 	}
 }

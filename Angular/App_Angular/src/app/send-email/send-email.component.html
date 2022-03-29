@@ -1,0 +1,132 @@
+<br />
+
+<div class="container text-center text-info">
+	<h3 *ngIf="this.dataSendingEmail"><u>Email Purchase Order(s) to supplier(s) for deal ref.
+			{{this.dataSendingEmail.orderNo}}</u></h3>
+</div>
+<div id="all-alert" class="alert-z-index1">
+	
+</div>
+
+<div class="container">
+	<br />
+
+	<!--Start Table-->
+	<table class="table table-bordered" *ngIf="this.dataSendingEmail">
+		<!--Start Head-->
+		<thead class="table-info">
+			<tr>
+				<!--
+				<th></th>
+				-->
+				<th>PO Number</th>
+				<th>Supplier</th>
+				<th>Stock Site</th>
+
+				<th>Post Code</th>
+				<!--
+				<th>Type</th>
+				<th>Pricing Code</th>
+				-->
+				<th></th>
+			</tr>
+		</thead>
+		<!--End Head-->
+		<!--Start Body-->
+		<tbody>
+			<!--Item-->
+			<tr>
+				<!--
+				<td><input type="checkbox" disabled="disabled" checked /></td>
+				-->
+				<td>{{this.dataSendingEmail.orderNo}}</td>
+				<td>{{this.dataSendingEmail.supplierShortname}}</td>
+				<td>{{this.dataSendingEmail.stockSite}}</td>
+				<td>{{this.dataSendingEmail.postCode}}</td>
+				<!--
+				<td>Hardware</td>
+				<td></td>
+				-->
+				<td class="text-center"><a *ngIf="this.dataSendingEmail"
+						[routerLink]="['/purchaseorderdetail/'+this.dataSendingEmail.orderNo]"
+						routerLinkActive="router-link-active"><span><i class="fa-solid fa-pen-to-square"></i></span></a>
+				</td>
+
+			</tr>
+		</tbody>
+		<!--End Body-->
+
+
+	</table>
+	<!--End Table-->
+</div>
+
+<!--Start Email-->
+<div *ngIf="this.dataSendingEmail" class="container border border-info border-3 rounded">
+
+
+	<div class="">
+		<br>
+		<h4>Purchase Order : {{this.dataSendingEmail.orderNo}}</h4>
+		<br>
+
+	</div>
+	<div class="row">
+		<div class="col-1">
+			<p class="fs-5">From</p>
+		</div>
+		<div class="col-11">
+			<input type="email" class="form-control" readonly [(ngModel)]="this.dataSendingEmail.orderSendFromEmail" 
+				required>
+		</div>
+
+		<div class="col-1">
+			<p class="fs-5">To:</p>
+		</div>
+		<div class="col-11">
+			<input type="email" class="form-control" [(ngModel)]="this.dataSendingEmail.orderSendToEmail" required>
+		</div>
+
+		<div class="col-1">
+			<p class="fs-5">CC:</p>
+		</div>
+		<div class="col-11">
+			<input type="email" class="form-control" [(ngModel)]="this.dataSendingEmail.orderSendToEmailCc">
+		</div>
+
+		<div class="col-1">
+			<p class="fs-5">Subject:</p>
+		</div>
+		<div class="col-11">
+			<input type="text" class="form-control" [(ngModel)]="this.dataSendingEmail.emailSubject" required>
+		</div>
+
+
+		<div class="col-12">
+			<textarea style="height: 200px;" class="form-control" [(ngModel)]="this.dataSendingEmail.emailContent"></textarea>
+		</div>
+
+		<div class="col-12">
+			<br>
+			<!--Start Button-->
+			<div class="row text-end">
+				<div class="">
+					<button type="button" class="btn btn-outline-secondary border" [routerLink]="['/']"
+						routerLinkActive="router-link-active">
+						<span><i class="fa fa-light fa-ban"></i></span> Sent email later, go to PO tab
+					</button>
+					&nbsp;
+					<button type="button" class="btn btn-success" (click)="this.PostSendEmail()">
+						<span><i class="fa fa-light fa-envelope"></i></span> Send 1 email(s)
+					</button>
+				</div>
+			</div>
+			<!--End Button-->
+		</div>
+
+	</div>
+
+	<br>
+
+</div>
+<!--End Email-->

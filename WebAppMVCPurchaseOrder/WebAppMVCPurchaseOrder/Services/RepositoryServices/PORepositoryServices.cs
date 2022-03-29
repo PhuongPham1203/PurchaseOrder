@@ -4,11 +4,11 @@ using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
 
 namespace WebAppMVCPurchaseOrder.Services.RepositoryServices
 {
-    public class PurchaseOrderRepositoryServices : IRepositoryServices
+    public class PORepositoryServices : IRepositoryServices
     {
         private readonly purchaseorderContext _context;
 
-        public PurchaseOrderRepositoryServices(purchaseorderContext context)
+        public PORepositoryServices(purchaseorderContext context)
         {
             this._context = context;
             PurchaseOrder = new PurchaseOrderRepository(this._context);

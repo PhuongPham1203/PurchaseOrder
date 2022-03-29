@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
+import { SendEmailComponent } from './send-email/send-email.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "about", component: AboutComponent },
   { path: "purchaseorderdetail/:id", component: PurchaseOrderDetailComponent },
+  { path: "sendemail/:id", component: SendEmailComponent },
   { path: "**", component: PagenotfoundComponent }
 
 

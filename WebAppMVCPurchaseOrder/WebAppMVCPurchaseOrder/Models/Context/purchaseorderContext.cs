@@ -97,20 +97,24 @@ namespace WebAppMVCPurchaseOrder.Models
                     .HasColumnType("datetime")
                     .HasColumnName("order_date");
 
-                entity.Property(e => e.OrderSentToEmail)
+                entity.Property(e => e.OrderSendFromEmail)
                     .HasMaxLength(500)
-                    .HasColumnName("order_sent_to_email");
+                    .HasColumnName("order_send_from_email");
 
-                entity.Property(e => e.OrderSentToEmailCc)
+                entity.Property(e => e.OrderSendToEmail)
                     .HasMaxLength(500)
-                    .HasColumnName("order_sent_to_email_cc");
+                    .HasColumnName("order_send_to_email");
+
+                entity.Property(e => e.OrderSendToEmailCc)
+                    .HasMaxLength(500)
+                    .HasColumnName("order_send_to_email_cc");
 
                 entity.Property(e => e.PostCode)
                     .HasMaxLength(50)
                     .HasColumnName("post_code");
 
-                entity.Property(e => e.SentEmail)
-                    .HasColumnName("sent_email")
+                entity.Property(e => e.SendEmail)
+                    .HasColumnName("send_email")
                     .HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.IdSupplierNavigation)

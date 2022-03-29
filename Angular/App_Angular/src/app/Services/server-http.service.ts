@@ -31,13 +31,6 @@ export class ServerHttpService {
 		return this.httpClient.get<any>(api_url, this.httpOptions).pipe(catchError(this.handleError));
 	}
 
-	/*
-	// Send Get API with data
-	public getAPIWithData(api_url, data): Observable<any> {
-		return this.httpClient.get<any>(api_url, this.httpOptions).pipe(catchError(this.handleError));
-	}
-	*/
-
 	// Send Post API with data
 	public postAPIWithData(api_url, data): Observable<any> {
 		return this.httpClient.post<any>(api_url, data).pipe(catchError(this.handleError));

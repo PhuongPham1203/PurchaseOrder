@@ -9,5 +9,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
     {
         public IEnumerable<IModel> GetListPO(int pageIndex, int pageSize);
         public string CancelPO(int orderNo);
+        public IModel GetPOWithEmail(int indexPO);
+        public string SendEmailDetail(POInSendEmailPage emailDetail);
     }
 }

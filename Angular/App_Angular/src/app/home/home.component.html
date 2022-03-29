@@ -29,9 +29,9 @@
                 <td><span>{{datetimeFormat.string2DatetimeFormat(item.orderDate)}}</span></td>
                 <td><span>{{datetimeFormat.string2DatetimeFormat(item.lastUpdate)}}</span></td>
 
-                <td *ngIf="item.sentEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
+                <td *ngIf="item.sendEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
 
-                <td *ngIf="item.sentEmail==false"><input type="checkbox" disabled="disabled" /></td>
+                <td *ngIf="item.sendEmail==false"><input type="checkbox" disabled="disabled" /></td>
 
             </tr>
 

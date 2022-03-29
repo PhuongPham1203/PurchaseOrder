@@ -12,11 +12,13 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 
         public IModel GetPurchaseOrderDetail(int indexPO)
         {
-            PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
 
             PODetailInPurchaseOrderDetailPage poDetail = (PODetailInPurchaseOrderDetailPage)pors.PurchaseOrderDetail.GetPurchaseOrderDetail(indexPO);
-
-            poDetail.ListAvailablePart = (List<Part>)pors.PurchaseOrderDetail.GetListPart();
+            if (poDetail is not null)
+            {
+                poDetail.ListAvailablePart = (List<Part>)pors.PurchaseOrderDetail.GetListPart();
+            }
 
             return poDetail;
         }
@@ -38,7 +40,7 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
         }
         public string CancelPurchaseOrderDetail(int id)
         {
-            PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
             string status = pors.PurchaseOrder.CancelPO(id);
 
             pors.Complete();
@@ -81,11 +83,11 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
                     return status = "Error Input";
                 }
 
-                
+
             }
 
             // Update in SQL Server
-            PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
 
             status = pors.PurchaseOrderDetail.PostEditPurchaseOrderDetail(pod);
 
@@ -98,7 +100,7 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
         public string UpdatePurchaseOrderDetail(string stringPODetailInPurchaseOrderDetailPage)
         {
             PODetailInPurchaseOrderDetailPage poDetail = JsonConvert.DeserializeObject<PODetailInPurchaseOrderDetailPage>(stringPODetailInPurchaseOrderDetailPage);
-            
+
             return this.UpdatePurchaseOrderDetail(poDetail);
         }
 

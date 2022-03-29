@@ -233,9 +233,9 @@
 			</ng-template>
 
 			<ng-template #notCancelPO>
-				<button type="button" class="btn btn-secondary" (close)="this.CancelPurchaseOrder()">Cancel PO</button>
+				<button type="button" class="btn btn-outline-danger" (click)="this.OpenModalCancel(content)">Cancel PO</button>
 				&nbsp;
-				<button type="button"  class="btn btn-success">Re-send email</button>
+				<button type="button"  class="btn btn-outline-secondary" [routerLink]="['/sendemail/'+this.dataPODetail.orderNo]" routerLinkActive="router-link-active">Re-send email</button>
 				&nbsp;
 				<button type="button" class="btn btn-success" (click)="this.POSTUpdatePurchaseOrderDetail()">Save</button>
 			</ng-template>
@@ -247,3 +247,19 @@
 	<!--End Button-->
 </div>
 <!--End Price and Action-->
+
+<!--Start Modal Confirm-->
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 id="modal-title" class="modal-title">Confirm</h4>
+		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>Do you want to <strong class="text-danger">cancel</strong> this PO ?</p>
+	</div>
+	<div class="modal-footer">
+	<button type="button" ngbAutofocus class="btn btn-outline-secondary" (click)="modal.dismiss('No click')">No</button>
+	<button type="button" class="btn btn-outline-danger" (click)="modal.close('Yes click')">Yes</button>
+	</div>
+</ng-template>
+<!--End Modal Confirm-->
