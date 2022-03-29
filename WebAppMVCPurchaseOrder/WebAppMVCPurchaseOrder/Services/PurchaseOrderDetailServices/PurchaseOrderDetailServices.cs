@@ -36,6 +36,30 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
             return this.GetPurchaseOrderDetail(index);
 
         }
+        public string CancelPurchaseOrderDetail(int id)
+        {
+            PurchaseOrderRepositoryServices pors = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+            string status = pors.PurchaseOrder.CancelPO(id);
+
+            pors.Complete();
+
+            return status;
+        }
+        public string CancelPurchaseOrderDetail(string id)
+        {
+            int index = 0;
+            if (id != null && int.Parse(id) > 0)
+            {
+                index = int.Parse(id);
+            }
+            else
+            {
+                return null;
+            }
+
+            return this.CancelPurchaseOrderDetail(index);
+
+        }
 
         public string UpdatePurchaseOrderDetail(PODetailInPurchaseOrderDetailPage pod)
         {

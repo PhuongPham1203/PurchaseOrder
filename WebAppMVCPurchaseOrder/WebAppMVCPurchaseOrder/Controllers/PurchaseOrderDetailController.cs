@@ -32,5 +32,14 @@ namespace WebAppMVCPurchaseOrder.Controllers
 
             return Json(status);
         }
+
+        [HttpPost]
+        public IActionResult CancelPurchaseOrderDetail(string id)
+        {
+
+            var status = this.purchaseOrderServices.CancelPurchaseOrderDetail(id);
+
+            return Json(status);
+        }
     }
 }

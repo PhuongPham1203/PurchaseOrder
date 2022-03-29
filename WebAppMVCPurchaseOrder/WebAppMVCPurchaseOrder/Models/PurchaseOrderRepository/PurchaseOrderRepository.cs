@@ -15,8 +15,36 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 
         }
 
+        public string CancelPO(int orderNo)
+        {
+            string status = "Error Query";
+            try
+            {
+                var purchaseOrder = ModelSQLserver.PurchaseOrders
+                    .Where(o => o.OrderNo == orderNo)
+                    .First();
+                purchaseOrder.CancelPo = true;
+
+                var listPOL = ModelSQLserver.PurchaseOrderLines
+                    .Where(pol => pol.IdPurchaseOrder == orderNo)
+                    .ToList();
+
+                for(int i = 0; i < listPOL.Count; i++)
+                {
+                    listPOL[i].M2BuyPrice = 0;
+                    listPOL[i].QtyOrdered = 0;
+                }
+                status = "Update Success";
+            }catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+
         public IEnumerable<IModel> GetListPO(int pageIndex = 0, int pageSize = 10)
         {
+
             return ModelSQLserver.PurchaseOrders
                 .OrderBy(po => po.OrderNo)
                 .Skip(pageIndex)
@@ -36,7 +64,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
                 .ToList();
         }
 
-
+        
         
     }
 }

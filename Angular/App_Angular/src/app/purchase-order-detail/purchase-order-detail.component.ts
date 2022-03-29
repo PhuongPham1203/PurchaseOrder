@@ -4,6 +4,7 @@ import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
+//import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal'
 
 @Component({
 	selector: 'app-purchase-order-detail',
@@ -225,7 +226,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	// POST : Cancel Purchase Order
 	public CancelPurchaseOrder(){
+		let text="Do you want to cancel this PO?";
 		
+
 	}
 
 
