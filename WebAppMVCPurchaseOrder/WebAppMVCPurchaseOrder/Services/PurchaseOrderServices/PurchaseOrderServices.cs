@@ -15,7 +15,7 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderServices
         }
         public IEnumerable<IModel> GetListPurchaseOrder(int pageIndex, int pageSize)
         {
-            PurchaseOrderRepositoryServices pors  = new PurchaseOrderRepositoryServices(new purchaseorderContext());
+            PORepositoryServices pors  = new PORepositoryServices(new purchaseorderContext());
             var data = pors.PurchaseOrder.GetListPO(pageIndex, pageSize);
             return data;
         }

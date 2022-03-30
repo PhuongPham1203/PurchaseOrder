@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
+using WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
-using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
+
+using Newtonsoft.Json;
 
 namespace WebAppMVCPurchaseOrder.Controllers
 {
@@ -16,21 +19,27 @@ namespace WebAppMVCPurchaseOrder.Controllers
         [HttpGet]
         public IActionResult GetPurchaseOrderDetail(string id)
         {
-            int index = 0;
-            if (id != null && int.Parse(id)>0)
-            {
-                index = int.Parse(id);
-            }
-            else
-            {
-                return Json(null);
-            }
-
-            var data = this.purchaseOrderServices.GePurchaseOrderDetail(index);
+            var data = this.purchaseOrderServices.GetPurchaseOrderDetail(id);
 
             return Json(data);
         }
 
+        [HttpPost]
+        public IActionResult UpdatePurchaseOrderDetail(string pod)
+        {
 
+            var status = this.purchaseOrderServices.UpdatePurchaseOrderDetail(pod);
+
+            return Json(status);
+        }
+
+        [HttpPost]
+        public IActionResult CancelPurchaseOrderDetail(string id)
+        {
+
+            var status = this.purchaseOrderServices.CancelPurchaseOrderDetail(id);
+
+            return Json(status);
+        }
     }
 }

@@ -1,6 +1,10 @@
 <div class="container text-center text-info">
 	<h3><u>Purchase Order <u *ngIf="dataPODetail">{{dataPODetail.orderNo}}</u> </u></h3>
 </div>
+<div id="all-alert" class="alert-z-index1">
+
+
+</div>
 
 <!--Start Purchase Order detail-->
 <div class="container border">
@@ -29,11 +33,12 @@
 					</div>
 
 					<div class="col-4">
-						<p class="fs-6"><b>Order Date:</b></p>
+						<p class="fs-6"><b>Order Date<span class="text-danger">*</span></b></p>
 					</div>
 					<div class="col-8">
 						<input id="order_date_head" type="date" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.orderDate" readonly />
+							[(ngModel)]="dataPODetail.orderDate" max="{{this.datetimeFormat.dateNowFormat()}}"
+							readonly />
 						<br />
 					</div>
 
@@ -68,13 +73,13 @@
 					</div>
 					<div class="col-8">
 						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" />
+							[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" readonly />
 						<br />
 					</div>
 
 					<div class="col-4">
 						<p class="fs-6">
-							<b>Address<span class="text-danger">*</span>:</b>
+							<b>Address :</b>
 						</p>
 					</div>
 					<div class="col-8">
@@ -86,7 +91,7 @@
 
 					<div class="col-4">
 						<p class="fs-6">
-							<b>Country<span class="text-danger">*</span>:</b>
+							<b>Country :</b>
 						</p>
 					</div>
 					<div class="col-8">
@@ -97,7 +102,7 @@
 
 					<div class="col-4">
 						<p class="fs-6">
-							<b>Post Code<span class="text-danger">*</span>:</b>
+							<b>Post Code :</b>
 						</p>
 					</div>
 					<div class="col-8">
@@ -137,38 +142,50 @@
 
 			<!--Item-->
 			<tr *ngFor="let pol of this.dataPODetail.purchaseOrderLines; let i = index">
-				<td>
-					<select class="form-select" name="selectPart" (change)="this.OnChangePartNumberOnPOLine($event,i)">
-						<option *ngFor="let part of this.GetListPartCanSelectedInPOL(pol.partNumber)" [selected]="part.partNumber == this.dataPODetail.purchaseOrderLines[i].partNumber" [value]="part.partNumber">
-							{{part.partNumber}}
-						</option>
-						<!--
-						<option *ngFor="let part of this.dataPODetail.listAvailablePart" [value]="part.partNumber">
-							{{part.partNumber}}
-						</option>
-						-->
-					</select>
+				<span
+					*ngIf="this.dataPODetail.cancelPo==true; then cancelPO_partNumber ;else notCancelPO_partNumber"></span>
 
-				</td>
+				<ng-template #cancelPO_partNumber>
+					<td>
+						<span>{{pol.partNumber}}</span>
+					</td>
+				</ng-template>
+				<ng-template #notCancelPO_partNumber>
+					<td>
+						<select class="form-select" name="selectPart"
+							(change)="this.OnChangePartNumberOnPOLine($event,i)">
+							<option *ngFor="let part of this.GetListPartCanSelectedInPOL(pol.partNumber)"
+								[selected]="part.partNumber == this.dataPODetail.purchaseOrderLines[i].partNumber"
+								[value]="part.partNumber">
+								{{part.partNumber}}
+							</option>
+						</select>
+					</td>
+				</ng-template>
+
 
 				<td><span>{{this.dataPODetail.purchaseOrderLines[i].partDescripttion}}</span></td>
 				<td>
 					<span>{{this.dataPODetail.purchaseOrderLines[i].manufacturer}}</span>
 				</td>
 				<td class="text-end">
-					<input class="form-control text-end" type="number" step="1" min="1" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].qtyOrdered"
-						[disabled]="dataPODetail.cancelPo">
+					<input class="form-control text-end" type="number" step="1" min="1"
+						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].qtyOrdered"
+						[disabled]="dataPODetail.cancelPo" min="1">
 				</td>
 				<td class="text-end">
-					<input class="form-control" type="date" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].orderDate" min="{{dataPODetail.orderDate}}"
+					<input class="form-control" type="date"
+						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].orderDate" min="{{dataPODetail.orderDate}}"
 						[disabled]="dataPODetail.cancelPo">
 				</td>
 				<td>
-					<input class="form-control text-end" type="number" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].m2BuyPrice"
-						[disabled]="dataPODetail.cancelPo" />
+					<input class="form-control text-end" type="number"
+						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].m2BuyPrice"
+						[disabled]="dataPODetail.cancelPo" min="1" />
 				</td>
 				<td>
-					<input type="text" class="form-control" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].memo" [disabled]="dataPODetail.cancelPo" />
+					<input type="text" class="form-control" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].memo"
+						[disabled]="dataPODetail.cancelPo" />
 				</td>
 				<td class="text-end"><span>{{pol.qtyOrdered*pol.m2BuyPrice | number:'0.0-2'}}</span></td>
 				<span *ngIf="dataPODetail.cancelPo==true; then cancelPO ;else notCancelPO"></span>
@@ -198,7 +215,8 @@
 	<div class="row" *ngIf="dataPODetail">
 		<div class="col-12 text-end">
 			<p>
-				<b>Purchase order price (£): </b><span *ngIf="dataPODetail">{{this.TotalPricePO()|number:"0.0-2"}}</span>
+				<b>Purchase order price (£): </b><span
+					*ngIf="dataPODetail">{{this.TotalPricePO()|number:"0.0-2"}}</span>
 				<br />
 				<span *ngIf="dataPODetail.cancelPo==true; then cancelPO ;else notCancelPO"></span>
 				<ng-template #cancelPO>
@@ -223,9 +241,15 @@
 			</ng-template>
 
 			<ng-template #notCancelPO>
-				<button type="button" class="btn btn-info">Re-send email</button>
+				<button type="button" class="btn btn-outline-danger" (click)="this.OpenModalCancel(content)">Cancel
+					PO</button>
 				&nbsp;
-				<button type="button" class="btn btn-success">Save</button>
+				<button type="button" class="btn btn-outline-secondary"
+					[routerLink]="['/sendemail/'+this.dataPODetail.orderNo]"
+					routerLinkActive="router-link-active">Re-send email</button>
+				&nbsp;
+				<button type="button" class="btn btn-success"
+					(click)="this.POSTUpdatePurchaseOrderDetail()">Save</button>
 			</ng-template>
 
 		</div>
@@ -235,3 +259,20 @@
 	<!--End Button-->
 </div>
 <!--End Price and Action-->
+
+<!--Start Modal Confirm-->
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 id="modal-title" class="modal-title">Confirm</h4>
+		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>Do you want to <strong class="text-danger">cancel</strong> this PO ?</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ngbAutofocus class="btn btn-outline-secondary"
+			(click)="modal.dismiss('No click')">No</button>
+		<button type="button" class="btn btn-outline-danger" (click)="modal.close('Yes click')">Yes</button>
+	</div>
+</ng-template>
+<!--End Modal Confirm-->

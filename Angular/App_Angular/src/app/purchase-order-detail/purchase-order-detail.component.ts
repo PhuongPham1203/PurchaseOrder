@@ -1,39 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Type } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
+import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-purchase-order-detail',
 	templateUrl: './purchase-order-detail.component.html',
 	styleUrls: ['./purchase-order-detail.component.css']
 })
+
+
 export class PurchaseOrderDetailComponent implements OnInit {
 
 	constructor(
 		private domainAPI: DomainAPIService,
 		private serverHttp: ServerHttpService,
 		public datetimeFormat: DatetimeService,
-		private router: Router
+		private route: ActivatedRoute,
+		private router: Router,
+		private ngbModal: NgbModal
 	) { }
 
 	public dataPODetail = null;
 	public listPartNumberSelected = [];
-	//public listPartsNotAvalibleSelect = [];
+
 
 	ngOnInit(): void {
 
-		var index = this.router.url.split("/").pop()
+		//var index = this.router.url.split("/").pop()
+		var index = this.route.snapshot.paramMap.get('id');
 
-		this.UpdatePurchaserOrderDetail(index);
+		this.UpdatePurchaseOrderDetail(index);
 
 
 	}
 
 	// display Purchase Order Detail
-	public UpdatePurchaserOrderDetail(index) {
+	private UpdatePurchaseOrderDetail(index) {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/GetPurchaseOrderDetail/" + index;
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -71,7 +77,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		return sum;
 	}
 
-	
+
 
 	public RemoveMultipleItemFromList(original, remove) {
 		return original.filter(value => !remove.includes(value));
@@ -142,30 +148,30 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.dataPODetail.purchaseOrderLines[idPOLine].qtyOrdered = 1;
 		this.dataPODetail.purchaseOrderLines[idPOLine].orderDate = this.dataPODetail.orderDate;
-		this.dataPODetail.purchaseOrderLines[idPOLine].m2BuyPrice = 0;
+		this.dataPODetail.purchaseOrderLines[idPOLine].m2BuyPrice = 1;
 		this.dataPODetail.purchaseOrderLines[idPOLine].memo = "";
 
 	}
 
 	// Add Purchase Order Line
 	public AddPurchaseOrderLine() {
-		if(this.listPartNumberSelected.length == this.dataPODetail.listAvailablePart.length){
+		if (this.listPartNumberSelected.length == this.dataPODetail.listAvailablePart.length) {
 			alert("Cant Add More Purchase order Line!");
 			return;
 		}
 		var part = this.GetListPartCanSelectedInPOL(null)[0];
 		var pol = {
-			"id": null, 
-			"idPurchaseOrder": this.dataPODetail.orderNo, 
-			"orderDate": this.dataPODetail.orderDate, 
-			"qtyOrdered": 1, 
-			"backOrder": true, 
-			"m2BuyPrice": 0, 
-			"memo": "", 
-			"status": true, 
-			"idPart": part.id, 
-			"partNumber": part.partNumber, 
-			"partDescripttion": part.partDescripttion, 
+			"id": 0,
+			"idPurchaseOrder": this.dataPODetail.orderNo,
+			"orderDate": this.dataPODetail.orderDate,
+			"qtyOrdered": 1,
+			"backOrder": true,
+			"m2BuyPrice": 1,
+			"memo": "",
+			"status": true,
+			"idPart": part.id,
+			"partNumber": part.partNumber,
+			"partDescripttion": part.partDescripttion,
 			"manufacturer": part.manufacturer
 		};
 
@@ -178,7 +184,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	// delete column POL in PO 
 	public DeletePurchaseOrderLine(indexPOL) {
 
-		if(this.listPartNumberSelected.length<=1){
+		if (this.listPartNumberSelected.length <= 1) {
 			alert("Waring: The PO must have at least one PO line!");
 			return;
 		}
@@ -191,10 +197,106 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		});
 
 		// delete PO Line
-		this.dataPODetail.purchaseOrderLines.splice(indexPOL,1);
+		this.dataPODetail.purchaseOrderLines.splice(indexPOL, 1);
 
 	}
 
+
+	// POST : Update Purchase Order Detail
+	public POSTUpdatePurchaseOrderDetail() {
+		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
+
+		var dataPOST = cloneDeep(this.dataPODetail);
+		delete dataPOST.listAvailablePart;
+
+		//console.log("INPUT: ",dataPOST)
+
+		let body = new FormData();
+		body.append("pod", JSON.stringify(dataPOST));
+
+		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+			if (data == "Update Success") {
+				this.CreateAlertSuccess(data);
+			} else {
+				this.CreateAlertError(data);
+			}
+			//console.log(data);
+		});
+	}
+
+	// POST : Cancel Purchase Order
+	private CancelPurchaseOrder(index) {
+
+		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
+		let body = new FormData();
+		body.append('id',""+index);
+
+		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+			if (data == "Update Success") {
+				this.CreateAlertSuccess(data);
+				window.location.reload();
+			} else {
+				this.CreateAlertError(data);
+			}
+			
+		});
+
+	}
+
+	public OpenModalCancel(content) {
+		//console.log("click open modal");
+		this.ngbModal.open(content).result.then((result) => {
+			
+			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
+			//console.log(result);
+		}, (reason) => {
+			//console.log(this.GetDismissReason(reason));
+		});
+	}
+
+	private GetDismissReason(reason): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return "click ESC";
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return "Click Back Ground";
+		} else {
+			return "Reason: " + reason;
+		}
+	}
+
+
 	
 
+	private CreateAlertError(message: string) {
+		var stringAlertError = `
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<span><strong>Error:</strong> ${message}</span>
+			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+				<span aria-hidden="true"></span>
+			</button>
+		</div>`
+
+		// create DOM element from string
+		this.CreateAlert(stringAlertError)
+	}
+
+	private CreateAlertSuccess(message: string) {
+		var stringAlertSuccess = `
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<span>${message}</span>
+			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+				<span aria-hidden="true"></span>
+			</button>
+		</div>`
+
+		// create DOM element from string
+		this.CreateAlert(stringAlertSuccess)
+	}
+
+	private CreateAlert(stringAlert: string) {
+		// create DOM element from string
+		var parser = new DOMParser();
+		var doc = parser.parseFromString(stringAlert, 'text/html')
+		document.getElementById('all-alert').appendChild(doc.body);
+	}
 }

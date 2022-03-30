@@ -12,6 +12,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BoldDirective } from './Directives/bold.directive';
 import {HttpClientModule} from '@angular/common/http';
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SendEmailComponent } from './send-email/send-email.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,16 @@ import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-o
     AboutComponent,
     PagenotfoundComponent,
     BoldDirective,
-    PurchaseOrderDetailComponent
+    PurchaseOrderDetailComponent,
+    SendEmailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule ,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

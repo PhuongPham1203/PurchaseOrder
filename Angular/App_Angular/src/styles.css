@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+.alert-z-index1{
+	position: absolute;
+	right: 30px;
+	z-index: 1;
+	width: 20%;
+}

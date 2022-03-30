@@ -16,7 +16,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
         public int OrderNo { get; set; }
         public DateTime? OrderDate { get; set; }
         public DateTime? LastUpdate { get; set; }
-        public bool? SentEmail { get; set; }
+        public bool? SendEmail { get; set; }
 
         public int IdSupplier { get; set; }
         public string? SupplierName { get; set; }
