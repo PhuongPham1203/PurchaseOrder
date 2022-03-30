@@ -7,108 +7,110 @@
 </div>
 
 <!--Start Purchase Order detail-->
-<div class="container border">
-	<br />
-	<div class="row">
-		<div class="col-md-12 col-lg-6">
-			<!--Start container-->
-			<div class="container">
-				<div class="row">
-					<div class="col-4">
-						<p class="fs-6"><b>Supplier:</b></p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.supplierShortname" readonly />
-						<br />
-					</div>
+<div class="container">
+	<div class="border">
+		<br />
+		<div class="row">
+			<div class="col-md-12 col-lg-6">
+				<!--Start container-->
+				<div class="container">
+					<div class="row">
+						<div class="col-4">
+							<p class="fs-6"><b>Supplier:</b></p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.supplierShortname" readonly />
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6"><b>Stock Site:</b></p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.stockSite" readonly />
-						<br />
-					</div>
+						<div class="col-4">
+							<p class="fs-6"><b>Stock Site:</b></p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.stockSite" readonly />
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6"><b>Order Date<span class="text-danger">*</span></b></p>
-					</div>
-					<div class="col-8">
-						<input id="order_date_head" type="date" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.orderDate" max="{{this.datetimeFormat.dateNowFormat()}}"
-							readonly />
-						<br />
-					</div>
+						<div class="col-4">
+							<p class="fs-6"><b>Order Date<span class="text-danger">*</span></b></p>
+						</div>
+						<div class="col-8">
+							<input id="order_date_head" type="date" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.orderDate" max="{{this.datetimeFormat.dateNowFormat()}}"
+								readonly />
+							<br />
+						</div>
 
 
-					<div class="col-4">
-						<p class="fs-6"><b>Note:</b></p>
-					</div>
-					<div class="col-8">
-						<textarea class="form-control" *ngIf="dataPODetail" [disabled]="dataPODetail.cancelPo"
-							[(ngModel)]="dataPODetail.note"> </textarea>
-						<br />
+						<div class="col-4">
+							<p class="fs-6"><b>Note:</b></p>
+						</div>
+						<div class="col-8">
+							<textarea class="form-control" *ngIf="dataPODetail" [disabled]="dataPODetail.cancelPo"
+								[(ngModel)]="dataPODetail.note"> </textarea>
+							<br />
+						</div>
 					</div>
 				</div>
+				<!--End container-->
 			</div>
-			<!--End container-->
-		</div>
-		<div class="col-md-12 col-lg-6">
-			<!--Start container-->
-			<div class="container">
-				<div class="row">
-					<div class="col-4">
-						<p class="fs-6"><b>Supplier Name:</b></p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.supplierName" readonly />
-						<br />
-					</div>
+			<div class="col-md-12 col-lg-6">
+				<!--Start container-->
+				<div class="container">
+					<div class="row">
+						<div class="col-4">
+							<p class="fs-6"><b>Supplier Name:</b></p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.supplierName" readonly />
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6"><b>Stock Name:</b></p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail"
-							[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" readonly />
-						<br />
-					</div>
+						<div class="col-4">
+							<p class="fs-6"><b>Stock Name:</b></p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.stockName" [disabled]="dataPODetail.cancelPo" readonly />
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6">
-							<b>Address :</b>
-						</p>
-					</div>
-					<div class="col-8">
-						<textarea class="form-control" *ngIf="dataPODetail" [(ngModel)]="dataPODetail.address"
-							[disabled]="dataPODetail.cancelPo" required>
+						<div class="col-4">
+							<p class="fs-6">
+								<b>Address :</b>
+							</p>
+						</div>
+						<div class="col-8">
+							<textarea class="form-control" *ngIf="dataPODetail" [(ngModel)]="dataPODetail.address"
+								[disabled]="dataPODetail.cancelPo" required>
 						</textarea>
-						<br />
-					</div>
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6">
-							<b>Country :</b>
-						</p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail" [(ngModel)]="dataPODetail.country"
-							[disabled]="dataPODetail.cancelPo" required />
-						<br />
-					</div>
+						<div class="col-4">
+							<p class="fs-6">
+								<b>Country :</b>
+							</p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.country" [disabled]="dataPODetail.cancelPo" required />
+							<br />
+						</div>
 
-					<div class="col-4">
-						<p class="fs-6">
-							<b>Post Code :</b>
-						</p>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control" *ngIf="dataPODetail" [(ngModel)]="dataPODetail.postCode"
-							[disabled]="dataPODetail.cancelPo" required />
-						<br />
+						<div class="col-4">
+							<p class="fs-6">
+								<b>Post Code :</b>
+							</p>
+						</div>
+						<div class="col-8">
+							<input type="text" class="form-control" *ngIf="dataPODetail"
+								[(ngModel)]="dataPODetail.postCode" [disabled]="dataPODetail.cancelPo" required />
+							<br />
+						</div>
 					</div>
 				</div>
 			</div>
