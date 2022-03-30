@@ -72,17 +72,24 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 
             for (int i = 0; i < pod.PurchaseOrderLines.Count; i++)
             {
+                if(pod.PurchaseOrderLines[i].OrderDate == null)
+                {
+                    return status = "Input Date in PO Line Error";
+                }
                 DateTime datePOL = (DateTime)pod.PurchaseOrderLines[i].OrderDate;
 
-
-                if (pod.PurchaseOrderLines[i].QtyOrdered > 0 == false ||
-                    pod.PurchaseOrderLines[i].M2BuyPrice > 0 == false ||
-                    DateTime.Compare(datePOHead, datePOL) > 0
-                    )
+                if(pod.PurchaseOrderLines[i].QtyOrdered > 0 == false)
                 {
-                    return status = "Error Input";
+                    return status = "Input Qty Order Error";
                 }
-
+                if(pod.PurchaseOrderLines[i].M2BuyPrice > 0 == false)
+                {
+                    return status = "Input Price Error";
+                }
+                if(DateTime.Compare(datePOHead, datePOL) > 0)
+                {
+                    return status = "Input Date in PO Line Error";
+                }
 
             }
 

@@ -77,8 +77,7 @@ export class SendEmailComponent implements OnInit {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/PostSendEmailDetail";
 
 		var dataPOST = cloneDeep(this.dataSendingEmail);
-		console.log(dataPOST);
-
+		
 		let body = new FormData();
 		body.append("emailDetail", JSON.stringify(dataPOST));
 
@@ -88,7 +87,7 @@ export class SendEmailComponent implements OnInit {
 			} else{
 				this.CreateAlertError(data)
 			}
-			console.log(data);
+			
 		});
 	}
 

@@ -26,8 +26,6 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	public dataPODetail = null;
 	public listPartNumberSelected = [];
-	public displayAlertSuccess = false;
-	public displayAlertError = false;
 
 
 	ngOnInit(): void {
@@ -217,12 +215,10 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		body.append("pod", JSON.stringify(dataPOST));
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
-			if (data == "Error Input") {
-				this.displayAlertError = true;
-				this.displayAlertSuccess = false;
-			} else if (data == "Update Success") {
-				this.displayAlertError = false;
-				this.displayAlertSuccess = true;
+			if (data == "Update Success") {
+				this.CreateAlertSuccess(data);
+			} else {
+				this.CreateAlertError(data);
 			}
 			//console.log(data);
 		});
@@ -236,13 +232,11 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		body.append('id',""+index);
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
-			if (data == "Error Query") {
-				this.displayAlertError = true;
-				this.displayAlertSuccess = false;
-			} else if (data == "Update Success") {
-				this.displayAlertError = false;
-				this.displayAlertSuccess = true;
+			if (data == "Update Success") {
+				this.CreateAlertSuccess(data);
 				window.location.reload();
+			} else {
+				this.CreateAlertError(data);
 			}
 			
 		});
@@ -271,10 +265,38 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 
-	public DisableAlertError() {
-		this.displayAlertError = false;
+	
+
+	private CreateAlertError(message: string) {
+		var stringAlertError = `
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<span><strong>Error:</strong> ${message}</span>
+			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+				<span aria-hidden="true"></span>
+			</button>
+		</div>`
+
+		// create DOM element from string
+		this.CreateAlert(stringAlertError)
 	}
-	public DisableAlertSuccess() {
-		this.displayAlertSuccess = false;
+
+	private CreateAlertSuccess(message: string) {
+		var stringAlertSuccess = `
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<span>${message}</span>
+			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+				<span aria-hidden="true"></span>
+			</button>
+		</div>`
+
+		// create DOM element from string
+		this.CreateAlert(stringAlertSuccess)
+	}
+
+	private CreateAlert(stringAlert: string) {
+		// create DOM element from string
+		var parser = new DOMParser();
+		var doc = parser.parseFromString(stringAlert, 'text/html')
+		document.getElementById('all-alert').appendChild(doc.body);
 	}
 }
