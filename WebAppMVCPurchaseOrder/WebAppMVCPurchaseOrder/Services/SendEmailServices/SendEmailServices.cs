@@ -83,7 +83,6 @@ namespace WebAppMVCPurchaseOrder.Services.SendEmailServices
         {
             POInSendEmailPage poEmail = JsonConvert.DeserializeObject<POInSendEmailPage>(poEmailDetail);
             return this.UpdateEmailDetail(poEmail);
-            //return this.UpdateEmailDetail(poEmail);
         }
     }
 }
