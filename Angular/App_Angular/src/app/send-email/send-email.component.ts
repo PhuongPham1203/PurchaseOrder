@@ -49,6 +49,7 @@ export class SendEmailComponent implements OnInit {
 
 		this.dataSendingEmail.orderSendFromEmail = this.dataSendingEmail.stockSite + "@abc.com";
 		this.dataSendingEmail.orderSendToEmail = this.dataSendingEmail.supplierShortname + "@abc.com";
+		this.dataSendingEmail.orderSendToEmailCc = "";
 		this.dataSendingEmail.emailSubject = "Order [ " + this.dataSendingEmail.orderNo + " - " + this.dataSendingEmail.stockName + " ]";
 
 		var headersEmail =
@@ -82,6 +83,7 @@ export class SendEmailComponent implements OnInit {
 		body.append("emailDetail", JSON.stringify(dataPOST));
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+			
 			if (data == "Update Success") {
 				this.CreateAlertSuccess(data);
 			} else{
