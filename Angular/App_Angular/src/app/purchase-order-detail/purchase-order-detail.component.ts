@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnDestroy, OnInit, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
@@ -13,7 +13,7 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-
 })
 
 
-export class PurchaseOrderDetailComponent implements OnInit {
+export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 
 	constructor(
 		private domainAPI: DomainAPIService,
@@ -36,6 +36,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.UpdatePurchaseOrderDetail(index);
 
 
+	}
+	ngOnDestroy(): void {
+		
 	}
 
 	// display Purchase Order Detail
@@ -214,14 +217,17 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		let body = new FormData();
 		body.append("pod", JSON.stringify(dataPOST));
 
-		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
+			console.log(data);
 			if (data == "Update Success") {
 				this.CreateAlertSuccess(data);
 			} else {
 				this.CreateAlertError(data);
 			}
-			//console.log(data);
+			
 		});
+
+		
 	}
 
 	// POST : Cancel Purchase Order
@@ -231,7 +237,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		let body = new FormData();
 		body.append('id',""+index);
 
-		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
 				this.CreateAlertSuccess(data);
 				window.location.reload();

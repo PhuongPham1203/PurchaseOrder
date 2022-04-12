@@ -33,7 +33,24 @@ export class ServerHttpService {
 
 	// Send Post API with data
 	public postAPIWithData(api_url, data): Observable<any> {
-		return this.httpClient.post<any>(api_url, data).pipe(catchError(this.handleError));
+		return this.httpClient.post<any>(api_url, data,this.httpOptions).pipe(catchError(this.handleError));
+		
+	}
+
+	// Send Put API with data
+	public putAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.put<any>(api_url, data,this.httpOptions).pipe(catchError(this.handleError));
+		
+	}
+
+	// Send Patch API with data
+	public patchAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.patch<any>(api_url, data,this.httpOptions).pipe(catchError(this.handleError));
+		
+	}
+	// Send Delete API with data
+	public deleteAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.delete<any>(api_url,this.httpOptions).pipe(catchError(this.handleError));
 		
 	}
 
@@ -47,6 +64,6 @@ export class ServerHttpService {
 			);
 		}
 
-		return throwError("Somwthing bad happened; please try again later.");
+		return throwError("Something bad happened; please try again later.");
 	}
 }

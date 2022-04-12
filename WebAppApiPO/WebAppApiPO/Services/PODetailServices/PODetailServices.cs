@@ -1,0 +1,115 @@
+﻿using Newtonsoft.Json;
+using WebAppApiPO.Interfaces.Models;
+using WebAppApiPO.Models.Context;
+using WebAppApiPO.Models.PODetailRepository;
+using WebAppApiPO.Services.RepositoryServices;
+
+namespace WebAppApiPO.Services.PODetailServices
+{
+    public class PODetailServices
+    {
+        public PODetailServices() { }
+
+        public IModelData GetPurchaseOrderDetail(int indexPO)
+        {
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
+
+            PODetailModel_PODetailPage poDetail = (PODetailModel_PODetailPage)pors.PurchaseOrderDetail.GetPurchaseOrderDetail(indexPO);
+            if (poDetail is not null)
+            {
+                poDetail.ListAvailablePart = (List<Part>)pors.PurchaseOrderDetail.GetListPart();
+            }
+
+            return poDetail;
+        }
+
+        public IModelData GetPurchaseOrderDetail(string id)
+        {
+            int index = 0;
+            if (id != null && int.Parse(id) > 0)
+            {
+                index = int.Parse(id);
+            }
+            else
+            {
+                return null;
+            }
+
+            return this.GetPurchaseOrderDetail(index);
+
+        }
+        public string CancelPurchaseOrderDetail(int id)
+        {
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
+            string status = pors.PurchaseOrder.CancelPO(id);
+
+            pors.Complete();
+
+            return status;
+        }
+        public string CancelPurchaseOrderDetail(string id)
+        {
+            int index = 0;
+            if (id != null && int.Parse(id) > 0)
+            {
+                index = int.Parse(id);
+            }
+            else
+            {
+                return null;
+            }
+
+            return this.CancelPurchaseOrderDetail(index);
+
+        }
+
+        public string UpdatePurchaseOrderDetail(PODetailModel_PODetailPage pod)
+        {
+            string status = "";
+
+            // Validate data in PODetail
+            DateTime datePOHead = (DateTime)pod.OrderDate;
+
+            for (int i = 0; i < pod.PurchaseOrderLines.Count; i++)
+            {
+                if (pod.PurchaseOrderLines[i].OrderDate == null)
+                {
+                    return status = "Input Date in PO Line Error";
+                }
+                DateTime datePOL = (DateTime)pod.PurchaseOrderLines[i].OrderDate;
+
+                if (pod.PurchaseOrderLines[i].QtyOrdered > 0 == false)
+                {
+                    return status = "Input Qty Order Error";
+                }
+                if (pod.PurchaseOrderLines[i].M2BuyPrice > 0 == false)
+                {
+                    return status = "Input Price Error";
+                }
+                if (DateTime.Compare(datePOHead, datePOL) > 0)
+                {
+                    return status = "Input Date in PO Line Error";
+                }
+
+            }
+
+            // Update in SQL Server
+            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
+
+            status = pors.PurchaseOrderDetail.PostEditPurchaseOrderDetail(pod);
+
+            pors.Complete();
+
+
+            return status;
+        }
+
+        public string UpdatePurchaseOrderDetail(string stringPODetailInPurchaseOrderDetailPage)
+        {
+            PODetailModel_PODetailPage poDetail = JsonConvert.DeserializeObject<PODetailModel_PODetailPage>(stringPODetailInPurchaseOrderDetailPage);
+
+            return this.UpdatePurchaseOrderDetail(poDetail);
+        }
+
+    }
+}

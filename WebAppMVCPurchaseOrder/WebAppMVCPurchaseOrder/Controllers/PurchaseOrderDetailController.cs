@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-using WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
-
-using Newtonsoft.Json;
 
 namespace WebAppMVCPurchaseOrder.Controllers
 {
@@ -24,7 +20,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
             return Json(data);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public IActionResult UpdatePurchaseOrderDetail(string pod)
         {
 
@@ -33,7 +29,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
             return Json(status);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public IActionResult CancelPurchaseOrderDetail(string id)
         {
 

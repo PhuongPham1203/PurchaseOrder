@@ -1,3 +1,7 @@
+using WebAppApiPO.Models.Context;
+using WebAppApiPO.Services.PODetailServices;
+using WebAppApiPO.Services.POServices;
+using WebAppApiPO.Services.RepositoryServices;
 /// <summary>
 /// DDD :
 ///     User Interface Layer : Views, angular
@@ -16,6 +20,10 @@ builder.Services.AddSwaggerGen();
 
 // Start add Service 
 
+builder.Services.AddSingleton<purchaseorderContext>();
+builder.Services.AddSingleton<PORepositoryServices>();
+builder.Services.AddScoped<POServices>();
+builder.Services.AddScoped<PODetailServices>();
 // End add Service
 
 var app = builder.Build();

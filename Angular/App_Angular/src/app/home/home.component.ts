@@ -31,11 +31,13 @@ export class HomeComponent implements OnInit {
 
 	// display List Purchase Order
 	public updateListPurchaserOrder() {
-		var url = this.domainAPI.getUrlPO() + "/PurchaseOrder/GetListPurchaseOrder";
+		var url = this.domainAPI.getUrlPO() + "/PurchaseOrder/GetListPurchaseOrder/0";
 		
 		this.serverHttp.getAPI(url).subscribe((data) => {
 			//console.log(data);
+			//console.log(data.status);
 			this.dataPO = data;
+
 		})
 	}
 
