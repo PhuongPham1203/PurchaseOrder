@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using WebAppApiPO.Interfaces.Models;
+using WebAppApiPO.Models.Context;
 
 namespace WebAppApiPO.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("WeatherForecast")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -18,16 +20,34 @@ namespace WebAppApiPO.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+       
+
+        [HttpGet("getall")]
+        public IActionResult All()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var data = new Part
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                Id = 1,
+                PartNumber = "1asd",
+
+            };
+
+            return Ok(data);
         }
+
+        [HttpGet("getitem/{id}")]
+        public IActionResult GetItem(int id)
+        {
+            
+
+            return Ok(id);
+        }
+
+        /*
+         * [HttpGet("{id}")]
+         * 
+         * 
+         * 
+         */
     }
 }
