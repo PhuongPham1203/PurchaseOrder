@@ -6,10 +6,10 @@ namespace WebAppApiPO.Controllers
     [ApiController]
     [Route("PurchaseOrderDetail")]
 
-    public class PurchaseOrderDetalController : ControllerBase
+    public class PurchaseOrderDetailController : Controller
     {
         private PODetailServices purchaseOrderServices;
-        public PurchaseOrderDetalController(PODetailServices pODetailServices)
+        public PurchaseOrderDetailController(PODetailServices pODetailServices)
         {
             this.purchaseOrderServices = pODetailServices;
             
@@ -19,17 +19,17 @@ namespace WebAppApiPO.Controllers
         public IActionResult GetPurchaseOrderDetail(int id)
         {
             var data = this.purchaseOrderServices.GetPurchaseOrderDetail(id);
-
-            return Ok(data);
+            
+            return Json(data);
         }
 
         [HttpPatch("UpdatePurchaseOrderDetail")]
-        public IActionResult UpdatePurchaseOrderDetail([FromBody]string pod)
+        public IActionResult UpdatePurchaseOrderDetail(string pod)
         {
 
             //var status = this.purchaseOrderServices.UpdatePurchaseOrderDetail(pod);
 
-            return Ok(pod);
+            return Json(pod);
         }
 
         [HttpPatch("CancelPurchaseOrderDetail")]
@@ -38,7 +38,7 @@ namespace WebAppApiPO.Controllers
 
             var status = this.purchaseOrderServices.CancelPurchaseOrderDetail(id);
 
-            return Ok(status);
+            return Json(status);
         }
 
     }

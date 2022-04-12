@@ -13,7 +13,7 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-
 })
 
 
-export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
+export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private domainAPI: DomainAPIService,
@@ -33,16 +33,16 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 		//var index = this.router.url.split("/").pop()
 		var index = this.route.snapshot.paramMap.get('id');
 
-		this.UpdatePurchaseOrderDetail(index);
+		this.GetUpdatePurchaseOrderDetail(index);
 
 
 	}
 	ngOnDestroy(): void {
-		
+
 	}
 
 	// display Purchase Order Detail
-	private UpdatePurchaseOrderDetail(index) {
+	private GetUpdatePurchaseOrderDetail(index) {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/GetPurchaseOrderDetail/" + index;
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -205,8 +205,8 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 	}
 
 
-	// POST : Update Purchase Order Detail
-	public POSTUpdatePurchaseOrderDetail() {
+	// Patch : Update Purchase Order Detail
+	public UpdatePurchaseOrderDetail() {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
 
 		var dataPOST = cloneDeep(this.dataPODetail);
@@ -216,6 +216,9 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 
 		let body = new FormData();
 		body.append("pod", JSON.stringify(dataPOST));
+		//body.append("pod", "asdjkn");
+
+		console.log("INPUT: ", body.get("pod"));
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			console.log(data);
@@ -224,18 +227,19 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 			} else {
 				this.CreateAlertError(data);
 			}
-			
-		});
 
-		
+		}
+		);
+
+
 	}
 
-	// POST : Cancel Purchase Order
+	// PATCH : Cancel Purchase Order
 	private CancelPurchaseOrder(index) {
 
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
 		let body = new FormData();
-		body.append('id',""+index);
+		body.append('id', "" + index);
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
@@ -244,7 +248,7 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 			} else {
 				this.CreateAlertError(data);
 			}
-			
+
 		});
 
 	}
@@ -252,7 +256,7 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 	public OpenModalCancel(content) {
 		//console.log("click open modal");
 		this.ngbModal.open(content).result.then((result) => {
-			
+
 			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
 			//console.log(result);
 		}, (reason) => {
@@ -271,7 +275,7 @@ export class PurchaseOrderDetailComponent implements OnInit,OnDestroy {
 	}
 
 
-	
+
 
 	private CreateAlertError(message: string) {
 		var stringAlertError = `
