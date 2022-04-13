@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SendEmailComponent } from './send-email/send-email.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SendEmailComponent } from './send-email/send-email.component';
     FormsModule ,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
