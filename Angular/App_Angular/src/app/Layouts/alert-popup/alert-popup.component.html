@@ -1,0 +1,16 @@
+<span *ngIf="this.typeSuccess">
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<span>{{this.message}}success</span>
+		<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+			<span aria-hidden="true"></span>
+		</button>
+	</div>
+</span>
+<span *ngIf="this.typeSuccess">
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<span><strong>Error:</strong> {{this.message}} </span>
+		<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+			<span aria-hidden="true"></span>
+		</button>
+	</div>
+</span>	

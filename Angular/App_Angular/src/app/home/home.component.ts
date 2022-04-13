@@ -1,6 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
@@ -38,8 +36,5 @@ export class HomeComponent implements OnInit {
 			this.dataPO = data;
 		})
 	}
-
-	
-	
 
 }

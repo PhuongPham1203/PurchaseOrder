@@ -1,5 +1,9 @@
+<ng-container *ngIf="this.dataPODetail==null">
+	<app-loading></app-loading>
+</ng-container>
+<br>
 <div class="container text-center text-info">
-	<h3><u>Purchase Order <u *ngIf="dataPODetail">{{dataPODetail.orderNo}}</u> </u></h3>
+	<h1><u>Purchase Order <u *ngIf="dataPODetail">{{dataPODetail.orderNo}}</u> </u></h1>
 </div>
 <div id="all-alert" class="alert-z-index1">
 

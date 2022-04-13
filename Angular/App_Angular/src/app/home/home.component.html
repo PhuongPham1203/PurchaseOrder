@@ -1,46 +1,50 @@
+<ng-container *ngIf="this.dataPO==null">
+	<app-loading></app-loading>
+</ng-container>
+
 <br />
+<div class="container" *ngIf="this.dataPO">
+	<!--Start Table-->
+	<table id="list_po" class="table table-bordered text-center table-striped">
+		<!--Start Head-->
+		<thead class="table-info">
+			<tr>
+				<th>Order No</th>
+				<th>Supplier</th>
+				<th>Stock Site</th>
+				<th>Stock Name</th>
+				<th>Ord Date</th>
+				<th>Last Update</th>
+				<th>Sent Email</th>
+			</tr>
+		</thead>
+		<!--End Head-->
+		<!--Start Body-->
+		<tbody>
+			<!--body table-->
 
-<div class="container">
-    <!--Start Table-->
-    <table id="list_po" class="table table-bordered text-center table-striped">
-        <!--Start Head-->
-        <thead class="table-info">
-            <tr>
-                <th>Order No</th>
-                <th>Supplier</th>
-                <th>Stock Site</th>
-                <th>Stock Name</th>
-                <th>Ord Date</th>
-                <th>Last Update</th>
-                <th>Sent Email</th>
-            </tr>
-        </thead>
-        <!--End Head-->
-        <!--Start Body-->
-        <tbody>
-            <!--body table-->
+			<!--Item-->
+			<tr *ngFor="let item of dataPO">
+				<td><a [routerLink]="['/purchaseorderdetail/'+item.orderNo]"
+						routerLinkActive="router-link-active">{{item.orderNo}}</a></td>
+				<td><span>{{item.supplierName}}</span></td>
+				<td><span>{{item.stockSite}}</span></td>
+				<td><span>{{item.stockName}}</span></td>
+				<td><span>{{datetimeFormat.string2DatetimeFormat(item.orderDate)}}</span></td>
+				<td><span>{{datetimeFormat.string2DatetimeFormat(item.lastUpdate)}}</span></td>
 
-            <!--Item-->
-            <tr *ngFor="let item of dataPO">
-                <td><a [routerLink]="['/purchaseorderdetail/'+item.orderNo]" routerLinkActive="router-link-active" >{{item.orderNo}}</a></td>
-                <td><span>{{item.supplierName}}</span></td>
-                <td><span>{{item.stockSite}}</span></td>
-                <td><span>{{item.stockName}}</span></td>
-                <td><span>{{datetimeFormat.string2DatetimeFormat(item.orderDate)}}</span></td>
-                <td><span>{{datetimeFormat.string2DatetimeFormat(item.lastUpdate)}}</span></td>
+				<td *ngIf="item.sendEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
 
-                <td *ngIf="item.sendEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
+				<td *ngIf="item.sendEmail==false"><input type="checkbox" disabled="disabled" /></td>
 
-                <td *ngIf="item.sendEmail==false"><input type="checkbox" disabled="disabled" /></td>
+			</tr>
 
-            </tr>
+		</tbody>
+		<!--End Body-->
+	</table>
 
-        </tbody>
-        <!--End Body-->
-    </table>
-
-    <!--Start Pagination-->
-    <!--
+	<!--Start Pagination-->
+	<!--
     <div class="d-flex justify-content-center">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#" onclick="">Previous</a></li>
@@ -54,6 +58,6 @@
 
     </div>
     -->
-    <!--Start Pagination-->
-    <!--End Table-->
+	<!--Start Pagination-->
+	<!--End Table-->
 </div>

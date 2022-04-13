@@ -1,15 +1,18 @@
+<ng-container *ngIf="this.dataSendingEmail==null">
+	<app-loading></app-loading>
+</ng-container>
 <br />
 
 <div class="container text-center text-info">
-	<h3 *ngIf="this.dataSendingEmail"><u>Email Purchase Order(s) to supplier(s) for deal ref.
-			{{this.dataSendingEmail.orderNo}}</u></h3>
+	<h1 *ngIf="this.dataSendingEmail"><u>Email Purchase Order(s) to supplier(s) for deal ref.
+			{{this.dataSendingEmail.orderNo}}</u></h1>
 </div>
 <div id="all-alert" class="alert-z-index1">
 	
 </div>
 
 <div class="container">
-	<br />
+	
 
 	<!--Start Table-->
 	<table class="table table-bordered" *ngIf="this.dataSendingEmail">
@@ -36,17 +39,12 @@
 		<tbody>
 			<!--Item-->
 			<tr>
-				<!--
-				<td><input type="checkbox" disabled="disabled" checked /></td>
-				-->
+				
 				<td>{{this.dataSendingEmail.orderNo}}</td>
 				<td>{{this.dataSendingEmail.supplierShortname}}</td>
 				<td>{{this.dataSendingEmail.stockSite}}</td>
 				<td>{{this.dataSendingEmail.postCode}}</td>
-				<!--
-				<td>Hardware</td>
-				<td></td>
-				-->
+				
 				<td class="text-center"><a *ngIf="this.dataSendingEmail"
 						[routerLink]="['/purchaseorderdetail/'+this.dataSendingEmail.orderNo]"
 						routerLinkActive="router-link-active"><span><i class="fa-solid fa-pen-to-square"></i></span></a>
