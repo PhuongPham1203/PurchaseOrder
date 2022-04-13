@@ -39,6 +39,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
 
             }
             return status;
@@ -111,7 +112,9 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 
                 return data;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { 
+                Console.WriteLine(ex.Message);
+            }
 
 
             return null;
@@ -137,6 +140,7 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 status = "Query Error";
             }
 

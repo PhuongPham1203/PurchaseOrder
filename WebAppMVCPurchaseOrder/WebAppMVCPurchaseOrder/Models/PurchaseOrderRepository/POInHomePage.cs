@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using WebAppMVCPurchaseOrder.Models.Context;
+﻿using WebAppMVCPurchaseOrder.Models.Context;
 
 namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 {

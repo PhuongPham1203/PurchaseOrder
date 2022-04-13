@@ -1,5 +1,4 @@
 ﻿using WebAppMVCPurchaseOrder.Models.Context;
-using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
 using WebAppMVCPurchaseOrder.Models.Repository;
 
 namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository

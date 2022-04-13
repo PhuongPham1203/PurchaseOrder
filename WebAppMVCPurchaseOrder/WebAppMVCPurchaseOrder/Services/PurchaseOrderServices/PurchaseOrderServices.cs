@@ -9,13 +9,14 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderServices
 {
     public class PurchaseOrderServices
     {
-        public PurchaseOrderServices()
+        private PORepositoryServices pors;
+        public PurchaseOrderServices(PORepositoryServices porServices)
         {
-
+            pors = porServices;
         }
         public IEnumerable<IModel> GetListPurchaseOrder(int pageIndex, int pageSize)
         {
-            PORepositoryServices pors  = new PORepositoryServices(new purchaseorderContext());
+            //PORepositoryServices pors  = new PORepositoryServices(new purchaseorderContext());
             var data = pors.PurchaseOrder.GetListPO(pageIndex, pageSize);
             return data;
         }

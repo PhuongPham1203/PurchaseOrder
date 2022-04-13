@@ -1,4 +1,9 @@
 
+using WebAppMVCPurchaseOrder.Models;
+using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
+using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
+using WebAppMVCPurchaseOrder.Services.RepositoryServices;
+using WebAppMVCPurchaseOrder.Services.SendEmailServices;
 /// <summary>
 /// DDD :
 ///     User Interface Layer : Views, angular
@@ -9,6 +14,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
+// Add Services
+builder.Services.AddSingleton<purchaseorderContext>();
+builder.Services.AddSingleton<PORepositoryServices>();
+builder.Services.AddScoped<SendEmailServices>();
+builder.Services.AddScoped<PurchaseOrderServices>();
+builder.Services.AddScoped<PurchaseOrderDetailServices>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

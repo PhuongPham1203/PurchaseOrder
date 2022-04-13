@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using WebAppMVCPurchaseOrder.Models.Context;
+﻿using WebAppMVCPurchaseOrder.Models.Context;
 
 
 namespace WebAppMVCPurchaseOrder.Models

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebAppMVCPurchaseOrder.Models;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
 
 namespace WebAppMVCPurchaseOrder.Controllers
@@ -8,7 +6,12 @@ namespace WebAppMVCPurchaseOrder.Controllers
     public class PurchaseOrderController : Controller
     {
 
-        private PurchaseOrderServices purchaseOrderServices = new PurchaseOrderServices();
+        private PurchaseOrderServices purchaseOrderServices;
+
+        public PurchaseOrderController(PurchaseOrderServices poServices)
+        {
+            purchaseOrderServices = poServices;
+        }
 
         public IActionResult Index()
         {

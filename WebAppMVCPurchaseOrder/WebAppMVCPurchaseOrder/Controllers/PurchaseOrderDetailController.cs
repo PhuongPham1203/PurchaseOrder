@@ -9,8 +9,12 @@ namespace WebAppMVCPurchaseOrder.Controllers
 {
     public class PurchaseOrderDetailController : Controller
     {
-        private PurchaseOrderDetailServices purchaseOrderServices = new PurchaseOrderDetailServices();
+        private PurchaseOrderDetailServices purchaseOrderServices;
         
+        public PurchaseOrderDetailController(PurchaseOrderDetailServices podServices)
+        {
+           this.purchaseOrderServices = podServices;
+        }
         public IActionResult Index()
         {
             return View();

@@ -7,8 +7,11 @@ namespace WebAppMVCPurchaseOrder.Controllers
 {
     public class SendingEmailController : Controller
     {
-        private SendEmailServices sendEmailServices = new SendEmailServices();
-
+        private SendEmailServices sendEmailServices;
+        public SendingEmailController(SendEmailServices seServices)
+        {
+            sendEmailServices = seServices;
+        }
         public IActionResult Index()
         {
             return View();

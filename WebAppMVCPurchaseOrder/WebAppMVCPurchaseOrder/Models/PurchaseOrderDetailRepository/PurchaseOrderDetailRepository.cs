@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Models.Repository;
-using Newtonsoft.Json;
 
 namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 {
@@ -70,7 +68,9 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
 
                 return poDetail;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { 
+                Console.WriteLine(ex.Message);
+            }
             return null;
         }
 
@@ -127,7 +127,9 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.ToString());
+               
+                Console.WriteLine(ex.Message);
+
             }
 
 

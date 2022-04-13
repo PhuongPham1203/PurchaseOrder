@@ -8,11 +8,14 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 {
     public class PurchaseOrderDetailServices
     {
-        public PurchaseOrderDetailServices() { }
+        private PORepositoryServices pors;
+        public PurchaseOrderDetailServices(PORepositoryServices porServices) { 
+            pors = porServices;
+        }
 
         public IModel GetPurchaseOrderDetail(int indexPO)
         {
-            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
+            
 
             PODetailInPurchaseOrderDetailPage poDetail = (PODetailInPurchaseOrderDetailPage)pors.PurchaseOrderDetail.GetPurchaseOrderDetail(indexPO);
             if (poDetail is not null)
@@ -40,7 +43,6 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
         }
         public string CancelPurchaseOrderDetail(int id)
         {
-            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
             string status = pors.PurchaseOrder.CancelPO(id);
 
             pors.Complete();

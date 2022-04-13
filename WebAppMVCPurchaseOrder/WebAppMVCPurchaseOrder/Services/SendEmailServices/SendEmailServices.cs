@@ -8,11 +8,13 @@ namespace WebAppMVCPurchaseOrder.Services.SendEmailServices
 {
     public class SendEmailServices
     {
-        public SendEmailServices() { }
+        private PORepositoryServices pors;
+        public SendEmailServices(PORepositoryServices porServices) {
+            pors = porServices;
+        }
 
         public IModel GetEmailDetail(int indexPO)
         {
-            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
             POInSendEmailPage poEmailDetail = (POInSendEmailPage)pors.PurchaseOrder.GetPOWithEmail(indexPO);
 
             return poEmailDetail;
@@ -70,7 +72,6 @@ namespace WebAppMVCPurchaseOrder.Services.SendEmailServices
 
 
             // Update Send Email
-            PORepositoryServices pors = new PORepositoryServices(new purchaseorderContext());
 
             status = pors.PurchaseOrder.SendEmailDetail(poEmailDetail);
             
