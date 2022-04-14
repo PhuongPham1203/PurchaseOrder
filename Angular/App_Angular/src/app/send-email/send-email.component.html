@@ -82,14 +82,22 @@
 			<p class="fs-5">To:</p>
 		</div>
 		<div class="col-11">
-			<input type="email" class="form-control" [(ngModel)]="this.dataSendingEmail.orderSendToEmail" required>
+			<input type="email" class="form-control" 
+			[ngClass]="{
+				'border border-danger':this.CheckEmailToNotValid()
+			}"
+			[(ngModel)]="this.dataSendingEmail.orderSendToEmail" required>
 		</div>
 
 		<div class="col-1">
 			<p class="fs-5">CC:</p>
 		</div>
 		<div class="col-11">
-			<input type="email" class="form-control" [(ngModel)]="this.dataSendingEmail.orderSendToEmailCc">
+			<input type="email" class="form-control"
+			[ngClass]="{
+				'border border-danger':this.CheckEmailCCNotValid()
+			}"
+			[(ngModel)]="this.dataSendingEmail.orderSendToEmailCc">
 		</div>
 
 		<div class="col-1">

@@ -14,9 +14,10 @@ using WebAppMVCPurchaseOrder.Services.SendEmailServices;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
+
 // Add Services
-builder.Services.AddSingleton<purchaseorderContext>();
-builder.Services.AddSingleton<PORepositoryServices>();
+builder.Services.AddScoped<purchaseorderContext>();
+builder.Services.AddScoped<PORepositoryServices>();
 builder.Services.AddScoped<SendEmailServices>();
 builder.Services.AddScoped<PurchaseOrderServices>();
 builder.Services.AddScoped<PurchaseOrderDetailServices>();

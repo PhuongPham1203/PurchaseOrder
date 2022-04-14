@@ -34,5 +34,14 @@ namespace WebAppMVCPurchaseOrder.Controllers
             return Json(data);
         }
 
+        [HttpGet]
+        public IActionResult GetLengthListPO()
+        {
+           
+            var data = this.purchaseOrderServices.GetLengthListPO();
+
+            return Json(data);
+        }
+
     }
 }

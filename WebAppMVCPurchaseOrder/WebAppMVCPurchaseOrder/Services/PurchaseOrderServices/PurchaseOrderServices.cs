@@ -18,7 +18,17 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderServices
         {
             //PORepositoryServices pors  = new PORepositoryServices(new purchaseorderContext());
             var data = pors.PurchaseOrder.GetListPO(pageIndex, pageSize);
+
             return data;
+        }
+
+        public int GetLengthListPO()
+        {
+            int length = 0;
+
+            length = pors.PurchaseOrder.GetLengthListPO();
+
+            return length;
         }
         
     }

@@ -63,12 +63,31 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
                         StockName = po_with_s.IdSupplierNavigation.StockName,
                         OrderDate = po_with_s.OrderDate,
                         LastUpdate = po_with_s.LastUpdate,
-                        SendEmail = po_with_s.SendEmail
+                        SendEmail = po_with_s.SendEmail,
+
                     })
                     .ToList();
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return null;
+        }
+
+        public int GetLengthListPO()
+        {
+            int length = 0;
+            try
+            {
+                return ModelSQLserver.PurchaseOrders.Count();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            return length;
         }
 
         public IModel GetPOWithEmail(int index)
@@ -112,7 +131,8 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
 
                 return data;
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
 

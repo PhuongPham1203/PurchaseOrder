@@ -18,5 +18,6 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository
         public string? StockSite { get; set; }
         public string? StockName { get; set; }
 
+
     }
 }

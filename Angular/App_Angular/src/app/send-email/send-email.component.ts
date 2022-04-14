@@ -93,6 +93,33 @@ export class SendEmailComponent implements OnInit {
 		});
 	}
 
+	public CheckEmailToNotValid():boolean{
+		var str = this.dataSendingEmail.orderSendToEmail;
+		if(str.includes('@')){
+			return false;
+		}
+		return true;
+	}
+	public CheckEmailCCNotValid(){
+		var str = this.dataSendingEmail.orderSendToEmailCc;
+		if(str==null || str == ''){
+			
+		}else if(str.includes(',')){
+			var listEmail = str.split(',');
+			for(let email of listEmail){
+				if(email.includes('@') == false){
+					return true
+				}
+			}
+			return false;
+		}else{
+			if(str.includes('@') == false){
+				return true
+			}
+		}
+		return false;
+	}
+
 	
 	private CreateAlertError(message: string) {
 		var stringAlertError = `

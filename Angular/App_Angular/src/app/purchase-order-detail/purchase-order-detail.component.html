@@ -176,16 +176,25 @@
 				</td>
 				<td class="text-end">
 					<input class="form-control text-end" type="number" step="1" min="1"
+						[ngClass]="{
+							'border border-danger':this.dataPODetail.purchaseOrderLines[i].qtyOrdered<1 && dataPODetail.cancelPo==false
+						}"
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].qtyOrdered"
 						[disabled]="dataPODetail.cancelPo" min="1">
 				</td>
 				<td class="text-end">
 					<input class="form-control" type="date"
+						[ngClass]="{
+							'border border-danger':this.dataPODetail.purchaseOrderLines[i].orderDate<dataPODetail.orderDate && dataPODetail.cancelPo==false
+						}"
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].orderDate" min="{{dataPODetail.orderDate}}"
 						[disabled]="dataPODetail.cancelPo">
 				</td>
 				<td>
 					<input class="form-control text-end" type="number"
+						[ngClass]="{
+							'border border-danger':this.dataPODetail.purchaseOrderLines[i].m2BuyPrice<1 && dataPODetail.cancelPo==false
+						}"
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].m2BuyPrice"
 						[disabled]="dataPODetail.cancelPo" min="1" />
 				</td>
