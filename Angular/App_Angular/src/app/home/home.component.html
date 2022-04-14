@@ -44,34 +44,36 @@
 	</table>
 
 	<!--Start Pagination-->
-	
+
 	<div class="d-flex justify-content-center">
-		
+
 		<ul class="pagination">
 			<li class="page-item"><button [disabled]="this.pageIndex<1" class="page-link"
-					(click)="this.LoadPreviousPage()">Previous</button></li>
+					(click)="this.LoadPreviousPage()">Previous</button>
+			</li>
 
-			<li class="page-item"><a [hidden]="this.pageIndex < 1" class="page-link">...</a></li>
+			<li class="page-item">
+				<a [hidden]="this.pageIndex < this.pageSize*3" class="page-link">...</a>
+			</li>
 
 			<li class="page-item" *ngFor="let index of this.paginationIndex">
-				<button 
-				[ngClass]="{
+				<button [ngClass]="{
 					'text-danger text-underline':index==0
-				}"
-				[disabled]="index==0"
-				[hidden]="this.HiddenIndexPagination(index)"
-				class="page-link" (click)="this.LoadingListPurchaserOrder((this.pageIndex/this.pageSize+index)*this.pageSize)">
+				}" [disabled]="index==0" [hidden]="this.HiddenIndexPagination(index)" class="page-link"
+					(click)="this.LoadingListPurchaserOrder((this.pageIndex/this.pageSize+index)*this.pageSize)">
 					{{this.pageIndex/this.pageSize+1+index}}
 				</button>
-				
 
 			</li>
 
 
-			<li class="page-item"><a [hidden]="(this.pageIndex+this.pageSize )>= this.lengthPO"
-					class="page-link">...</a></li>
-			<li class="page-item"><button [disabled]="(this.pageIndex+this.pageSize )>= this.lengthPO" class="page-link"
-					(click)="this.LoadNextPage()">Next</button></li>
+			<li class="page-item">
+				<a [hidden]="(this.pageIndex+this.pageSize*3 )>= this.lengthPO" class="page-link">...</a>
+			</li>
+			<li class="page-item">
+				<button [disabled]="(this.pageIndex+this.pageSize )>= this.lengthPO" class="page-link"
+					(click)="this.LoadNextPage()">Next</button>
+			</li>
 		</ul>
 
 	</div>

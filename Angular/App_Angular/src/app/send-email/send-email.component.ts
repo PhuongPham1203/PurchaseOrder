@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-send-email',
 	templateUrl: './send-email.component.html',
 	styleUrls: ['./send-email.component.css']
 })
-export class SendEmailComponent implements OnInit {
+export class SendEmailComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private domainAPI: DomainAPIService,
@@ -18,10 +19,18 @@ export class SendEmailComponent implements OnInit {
 		public datetimeFormat: DatetimeService,
 		private route: ActivatedRoute,
 		private router: Router
-		) { }
+	) { }
+
 
 	public dataSendingEmail = null;
 
+	public formGroupSendEmail = new FormGroup({
+		orderSendFromEmail: new FormControl(),
+		orderSendToEmail: new FormControl(),
+		orderSendToEmailCc: new FormControl(),
+		emailSubject: new FormControl(),
+		emailContent: new FormControl()
+	});
 
 	ngOnInit(): void {
 
@@ -30,17 +39,30 @@ export class SendEmailComponent implements OnInit {
 		this.UpdateSendingEmail(index);
 	}
 
+	ngAfterViewInit(): void {
+		
+		
+	}
+
 	private UpdateSendingEmail(index) {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/GetSendEmailDetail/" + index;
 		this.serverHttp.getAPI(url).subscribe((data) => {
 			this.dataSendingEmail = data;
-			if(this.dataSendingEmail.cancelPo == true){
+			if (this.dataSendingEmail.cancelPo == true) {
 				this.router.navigate(['/'])
 			}
 			if (!this.dataSendingEmail.sendEmail) {
 
 				this.LoadDefaulEmail()
 			}
+
+			this.formGroupSendEmail.setValue({
+				orderSendFromEmail: this.dataSendingEmail.orderSendFromEmail,
+				orderSendToEmail: this.dataSendingEmail.orderSendToEmail,
+				orderSendToEmailCc: this.dataSendingEmail.orderSendToEmailCc,
+				emailSubject: this.dataSendingEmail.emailSubject,
+				emailContent: this.dataSendingEmail.emailContent
+			});
 
 		});
 	}
@@ -78,49 +100,49 @@ export class SendEmailComponent implements OnInit {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/PostSendEmailDetail";
 
 		var dataPOST = cloneDeep(this.dataSendingEmail);
-		
+
 		let body = new FormData();
 		body.append("emailDetail", JSON.stringify(dataPOST));
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
-			
+
 			if (data == "Update Success") {
 				this.CreateAlertSuccess(data);
-			} else{
+			} else {
 				this.CreateAlertError(data)
 			}
-			
+
 		});
 	}
 
-	public CheckEmailToNotValid():boolean{
+	public CheckEmailToNotValid(): boolean {
 		var str = this.dataSendingEmail.orderSendToEmail;
-		if(str.includes('@')){
+		if (str.includes('@')) {
 			return false;
 		}
 		return true;
 	}
-	public CheckEmailCCNotValid(){
+	public CheckEmailCCNotValid() {
 		var str = this.dataSendingEmail.orderSendToEmailCc;
-		if(str==null || str == ''){
-			
-		}else if(str.includes(',')){
+		if (str == null || str == '') {
+
+		} else if (str.includes(',')) {
 			var listEmail = str.split(',');
-			for(let email of listEmail){
-				if(email.includes('@') == false){
+			for (let email of listEmail) {
+				if (email.includes('@') == false) {
 					return true
 				}
 			}
 			return false;
-		}else{
-			if(str.includes('@') == false){
+		} else {
+			if (str.includes('@') == false) {
 				return true
 			}
 		}
 		return false;
 	}
 
-	
+
 	private CreateAlertError(message: string) {
 		var stringAlertError = `
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">

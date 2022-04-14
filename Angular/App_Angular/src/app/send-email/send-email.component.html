@@ -8,11 +8,11 @@
 			{{this.dataSendingEmail.orderNo}}</u></h1>
 </div>
 <div id="all-alert" class="alert-z-index1">
-	
+
 </div>
 
 <div class="container">
-	
+
 
 	<!--Start Table-->
 	<table class="table table-bordered" *ngIf="this.dataSendingEmail">
@@ -39,12 +39,12 @@
 		<tbody>
 			<!--Item-->
 			<tr>
-				
+
 				<td>{{this.dataSendingEmail.orderNo}}</td>
 				<td>{{this.dataSendingEmail.supplierShortname}}</td>
 				<td>{{this.dataSendingEmail.stockSite}}</td>
 				<td>{{this.dataSendingEmail.postCode}}</td>
-				
+
 				<td class="text-center"><a *ngIf="this.dataSendingEmail"
 						[routerLink]="['/purchaseorderdetail/'+this.dataSendingEmail.orderNo]"
 						routerLinkActive="router-link-active"><span><i class="fa-solid fa-pen-to-square"></i></span></a>
@@ -60,6 +60,83 @@
 </div>
 
 <!--Start Email-->
+
+<div *ngIf="this.dataSendingEmail" class="container border border-info border-3 rounded">
+
+
+	<div class="">
+		<br>
+		<h1>Purchase Order : {{this.dataSendingEmail.orderNo}}</h1>
+		<hr class="text-primary">
+	</div>
+	<form [formGroup]="this.formGroupSendEmail">
+		<div class="row">
+			<div class="col-1">
+				<p class="fs-5">From</p>
+			</div>
+			<div class="col-11">
+				<input type="email" class="form-control" readonly formControlName="orderSendFromEmail" required>
+			</div>
+
+			<div class="col-1">
+				<p class="fs-5">To:</p>
+			</div>
+			<div class="col-11">
+				<input type="email" class="form-control" [ngClass]="{
+				'border border-danger':this.CheckEmailToNotValid()
+			}" formControlName="orderSendToEmail" required>
+			</div>
+
+			<div class="col-1">
+				<p class="fs-5">CC:</p>
+			</div>
+			<div class="col-11">
+				<input type="email" class="form-control" [ngClass]="{
+				'border border-danger':this.CheckEmailCCNotValid()
+			}" formControlName="orderSendToEmailCc">
+			</div>
+
+			<div class="col-1">
+				<p class="fs-5">Subject:</p>
+			</div>
+			<div class="col-11">
+				<input type="text" class="form-control" formControlName="emailSubject" required>
+			</div>
+
+
+			<div class="col-12">
+				<textarea style="height: 200px;" class="form-control" formControlName="emailContent"></textarea>
+			</div>
+
+			<div class="col-12">
+				<br>
+
+				<div class="row text-end">
+					<div class="">
+						<button type="button" class="btn btn-outline-secondary border" [routerLink]="['/']"
+							routerLinkActive="router-link-active">
+							<span><i class="fa fa-light fa-ban"></i></span> Sent email later, go to PO tab
+						</button>
+						&nbsp;
+						<button type="button" class="btn btn-success" (click)="this.PostSendEmail()">
+							<span><i class="fa fa-light fa-envelope"></i></span> Send 1 email(s)
+						</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<br>
+	</form>
+
+</div>
+
+<!--End Email-->
+
+<!--Start Email-->
+<!--
 <div *ngIf="this.dataSendingEmail" class="container border border-info border-3 rounded">
 
 
@@ -114,7 +191,7 @@
 
 		<div class="col-12">
 			<br>
-			<!--Start Button-->
+			
 			<div class="row text-end">
 				<div class="">
 					<button type="button" class="btn btn-outline-secondary border" [routerLink]="['/']"
@@ -127,7 +204,7 @@
 					</button>
 				</div>
 			</div>
-			<!--End Button-->
+		
 		</div>
 
 	</div>
@@ -135,4 +212,5 @@
 	<br>
 
 </div>
+-->
 <!--End Email-->
