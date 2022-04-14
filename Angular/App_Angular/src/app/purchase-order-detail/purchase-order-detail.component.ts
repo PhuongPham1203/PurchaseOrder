@@ -5,6 +5,7 @@ import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
 import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AlertMessageService } from '../Services/alert-message.service';
 
 @Component({
 	selector: 'app-purchase-order-detail',
@@ -21,7 +22,8 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		public datetimeFormat: DatetimeService,
 		private route: ActivatedRoute,
 		private router: Router,
-		private ngbModal: NgbModal
+		private ngbModal: NgbModal,
+		private alertMessage: AlertMessageService
 	) { }
 
 	public dataPODetail = null;
@@ -216,9 +218,12 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.CreateAlertSuccess(data);
+				this.alertMessage.CreateAlertSuccess(data,'all-alert');
+				//this.CreateAlertSuccess(data);
 			} else {
-				this.CreateAlertError(data);
+				this.alertMessage.CreateAlertError(data,'all-alert');
+
+				//this.CreateAlertError(data);
 			}
 			//console.log(data);
 		});
@@ -233,10 +238,10 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.CreateAlertSuccess(data);
+				this.alertMessage.CreateAlertSuccess(data,'all-alert');
 				window.location.reload();
 			} else {
-				this.CreateAlertError(data);
+				this.alertMessage.CreateAlertError(data,'all-alert');
 			}
 			
 		});
@@ -267,36 +272,5 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 	
 
-	private CreateAlertError(message: string) {
-		var stringAlertError = `
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			<span><strong>Error:</strong> ${message}</span>
-			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
-				<span aria-hidden="true"></span>
-			</button>
-		</div>`
-
-		// create DOM element from string
-		this.CreateAlert(stringAlertError)
-	}
-
-	private CreateAlertSuccess(message: string) {
-		var stringAlertSuccess = `
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			<span>${message}</span>
-			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
-				<span aria-hidden="true"></span>
-			</button>
-		</div>`
-
-		// create DOM element from string
-		this.CreateAlert(stringAlertSuccess)
-	}
-
-	private CreateAlert(stringAlert: string) {
-		// create DOM element from string
-		var parser = new DOMParser();
-		var doc = parser.parseFromString(stringAlert, 'text/html')
-		document.getElementById('all-alert').appendChild(doc.body);
-	}
+	
 }

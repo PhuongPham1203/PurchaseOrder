@@ -4,6 +4,7 @@ import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
+import { AlertMessageService } from '../Services/alert-message.service';
 
 @Component({
 	selector: 'app-send-email',
@@ -17,7 +18,8 @@ export class SendEmailComponent implements OnInit {
 		private serverHttp: ServerHttpService,
 		public datetimeFormat: DatetimeService,
 		private route: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		private alertMessage: AlertMessageService
 		) { }
 
 	public dataSendingEmail = null;
@@ -85,9 +87,9 @@ export class SendEmailComponent implements OnInit {
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
 			
 			if (data == "Update Success") {
-				this.CreateAlertSuccess(data);
+				this.alertMessage.CreateAlertSuccess(data,'all-alert');
 			} else{
-				this.CreateAlertError(data)
+				this.alertMessage.CreateAlertError(data,'all-alert')
 			}
 			
 		});
@@ -121,37 +123,6 @@ export class SendEmailComponent implements OnInit {
 	}
 
 	
-	private CreateAlertError(message: string) {
-		var stringAlertError = `
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			<span><strong>Error:</strong> ${message}</span>
-			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
-				<span aria-hidden="true"></span>
-			</button>
-		</div>`
-
-		// create DOM element from string
-		this.CreateAlert(stringAlertError)
-	}
-
-	private CreateAlertSuccess(message: string) {
-		var stringAlertSuccess = `
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			<span>${message}</span>
-			<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
-				<span aria-hidden="true"></span>
-			</button>
-		</div>`
-
-		// create DOM element from string
-		this.CreateAlert(stringAlertSuccess)
-	}
-
-	private CreateAlert(stringAlert: string) {
-		// create DOM element from string
-		var parser = new DOMParser();
-		var doc = parser.parseFromString(stringAlert, 'text/html')
-		document.getElementById('all-alert').appendChild(doc.body);
-	}
+	
 }
 
