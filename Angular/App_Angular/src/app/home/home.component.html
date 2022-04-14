@@ -51,7 +51,7 @@
 			<li class="page-item"><button [disabled]="this.pageIndex<1" class="page-link"
 					(click)="this.LoadPreviousPage()">Previous</button></li>
 
-			<li class="page-item"><a [hidden]="this.pageIndex < 1" class="page-link">...</a></li>
+			<li class="page-item"><a [hidden]="this.pageIndex < this.pageSize*3" class="page-link">...</a></li>
 
 			<li class="page-item" *ngFor="let index of this.paginationIndex">
 				<button 
@@ -68,7 +68,7 @@
 			</li>
 
 
-			<li class="page-item"><a [hidden]="(this.pageIndex+this.pageSize )>= this.lengthPO"
+			<li class="page-item"><a [hidden]="(this.pageIndex+this.pageSize*3 )>= this.lengthPO"
 					class="page-link">...</a></li>
 			<li class="page-item"><button [disabled]="(this.pageIndex+this.pageSize )>= this.lengthPO" class="page-link"
 					(click)="this.LoadNextPage()">Next</button></li>
