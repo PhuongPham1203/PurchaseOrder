@@ -1,48 +1,48 @@
-<div class="text-center mt-3">
-	<h1>Login Page</h1>
-</div>
-<div class="container d-flex justify-content-center">
-
-	<div class="card-1000 border border-3 rounded mt-3">
-
-
-		<div class="d-flex justify-content-center mt-5">
-			<form class="example-form" [formGroup]="this.formLogin">
-				<mat-form-field class="example-full-width" appearance="fill">
-					<mat-label>Email</mat-label>
-					<input type="email" matInput formControlName="emailForm" [errorStateMatcher]="matcher"
-						placeholder="Ex: padmin@gmail.com">
-					<mat-hint></mat-hint>
-					<mat-error
-						*ngIf="this.formLogin.get('emailForm').hasError('email') && !this.formLogin.get('emailForm').hasError('required')">
-						Please enter a valid email address
-					</mat-error>
-					<mat-error *ngIf="this.formLogin.get('emailForm').hasError('required')">
-						Email is <strong>required</strong>
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field class="example-full-width" appearance="fill">
-					<mat-label>Password</mat-label>
-					<input type="password" matInput formControlName="passwordForm" [errorStateMatcher]="matcher">
-					<mat-hint></mat-hint>
-					<mat-error *ngIf="this.formLogin.get('passwordForm').hasError('required')">
-						Password is <strong>required</strong>
-					</mat-error>
-				</mat-form-field>
-
-			</form>
-		</div>
-
-
-
-		<div class="text-center mb-3">
-			<button [disabled]="this.formLogin.invalid" class="btn btn-success btn-lg" (click)="this.SubmitLogin()">Login</button>
-		</div>
+<ng-container *ngIf="this.auth.authenticator==false">
+	<div class="text-center mt-3">
+		<h1>Login Page</h1>
 	</div>
-
-
-
-</div>
-
-<app-dashboard></app-dashboard>
+	<div class="container d-flex justify-content-center">
+	
+		<div class="card-1000 border border-3 rounded mt-3">
+	
+	
+			<div class="d-flex justify-content-center mt-5">
+				<form class="example-form" [formGroup]="this.formLogin">
+					<mat-form-field class="example-full-width" appearance="fill">
+						<mat-label>Email</mat-label>
+						<input type="email" matInput formControlName="emailForm" [errorStateMatcher]="matcher"
+							placeholder="Ex: padmin@gmail.com">
+						<mat-hint></mat-hint>
+						<mat-error
+							*ngIf="this.formLogin.get('emailForm').hasError('email') && !this.formLogin.get('emailForm').hasError('required')">
+							Please enter a valid email address
+						</mat-error>
+						<mat-error *ngIf="this.formLogin.get('emailForm').hasError('required')">
+							Email is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+	
+					<mat-form-field class="example-full-width" appearance="fill">
+						<mat-label>Password</mat-label>
+						<input type="password" matInput formControlName="passwordForm" [errorStateMatcher]="matcher">
+						<mat-hint></mat-hint>
+						<mat-error *ngIf="this.formLogin.get('passwordForm').hasError('required')">
+							Password is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+	
+				</form>
+			</div>
+	
+	
+	
+			<div class="text-center mb-3">
+				<button [disabled]="this.formLogin.invalid" class="btn btn-success btn-lg" (click)="this.SubmitLogin()">Login</button>
+			</div>
+		</div>
+	
+	
+	
+	</div>
+</ng-container>

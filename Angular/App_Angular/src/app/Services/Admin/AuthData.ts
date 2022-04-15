@@ -2,7 +2,8 @@ import { Observable } from "rxjs";
 
 export class AuthData{
 	constructor(
-		public token$:Observable<string>,
-		public username$:Observable<string>
+		public token:string="",
+		public username:string="",
+		public authenticator:boolean=false
 	){}
 }

@@ -24,6 +24,8 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import { LogoutComponent } from './Admin/logout/logout.component';
+
 
 @NgModule({
 	declarations: [
@@ -37,7 +39,8 @@ import {MatInputModule} from '@angular/material/input';
 		LoadingComponent,
 		AlertPopupComponent,
   LoginComponent,
-  DashboardComponent
+  DashboardComponent,
+  LogoutComponent
 	],
 	imports: [
 		BrowserModule,
@@ -51,8 +54,11 @@ import {MatInputModule} from '@angular/material/input';
 		MatFormFieldModule,
 		MatNativeDateModule,
 		MatInputModule
+		
 	],
-	providers: [],
+	providers: [
+		
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
