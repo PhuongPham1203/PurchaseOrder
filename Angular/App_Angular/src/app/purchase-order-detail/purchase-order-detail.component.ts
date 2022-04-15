@@ -214,7 +214,10 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		var dataPOST = cloneDeep(this.dataPODetail);
 		delete dataPOST.listAvailablePart;
 
-		//console.log("INPUT: ",dataPOST)
+		if(this.dataPODetail.purchaseOrderLines.length==0){
+			this.alertMessage.CreateAlertError('The PO must have at least one PO line!','all-alert');
+			return;
+		}
 
 		let body = new FormData();
 		body.append("pod", JSON.stringify(dataPOST));

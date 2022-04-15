@@ -65,7 +65,7 @@
 
 	<div class="">
 		<br>
-		<h4>Purchase Order : {{this.dataSendingEmail.orderNo}}</h4>
+		<h1 class="text-info"><b>Purchase Order : {{this.dataSendingEmail.orderNo}}</b></h1>
 		<hr class="text-primary">
 	</div>
 	
@@ -87,6 +87,7 @@
 				'border border-danger':this.CheckEmailToNotValid()
 			}"
 			[(ngModel)]="this.dataSendingEmail.orderSendToEmail" required>
+			<span [hidden]="!this.CheckEmailToNotValid()" class="text-danger">Email is invalid!!!</span>
 		</div>
 
 		<div class="col-1">
@@ -97,7 +98,8 @@
 			[ngClass]="{
 				'border border-danger':this.CheckEmailCCNotValid()
 			}"
-			[(ngModel)]="this.dataSendingEmail.orderSendToEmailCc">
+			[(ngModel)]="this.dataSendingEmail.orderSendToEmailCc" >
+			<span [hidden]="!this.CheckEmailCCNotValid()" class="text-danger">Email is invalid!!!</span>
 		</div>
 
 		<div class="col-1">

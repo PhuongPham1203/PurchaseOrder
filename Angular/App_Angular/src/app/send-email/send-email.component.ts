@@ -24,6 +24,7 @@ export class SendEmailComponent implements OnInit {
 
 	public dataSendingEmail = null;
 
+	
 
 	ngOnInit(): void {
 
