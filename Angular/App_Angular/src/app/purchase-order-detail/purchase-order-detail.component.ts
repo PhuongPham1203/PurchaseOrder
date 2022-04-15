@@ -63,7 +63,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 				}
 
 			} catch (e) {
-
+				if(data==null){
+					this.alertMessage.CreateAlertError("This PO is not available",'all-alert',10000);		
+				}
 			}
 
 		},(error)=>{

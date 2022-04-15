@@ -175,11 +175,11 @@
 				<td class="text-end">
 					<input class="form-control text-end" type="number" step="1" min="1"
 						[ngClass]="{
-							'border border-danger':this.dataPODetail.purchaseOrderLines[i].qtyOrdered<1 && dataPODetail.cancelPo==false
+							'border border-danger':this.dataPODetail.purchaseOrderLines[i].qtyOrdered<=0 && dataPODetail.cancelPo==false
 						}"
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].qtyOrdered"
-						[disabled]="dataPODetail.cancelPo" min="1">
-						<span class="text-danger" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].qtyOrdered<1 && dataPODetail.cancelPo==false)">Error: Qty Ordered < 0 &nbsp;</span>
+						[disabled]="dataPODetail.cancelPo" >
+					<span class="text-danger text-tips" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].qtyOrdered<=0 && dataPODetail.cancelPo==false)">Error: Qty Ordered <= 0 &nbsp;</span>
 				</td>
 				<td class="text-end">
 					<input class="form-control" type="date"
@@ -189,17 +189,17 @@
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].orderDate" min="{{dataPODetail.orderDate}}"
 						[disabled]="dataPODetail.cancelPo">
 					
-						<span class="text-danger" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].orderDate<dataPODetail.orderDate && dataPODetail.cancelPo==false)">Error: Date < Order Date &nbsp;</span>
+					<span class="text-danger text-tips" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].orderDate<dataPODetail.orderDate && dataPODetail.cancelPo==false)">Error: Date < Order Date &nbsp;</span>
 					
 				</td>
 				<td>
-					<input class="form-control text-end" type="number"
+					<input class="form-control text-end" type="number" min="1"
 						[ngClass]="{
-							'border border-danger':this.dataPODetail.purchaseOrderLines[i].m2BuyPrice<1 && dataPODetail.cancelPo==false
+							'border border-danger':this.dataPODetail.purchaseOrderLines[i].m2BuyPrice<=0 && dataPODetail.cancelPo==false
 						}"
 						[(ngModel)]="this.dataPODetail.purchaseOrderLines[i].m2BuyPrice"
-						[disabled]="dataPODetail.cancelPo" min="1" />
-						<span class="text-danger" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].m2BuyPrice<1 && dataPODetail.cancelPo==false)">Error: M2 Buy Price < 1 &nbsp;</span>
+						[disabled]="dataPODetail.cancelPo"  />
+						<span class="text-danger text-tips" [hidden]="!(this.dataPODetail.purchaseOrderLines[i].m2BuyPrice<=0 && dataPODetail.cancelPo==false)">Error: M2 Buy Price <= 0 &nbsp;</span>
 				</td>
 				<td>
 					<input type="text" class="form-control" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].memo"
