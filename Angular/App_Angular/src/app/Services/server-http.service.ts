@@ -28,7 +28,7 @@ export class ServerHttpService {
 
 	// Send Get API without data
 	public getAPI(api_url): Observable<any> {
-		return this.httpClient.get<any>(api_url, this.httpOptions).pipe(catchError(this.handleError));
+		return this.httpClient.get<any>(api_url).pipe(catchError(this.handleError));
 	}
 
 	// Send Post API with data
@@ -37,16 +37,37 @@ export class ServerHttpService {
 		
 	}
 
+	// Send Put API with data
+	public putAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.put<any>(api_url, data).pipe(catchError(this.handleError));
+		
+	}
+
+	// Send Patch API with data
+	public patchAPIWithData(api_url, data): Observable<any> {
+		return this.httpClient.patch<any>(api_url, data).pipe(catchError(this.handleError));
+		
+	}
+
+	// Send Delete API with data
+	public deleteAPIWithData(api_url): Observable<any> {
+		return this.httpClient.delete<any>(api_url).pipe(catchError(this.handleError));
+		
+	}
+
 
 	private handleError(error: HttpErrorResponse) {
 		if (error.error instanceof ErrorEvent) {
 			console.error('an error occurred:', error.error.message);
 		} else {
+			/*
 			console.error(
 				`Backend returned code ${error.status},` + ` body was: ${error.error}`
 			);
+			*/
+			console.error(error.message);
 		}
 
-		return throwError("Somwthing bad happened; please try again later.");
+		return throwError("Something bad happened; please try again later.");
 	}
 }

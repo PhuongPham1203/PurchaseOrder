@@ -6,8 +6,6 @@
 	<h1><u>Purchase Order <u *ngIf="dataPODetail">{{dataPODetail.orderNo}}</u> </u></h1>
 </div>
 <div id="all-alert" class="alert-z-index1">
-
-
 </div>
 
 <!--Start Purchase Order detail-->
@@ -264,7 +262,7 @@
 					routerLinkActive="router-link-active">Re-send email</button>
 				&nbsp;
 				<button type="button" class="btn btn-success"
-					(click)="this.POSTUpdatePurchaseOrderDetail()">Save</button>
+					(click)="this.PATCHUpdatePurchaseOrderDetail()">Save</button>
 			</ng-template>
 
 		</div>

@@ -7,7 +7,7 @@ export class AlertMessageService {
 
 	constructor() { }
 
-	public CreateAlertError(message: string,id_parent:string) {
+	public CreateAlertError(message: string,id_parent:string,time:number = 5000) {
 		var stringAlertError = `
 	<div class="alert alert-danger alert-dismissible fade show" role="alert">
 		<span><strong>Error:</strong> ${message}</span>
@@ -20,7 +20,7 @@ export class AlertMessageService {
 		this.CreateAlert(stringAlertError,id_parent)
 	}
 
-	public CreateAlertSuccess(message: string,id_parent:string) {
+	public CreateAlertSuccess(message: string,id_parent:string, time:number = 5000) {
 		var stringAlertSuccess = `
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
 		<span>${message}</span>
@@ -33,7 +33,7 @@ export class AlertMessageService {
 		this.CreateAlert(stringAlertSuccess,id_parent)
 	}
 
-	private CreateAlert(stringAlert: string,id_parent:string) {
+	private CreateAlert(stringAlert: string,id_parent:string,time:number = 5000) {
 		// create DOM element from string
 		var parser = new DOMParser();
 		var doc = parser.parseFromString(stringAlert, 'text/html')
@@ -44,6 +44,6 @@ export class AlertMessageService {
 			try {
 				parent.removeChild(parent.firstChild);
 			} catch (error) { }
-		}, 5000);
+		}, time);
 	}
 }

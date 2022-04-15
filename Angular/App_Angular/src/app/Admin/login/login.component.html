@@ -37,7 +37,7 @@
 
 
 		<div class="text-center mb-3">
-			<button class="btn btn-success btn-lg" (click)="this.SubmitLogin()">Login</button>
+			<button [disabled]="this.formLogin.invalid" class="btn btn-success btn-lg" (click)="this.SubmitLogin()">Login</button>
 		</div>
 	</div>
 

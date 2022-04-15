@@ -28,7 +28,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
             return Json(data);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public IActionResult UpdatePurchaseOrderDetail(string pod)
         {
 
@@ -37,7 +37,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
             return Json(status);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public IActionResult CancelPurchaseOrderDetail(string id)
         {
 

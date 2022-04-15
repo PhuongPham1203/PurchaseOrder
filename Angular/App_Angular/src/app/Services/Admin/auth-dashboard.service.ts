@@ -10,11 +10,13 @@ export class AuthDashboardService {
 	private tokenSubject : BehaviorSubject<string> = new BehaviorSubject<string>("");
 	private usernameSubject : BehaviorSubject<string> = new BehaviorSubject<string>("");
 
-	private authDataSubject: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(null);
-	public authData$: Observable<AuthData> = this.authDataSubject.asObservable();
-
+	
 	public token$ : Observable<string> = this.tokenSubject.asObservable();
 	public username$ : Observable<string> = this.usernameSubject.asObservable();
 
+	private authDataSubject: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(null);
+	public authData$: Observable<AuthData> = this.authDataSubject.asObservable();
+
+	 
 	constructor() { }
 }

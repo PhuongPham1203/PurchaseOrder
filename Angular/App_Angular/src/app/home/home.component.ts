@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertMessageService } from '../Services/alert-message.service';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit,AfterViewInit {
 	constructor(
 		private domainAPI: DomainAPIService,
 		private serverHttp: ServerHttpService,
-		public datetimeFormat : DatetimeService
+		public datetimeFormat : DatetimeService,
+		private alertMessage: AlertMessageService
 	) {
 
 	}
@@ -43,9 +45,11 @@ export class HomeComponent implements OnInit,AfterViewInit {
 		var url = this.domainAPI.getUrlPO() + "/purchaseorder/getlistpurchaseorder/"+index;
 		
 		this.serverHttp.getAPI(url).subscribe((data) => {
-			//console.log(data);
 			this.dataPO = data;
 			this.pageIndex = index;
+		},(error)=>{
+			console.log(error );
+			this.alertMessage.CreateAlertError(error,'all-alert',10000);
 		})
 	}
 

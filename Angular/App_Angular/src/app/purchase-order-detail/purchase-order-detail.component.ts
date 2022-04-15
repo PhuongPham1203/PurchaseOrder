@@ -66,6 +66,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 			}
 
+		},(error)=>{
+			console.log(error );
+			this.alertMessage.CreateAlertError(error,'all-alert',10000);
 		})
 	}
 
@@ -204,8 +207,8 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 
-	// POST : Update Purchase Order Detail
-	public POSTUpdatePurchaseOrderDetail() {
+	// Patch : Update Purchase Order Detail
+	public PATCHUpdatePurchaseOrderDetail() {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
 
 		var dataPOST = cloneDeep(this.dataPODetail);
@@ -216,7 +219,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		let body = new FormData();
 		body.append("pod", JSON.stringify(dataPOST));
 
-		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
 				this.alertMessage.CreateAlertSuccess(data,'all-alert');
 				//this.CreateAlertSuccess(data);
@@ -226,17 +229,20 @@ export class PurchaseOrderDetailComponent implements OnInit {
 				//this.CreateAlertError(data);
 			}
 			//console.log(data);
+		},(error)=>{
+			
+			this.alertMessage.CreateAlertError(error,'all-alert');
 		});
 	}
 
-	// POST : Cancel Purchase Order
+	// Patch : Cancel Purchase Order
 	private CancelPurchaseOrder(index) {
 
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
 		let body = new FormData();
 		body.append('id',""+index);
 
-		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
+		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
 				this.alertMessage.CreateAlertSuccess(data,'all-alert');
 				window.location.reload();
