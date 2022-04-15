@@ -19,7 +19,11 @@ import { LoadingComponent } from './Layouts/loading/loading.component';
 import { AlertPopupComponent } from './Layouts/alert-popup/alert-popup.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { LoginComponent } from './Admin/login/login.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
 	declarations: [
@@ -31,17 +35,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 		SendEmailComponent,
 		HeaderComponent,
 		LoadingComponent,
-		AlertPopupComponent
+		AlertPopupComponent,
+  LoginComponent,
+  DashboardComponent
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		AppRoutingModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 		NgbModule,
-		BrowserAnimationsModule,
-		MatProgressSpinnerModule
+		MatProgressSpinnerModule,
+		MatFormFieldModule,
+		MatNativeDateModule,
+		MatInputModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

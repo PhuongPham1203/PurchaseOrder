@@ -2,8 +2,21 @@
  <div class="container">
 	<nav class="navbar navbar-light bg-info">
 		<div class="container-fluid">
-			<span class="navbar-brand mb-0 h1"><a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">Purchase Order</a></span>
+			<span class="navbar-brand mb-0 h1">
+				<a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">Purchase Order</a>
+				
+			</span>
+			
+			
+			<div class="">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+					</li>
+				</ul>
+			</div>
 		</div>
+		
 	</nav>
 </div>
 <!--End Narbar-->
