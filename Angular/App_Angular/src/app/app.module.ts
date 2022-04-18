@@ -26,7 +26,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { LogoutComponent } from './Admin/logout/logout.component';
 
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
+import { reducer } from './Reducers/tutorial.reducer';
+import { AddItemComponent } from './Admin/add-item/add-item.component';
+
 
 @NgModule({
 	declarations: [
@@ -41,7 +44,8 @@ import { StoreModule } from '@ngrx/store';
 		AlertPopupComponent,
   LoginComponent,
   DashboardComponent,
-  LogoutComponent
+  LogoutComponent,
+  AddItemComponent
 	],
 	imports: [
 		BrowserModule,
@@ -54,8 +58,11 @@ import { StoreModule } from '@ngrx/store';
 		MatProgressSpinnerModule,
 		MatFormFieldModule,
 		MatNativeDateModule,
-		MatInputModule
+		MatInputModule,
 		
+		StoreModule.forRoot({
+			tutorial: reducer
+		})
 	],
 	providers: [
 		

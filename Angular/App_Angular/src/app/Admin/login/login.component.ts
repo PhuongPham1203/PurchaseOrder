@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { AuthDashboardService } from 'src/app/Services/Admin/auth-dashboard.service';
-import { AuthData } from 'src/app/Services/Admin/AuthData';
+import { AuthData } from 'src/app/Models/AuthData';
 
 
 export class MyErrorStateMatch implements ErrorStateMatcher {
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
 		if( this.auth.authenticator){
 			this.router.navigate(['/dashboard']);
-			console.log('auth==true -> dashboard');
+			//console.log('auth==true -> dashboard');
 		}
 	}
 

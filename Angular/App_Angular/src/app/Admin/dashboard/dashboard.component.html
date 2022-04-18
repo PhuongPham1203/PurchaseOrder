@@ -1,5 +1,24 @@
-<ng-container *ngIf="this.auth.authenticator">
+<div class="container">
 
-	<h1>{{this.auth|json}}</h1>
-	
-</ng-container>
+
+	<ng-container *ngIf="this.auth.authenticator">
+
+		<h1>{{this.auth|json}}</h1>
+
+		<app-add-item></app-add-item>
+
+		<div class="right">
+			<h3>Tutorials</h3>
+			<ul>
+				<li *ngFor="let tutorial of this.tutorials | async; let i = index">
+					<button class="btn btn-danger" (click)="delTutorial(i)">Delete</button> 
+					&nbsp;
+					<a [href]="tutorial.url" target="_blank">{{tutorial.name}}</a>
+				</li>
+			</ul>
+		</div>
+
+	</ng-container>
+
+
+</div>
