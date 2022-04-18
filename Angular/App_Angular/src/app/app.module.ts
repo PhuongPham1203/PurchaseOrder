@@ -26,6 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { LogoutComponent } from './Admin/logout/logout.component';
 
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
 	declarations: [
