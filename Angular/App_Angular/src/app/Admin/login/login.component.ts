@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { AuthDashboardService } from 'src/app/Services/Admin/auth-dashboard.service';
 import { AuthData } from 'src/app/Models/AuthData';
+import { CookieService } from 'ngx-cookie-service';
 
 
 export class MyErrorStateMatch implements ErrorStateMatcher {
@@ -28,16 +29,26 @@ export class LoginComponent implements OnInit {
 
 	public matcher = new MyErrorStateMatch();
 
-	public auth = null;
+	public auth:AuthData = new AuthData();
 
 	constructor(
 		private authServices: AuthDashboardService,
-		private router: Router
+		private router: Router,
+		private cookieService:CookieService
 	) { }
 
 	ngOnInit(): void {
-		this.authServices.authData$.subscribe(data => this.auth = data);
-
+		//this.authServices.authData$.subscribe(data => this.auth = data);
+		if(this.cookieService.check('authenticator')){
+			if(this.cookieService.get('authenticator')==='true'){
+				this.auth = new AuthData(
+					this.cookieService.get('token'),
+					this.cookieService.get('username'),
+					this.cookieService.get('authenticator')==='true',
+					);
+			}
+		}
+		
 		if( this.auth.authenticator){
 			this.router.navigate(['/dashboard']);
 			//console.log('auth==true -> dashboard');
@@ -48,7 +59,12 @@ export class LoginComponent implements OnInit {
 		//console.log(this.formLogin.value['emailForm']);
 
 		var auth = new AuthData("1287a878zxct7rzer2q89fda8cx",this.formLogin.value['emailForm'],true);
-		this.authServices.SetAuthData(auth);
+		
+		this.cookieService.set('username',auth.username);
+		this.cookieService.set('token',auth.token);
+		this.cookieService.set('authenticator', String( auth.authenticator));
+		
+		//this.authServices.SetAuthData(auth);
 
 		this.router.navigate(['/dashboard']);
 	}
