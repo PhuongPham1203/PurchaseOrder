@@ -1,16 +1,17 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
 import { ServerHttpService } from '../Services/server-http.service';
 import { cloneDeep } from 'lodash';
-import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AlertMessageService } from '../Services/alert-message.service';
 
 @Component({
 	selector: 'app-purchase-order-detail',
 	templateUrl: './purchase-order-detail.component.html',
-	styleUrls: ['./purchase-order-detail.component.css']
+	styleUrls: ['./purchase-order-detail.component.css'],
+	
 })
 
 
@@ -63,14 +64,14 @@ export class PurchaseOrderDetailComponent implements OnInit {
 				}
 
 			} catch (e) {
-				if(data==null){
-					this.alertMessage.CreateAlertError("This PO is not available",'all-alert',10000);		
+				if (data == null) {
+					this.alertMessage.CreateAlertError("This PO is not available", 'all-alert', 10000);
 				}
 			}
 
-		},(error)=>{
-			console.log(error );
-			this.alertMessage.CreateAlertError(error,'all-alert',10000);
+		}, (error) => {
+			console.log(error);
+			this.alertMessage.CreateAlertError(error, 'all-alert', 10000);
 		})
 	}
 
@@ -216,8 +217,8 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		var dataPOST = cloneDeep(this.dataPODetail);
 		delete dataPOST.listAvailablePart;
 
-		if(this.dataPODetail.purchaseOrderLines.length==0){
-			this.alertMessage.CreateAlertError('The PO must have at least one PO line!','all-alert');
+		if (this.dataPODetail.purchaseOrderLines.length == 0) {
+			this.alertMessage.CreateAlertError('The PO must have at least one PO line!', 'all-alert');
 			return;
 		}
 
@@ -226,17 +227,17 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.alertMessage.CreateAlertSuccess(data,'all-alert');
+				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
 				//this.CreateAlertSuccess(data);
 			} else {
-				this.alertMessage.CreateAlertError(data,'all-alert');
+				this.alertMessage.CreateAlertError(data, 'all-alert');
 
 				//this.CreateAlertError(data);
 			}
 			//console.log(data);
-		},(error)=>{
-			
-			this.alertMessage.CreateAlertError(error,'all-alert');
+		}, (error) => {
+
+			this.alertMessage.CreateAlertError(error, 'all-alert');
 		});
 	}
 
@@ -245,16 +246,16 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
 		let body = new FormData();
-		body.append('id',""+index);
+		body.append('id', "" + index);
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.alertMessage.CreateAlertSuccess(data,'all-alert');
+				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
 				window.location.reload();
 			} else {
-				this.alertMessage.CreateAlertError(data,'all-alert');
+				this.alertMessage.CreateAlertError(data, 'all-alert');
 			}
-			
+
 		});
 
 	}
@@ -262,7 +263,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	public OpenModalCancel(content) {
 		//console.log("click open modal");
 		this.ngbModal.open(content).result.then((result) => {
-			
+
 			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
 			//console.log(result);
 		}, (reason) => {
@@ -281,7 +282,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 
-	
 
-	
+
+
 }
