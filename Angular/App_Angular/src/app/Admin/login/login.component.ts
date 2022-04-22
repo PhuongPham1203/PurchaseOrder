@@ -56,6 +56,9 @@ export class LoginComponent implements OnInit {
 	}
 
 	public SubmitLogin() {
+
+		//Submit username and pass to server then get token
+
 		//console.log(this.formLogin.value['emailForm']);
 
 		var auth = new AuthData("1287a878zxct7rzer2q89fda8cx",this.formLogin.value['emailForm'],true);

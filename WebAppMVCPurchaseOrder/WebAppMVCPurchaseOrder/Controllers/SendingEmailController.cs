@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
-using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
 using WebAppMVCPurchaseOrder.Services.SendEmailServices;
 
 namespace WebAppMVCPurchaseOrder.Controllers
