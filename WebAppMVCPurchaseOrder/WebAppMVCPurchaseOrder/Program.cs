@@ -22,6 +22,10 @@ builder.Services.AddScoped<SendEmailServices>();
 builder.Services.AddScoped<PurchaseOrderServices>();
 builder.Services.AddScoped<PurchaseOrderDetailServices>();
 
+// Add Logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

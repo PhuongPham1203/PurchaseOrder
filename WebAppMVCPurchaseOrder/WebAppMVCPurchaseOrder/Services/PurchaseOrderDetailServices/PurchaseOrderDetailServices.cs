@@ -8,9 +8,12 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 {
     public class PurchaseOrderDetailServices
     {
+        private readonly ILogger _logger;
+
         private PORepositoryServices pors;
-        public PurchaseOrderDetailServices(PORepositoryServices porServices) { 
+        public PurchaseOrderDetailServices(PORepositoryServices porServices,ILogger<PurchaseOrderDetailServices> logger) { 
             pors = porServices;
+            _logger = logger;
         }
 
         public IModel GetPurchaseOrderDetail(int indexPO)
@@ -22,6 +25,8 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
             {
                 poDetail.ListAvailablePart = (List<Part>)pors.PurchaseOrderDetail.GetListPart();
             }
+
+            //_logger.LogInformation("test log: Print Hello world - Get PO Detail");
 
             return poDetail;
         }

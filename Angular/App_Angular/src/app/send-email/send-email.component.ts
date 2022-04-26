@@ -37,6 +37,14 @@ export class SendEmailComponent implements OnInit {
 	private UpdateSendingEmail(index) {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/GetSendEmailDetail/" + index;
 		this.serverHttp.getAPI(url).subscribe((data) => {
+			
+			if (data == null) {
+				this.alertMessage.CreateAlertError("This PO is not available", 'all-alert', 10000);
+				setTimeout(()=>{
+					this.router.navigate(['/'])
+				},3000 );
+			}
+			
 			this.dataSendingEmail = data;
 			if (this.dataSendingEmail.cancelPo == true) {
 				this.router.navigate(['/'])

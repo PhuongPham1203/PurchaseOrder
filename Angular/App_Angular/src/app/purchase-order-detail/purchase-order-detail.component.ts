@@ -47,12 +47,9 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
 			this.dataPODetail = data;
-			//console.log(this.dataPODetail);
-
+			
 			try {
 				this.dataPODetail.orderDate = this.datetimeFormat.string2DataInputForm(this.dataPODetail.orderDate);
-
-				//this.listPartsAvailableSelect = cloneDeep(this.dataPODetail.listAvailablePart);
 
 				for (let i = 0; i < this.dataPODetail.purchaseOrderLines.length; i++) {
 					var dateInput = this.datetimeFormat.string2DataInputForm(this.dataPODetail.purchaseOrderLines[i].orderDate);
@@ -67,6 +64,10 @@ export class PurchaseOrderDetailComponent implements OnInit {
 				if (data == null) {
 					this.alertMessage.CreateAlertError("This PO is not available", 'all-alert', 10000);
 				}
+
+				setTimeout(()=>{
+					this.router.navigate(['/'])
+				},3000 );
 			}
 
 		}, (error) => {
@@ -228,13 +229,10 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
 				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
-				//this.CreateAlertSuccess(data);
 			} else {
 				this.alertMessage.CreateAlertError(data, 'all-alert');
-
-				//this.CreateAlertError(data);
 			}
-			//console.log(data);
+			
 		}, (error) => {
 
 			this.alertMessage.CreateAlertError(error, 'all-alert');
@@ -265,7 +263,6 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.ngbModal.open(content).result.then((result) => {
 
 			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
-			//console.log(result);
 		}, (reason) => {
 			//console.log(this.GetDismissReason(reason));
 		});
