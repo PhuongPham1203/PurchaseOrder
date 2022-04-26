@@ -20,6 +20,7 @@ import { LoadingComponent } from './Layouts/loading/loading.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
 import { SendEmailComponent } from './send-email/send-email.component';
+import { InternationalizationComponent } from './Layouts/internationalization/internationalization.component';
 
 
 
@@ -38,6 +39,7 @@ import { SendEmailComponent } from './send-email/send-email.component';
 		HeaderComponent,
 		LoadingComponent,
 		AlertPopupComponent,
+  InternationalizationComponent,
 		
 	],
 	imports: [
