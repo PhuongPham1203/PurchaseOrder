@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit ,LOCALE_ID, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertMessageService } from '../Services/alert-message.service';
 import { DatetimeService } from '../Services/datetime.service';
 import { DomainAPIService } from '../Services/domain-api.service';
@@ -15,7 +16,10 @@ export class HomeComponent implements OnInit,AfterViewInit {
 		private domainAPI: DomainAPIService,
 		private serverHttp: ServerHttpService,
 		public datetimeFormat : DatetimeService,
-		private alertMessage: AlertMessageService
+		private alertMessage: AlertMessageService,
+		private route: ActivatedRoute,
+		private router: Router,
+		@Inject(LOCALE_ID) private locale:string
 	) {
 
 	}
@@ -29,19 +33,24 @@ export class HomeComponent implements OnInit,AfterViewInit {
 	public paginationIndex = [-2,-1,0,1,2];
 
 	ngOnInit(): void {
+		let index:number = 0;
+		if(this.route.snapshot.paramMap.get('id')!=null){
+			index = parseInt( this.route.snapshot.paramMap.get('id') )*10;
+		}
+		
 
-		this.LoadingListPurchaserOrder(0);
-		this.LoadingPagination()		
+		this.loadingListPurchaserOrder(index);
+		this.loadingPagination()		
 		
 	}
 
 	ngAfterViewInit(): void {
-		
+		//console.log(this.locale);
 	}
 
 
 	// display List Purchase Order
-	public LoadingListPurchaserOrder(index) {
+	public loadingListPurchaserOrder(index) {
 		var url = this.domainAPI.getUrlPO() + "/purchaseorder/getlistpurchaseorder/"+index;
 		
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -49,11 +58,11 @@ export class HomeComponent implements OnInit,AfterViewInit {
 			this.pageIndex = index;
 		},(error)=>{
 			console.log(error );
-			this.alertMessage.CreateAlertError(error,'all-alert',10000);
+			this.alertMessage.createAlertError(error,'all-alert',10000);
 		})
 	}
 
-	public LoadingPagination(){
+	public loadingPagination(){
 		var url = this.domainAPI.getUrlPO() + "/purchaseorder/getlengthlistpo";
 		
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -62,20 +71,24 @@ export class HomeComponent implements OnInit,AfterViewInit {
 		})
 	}
 
-	public LoadPreviousPage(){
+	public loadPreviousPage(){
 		
 		if(this.pageIndex-this.pageSize>=0){
-			this.LoadingListPurchaserOrder(this.pageIndex-this.pageSize);
+			this.loadingListPurchaserOrder(this.pageIndex-this.pageSize);
 		}
 
 	}
-	public LoadNextPage(){
+	public loadNextPage(){
+		/*
+		console.log((this.pageIndex+this.pageSize)/10);
+		this.router.navigate(["/purchaseorder",(this.pageIndex+this.pageSize)/10]);
+		*/
 		if(this.pageIndex<this.lengthPO){
-			this.LoadingListPurchaserOrder(this.pageIndex+this.pageSize);
+			this.loadingListPurchaserOrder(this.pageIndex+this.pageSize);
 		}
 	}
 
-	public HiddenIndexPagination(index:number){
+	public hiddenIndexPagination(index:number){
 		return this.pageIndex/this.pageSize+1+index<=0 || this.pageSize*(this.pageIndex/this.pageSize+index)>=this.lengthPO;
 	}
 }

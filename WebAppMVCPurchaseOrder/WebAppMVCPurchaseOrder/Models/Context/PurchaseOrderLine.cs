@@ -1,9 +1,9 @@
-﻿using WebAppMVCPurchaseOrder.Models.Context;
+﻿using System;
+using System.Collections.Generic;
 
-
-namespace WebAppMVCPurchaseOrder.Models
+namespace WebAppMVCPurchaseOrder.Models.Context
 {
-    public partial class PurchaseOrderLine:IModel
+    public partial class PurchaseOrderLine
     {
         public int Id { get; set; }
         public int IdPurchaseOrder { get; set; }

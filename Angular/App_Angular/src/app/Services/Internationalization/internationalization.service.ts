@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class InternationalizationService {
 
-	private localizationSubject: BehaviorSubject<string> = new BehaviorSubject<string>("en-GB");
+	private localizationSubject: BehaviorSubject<string> = new BehaviorSubject<string>("en");
 	public localization$ : Observable<string> = this.localizationSubject.asObservable();
 
 	constructor() { }

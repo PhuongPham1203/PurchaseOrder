@@ -7,29 +7,24 @@
 
 			</span>
 
-			<!--Start for Learn-->
-			<!--
 			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link active" [routerLink]="['/dashboard']"
-							routerLinkActive="router-link-active">Dashboard</a>
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item me-3">
+						<a class="nav-link active" routerLink="dashboard">Dashboard</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" [routerLink]="['/login']"
-							routerLinkActive="router-link-active">Login</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" [routerLink]="['/logout']"
-							routerLinkActive="router-link-active">Logout</a>
+						<a class="nav-link active" routerLink="purchaseorder" appHighlight>Purchase Order</a>
 					</li>
 				</ul>
+				
 			</div>
-			-->
-			<!--End for Learn-->
+
 
 			<!--Start Internationalization-->
 			<div class="d-flex">
+				<button class="btn btn-success btn-sm" [routerLink]="['login']">Login</button>
+				<button class="btn btn-success btn-sm" [routerLink]="['logout']">Logout</button>
+				&nbsp;
 				<app-internationalization></app-internationalization>
 			</div>
 			<!--End Internationalization-->

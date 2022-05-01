@@ -1,5 +1,7 @@
 
-using WebAppMVCPurchaseOrder.Models;
+using Microsoft.EntityFrameworkCore;
+using WebAppMVCPurchaseOrder.Interfaces.Services;
+using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
 using WebAppMVCPurchaseOrder.Services.RepositoryServices;
@@ -17,10 +19,14 @@ builder.Services.AddCors();
 
 // Add Services
 builder.Services.AddScoped<purchaseorderContext>();
-builder.Services.AddScoped<PORepositoryServices>();
+builder.Services.AddScoped<IRepositoryServices, PORepositoryServices>();
 builder.Services.AddScoped<SendEmailServices>();
 builder.Services.AddScoped<PurchaseOrderServices>();
-builder.Services.AddScoped<PurchaseOrderDetailServices>();
+builder.Services.AddScoped<IPurchaseOrderDetailServices, PurchaseOrderDetailServices>();
+
+builder.Services.AddDbContext<purchaseorderContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaulSqlServerConnection"));
+});
 
 // Add Logging
 builder.Logging.ClearProviders();

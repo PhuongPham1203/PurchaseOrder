@@ -1,8 +1,9 @@
-﻿using WebAppMVCPurchaseOrder.Models.Context;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebAppMVCPurchaseOrder.Models
+namespace WebAppMVCPurchaseOrder.Models.Context
 {
-    public partial class Supplier : IModel
+    public partial class Supplier
     {
         public Supplier()
         {

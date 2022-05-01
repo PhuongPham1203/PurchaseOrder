@@ -1,0 +1,32 @@
+<div class="container mt-5 ">
+	<div class="d-flex justify-content-center ">
+		<form class="" [formGroup]="this.loginForm" (ngSubmit)="this.onSubmit()">
+
+			<div>
+				<mat-form-field appearance="fill" class="input-login">
+					<mat-label>Email</mat-label>
+					<input type="text" matInput placeholder="Enter Username" formControlName="username">
+					<mat-error appValidateInputLogin [errorInvalid]="this.loginForm.get('username').invalid" [touched]="this.loginForm.touched">
+						Username is invalid 
+					</mat-error>
+				</mat-form-field>
+			</div>
+
+			<div>
+				<mat-form-field appearance="fill" class="input-login">
+					<mat-label>Password</mat-label>
+					<input type="password" matInput placeholder="Enter Password" formControlName="password">
+					<mat-error appValidateInputLogin [errorInvalid]="this.loginForm.get('password').invalid" [touched]="this.loginForm.touched">
+						Password is invalid 
+					</mat-error>
+				</mat-form-field>
+				
+			</div>
+			<div class="d-flex justify-content-end ">
+				<button type="submit" class="btn btn-success">Login</button>
+			</div>
+
+		</form>
+	</div>
+
+</div>

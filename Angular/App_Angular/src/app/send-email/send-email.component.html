@@ -84,10 +84,10 @@
 		<div class="col-11">
 			<input type="email" class="form-control" 
 			[ngClass]="{
-				'border border-danger':this.CheckEmailToNotValid()
+				'border border-danger':this.checkEmailToNotValid()
 			}"
 			[(ngModel)]="this.dataSendingEmail.orderSendToEmail" required>
-			<span [hidden]="!this.CheckEmailToNotValid()" class="text-danger">Email is invalid!!!</span>
+			<span [hidden]="!this.checkEmailToNotValid()" class="text-danger">Email is invalid!!!</span>
 		</div>
 
 		<div class="col-1">
@@ -96,10 +96,10 @@
 		<div class="col-11">
 			<input type="email" class="form-control"
 			[ngClass]="{
-				'border border-danger':this.CheckEmailCCNotValid()
+				'border border-danger':this.checkEmailCCNotValid()
 			}"
 			[(ngModel)]="this.dataSendingEmail.orderSendToEmailCc" >
-			<span [hidden]="!this.CheckEmailCCNotValid()" class="text-danger">Email is invalid!!!</span>
+			<span [hidden]="!this.checkEmailCCNotValid()" class="text-danger">Email is invalid!!!</span>
 		</div>
 
 		<div class="col-1">
@@ -124,7 +124,7 @@
 						<span><i class="fa fa-light fa-ban"></i></span> Sent email later, go to PO tab
 					</button>
 					&nbsp;
-					<button type="button" class="btn btn-success" (click)="this.PostSendEmail()">
+					<button type="button" class="btn btn-success" (click)="this.postSendEmail()">
 						<span><i class="fa fa-light fa-envelope"></i></span> Send 1 email(s)
 					</button>
 				</div>

@@ -1,17 +1,18 @@
 ﻿using Newtonsoft.Json;
-using WebAppMVCPurchaseOrder.Models;
+using WebAppMVCPurchaseOrder.Interfaces.Services;
 using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository;
 using WebAppMVCPurchaseOrder.Services.RepositoryServices;
 
 namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices
 {
-    public class PurchaseOrderDetailServices
+
+    public class PurchaseOrderDetailServices : IPurchaseOrderDetailServices
     {
         private readonly ILogger _logger;
 
-        private PORepositoryServices pors;
-        public PurchaseOrderDetailServices(PORepositoryServices porServices,ILogger<PurchaseOrderDetailServices> logger) { 
+        private IRepositoryServices pors;
+        public PurchaseOrderDetailServices(IRepositoryServices porServices,ILogger<PurchaseOrderDetailServices> logger) { 
             pors = porServices;
             _logger = logger;
         }

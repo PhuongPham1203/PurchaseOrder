@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WebAppMVCPurchaseOrder.Models
+namespace WebAppMVCPurchaseOrder.Models.Context
 {
     public partial class purchaseorderContext : DbContext
     {
-        // command create model from database :
-        // dotnet ef DBContext scaffold "Server=DESKTOP-RGUBRDT\PHAMPCSQLSERVER;Database=purchaseorder;User Id=adminpurchaseorder;Password=123456" Microsoft.EntityFrameworkCore.SqlServer -o Models
-        // Scaffold-DbContext "Server=DESKTOP-RGUBRDT\PHAMPCSQLSERVER;Database=purchaseorder;Trusted_Connection=True;User Id=adminpurchaseorder;Password=123456" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
-
         public purchaseorderContext()
         {
         }
@@ -17,22 +16,27 @@ namespace WebAppMVCPurchaseOrder.Models
         {
         }
 
+        public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Part> Parts { get; set; } = null!;
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; } = null!;
         public virtual DbSet<PurchaseOrderLine> PurchaseOrderLines { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-RGUBRDT\\PHAMPCSQLSERVER;Database=purchaseorder;Trusted_Connection=True;User Id=adminpurchaseorder;Password=123456");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Department>(entity =>
+            {
+                entity.ToTable("department");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+            });
+
             modelBuilder.Entity<Part>(entity =>
             {
                 entity.ToTable("part");
@@ -123,8 +127,6 @@ namespace WebAppMVCPurchaseOrder.Models
 
             modelBuilder.Entity<PurchaseOrderLine>(entity =>
             {
-                //entity.HasNoKey();
-
                 entity.ToTable("purchase_order_line");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -161,13 +163,13 @@ namespace WebAppMVCPurchaseOrder.Models
                     .HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.IdPartNavigation)
-                    .WithMany()
+                    .WithMany(p => p.PurchaseOrderLines)
                     .HasForeignKey(d => d.IdPart)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_purchase_order_line_part");
 
                 entity.HasOne(d => d.IdPurchaseOrderNavigation)
-                    .WithMany()
+                    .WithMany(p => p.PurchaseOrderLines)
                     .HasForeignKey(d => d.IdPurchaseOrder)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_purchase_order_line_purchase_order");
@@ -194,6 +196,33 @@ namespace WebAppMVCPurchaseOrder.Models
                 entity.Property(e => e.SupplierShortname)
                     .HasMaxLength(255)
                     .HasColumnName("supplier_shortname");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("user");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.IdDepartment).HasColumnName("id_department");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .HasColumnName("password");
+
+                entity.Property(e => e.Token)
+                    .HasMaxLength(50)
+                    .HasColumnName("token");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(25)
+                    .HasColumnName("username");
+
+                entity.HasOne(d => d.IdDepartmentNavigation)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.IdDepartment)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_user");
             });
 
             OnModelCreatingPartial(modelBuilder);

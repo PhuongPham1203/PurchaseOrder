@@ -8,8 +8,8 @@ namespace WebAppMVCPurchaseOrder.Services.SendEmailServices
 {
     public class SendEmailServices
     {
-        private PORepositoryServices pors;
-        public SendEmailServices(PORepositoryServices porServices) {
+        private IRepositoryServices pors;
+        public SendEmailServices(IRepositoryServices porServices) {
             pors = porServices;
         }
 

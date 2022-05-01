@@ -7,7 +7,7 @@ export class AlertMessageService {
 
 	constructor() { }
 
-	public CreateAlertError(message: string,id_parent:string,time:number = 5000) {
+	public createAlertError(message: string,id_parent:string,time:number = 5000) {
 		var stringAlertError = `
 	<div class="alert alert-danger alert-dismissible fade show" role="alert">
 		<span><strong>Error:</strong> ${message}</span>
@@ -17,10 +17,10 @@ export class AlertMessageService {
 	</div>`
 
 		// create DOM element from string
-		this.CreateAlert(stringAlertError,id_parent)
+		this.createAlert(stringAlertError,id_parent)
 	}
 
-	public CreateAlertSuccess(message: string,id_parent:string, time:number = 5000) {
+	public createAlertSuccess(message: string,id_parent:string, time:number = 5000) {
 		var stringAlertSuccess = `
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
 		<span>${message}</span>
@@ -30,10 +30,10 @@ export class AlertMessageService {
 	</div>`
 
 		// create DOM element from string
-		this.CreateAlert(stringAlertSuccess,id_parent)
+		this.createAlert(stringAlertSuccess,id_parent)
 	}
 
-	private CreateAlert(stringAlert: string,id_parent:string,time:number = 5000) {
+	private createAlert(stringAlert: string,id_parent:string,time:number = 5000) {
 		// create DOM element from string
 		var parser = new DOMParser();
 		var doc = parser.parseFromString(stringAlert, 'text/html')

@@ -31,15 +31,15 @@ export class SendEmailComponent implements OnInit {
 
 		var index = this.route.snapshot.paramMap.get('id');
 
-		this.UpdateSendingEmail(index);
+		this.updateSendingEmail(index);
 	}
 
-	private UpdateSendingEmail(index) {
+	private updateSendingEmail(index) {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/GetSendEmailDetail/" + index;
 		this.serverHttp.getAPI(url).subscribe((data) => {
 			
 			if (data == null) {
-				this.alertMessage.CreateAlertError("This PO is not available", 'all-alert', 10000);
+				this.alertMessage.createAlertError("This PO is not available", 'all-alert', 10000);
 				setTimeout(()=>{
 					this.router.navigate(['/'])
 				},3000 );
@@ -51,13 +51,13 @@ export class SendEmailComponent implements OnInit {
 			}
 			if (!this.dataSendingEmail.sendEmail) {
 
-				this.LoadDefaulEmail()
+				this.loadDefaulEmail()
 			}
 
 		});
 	}
 
-	private LoadDefaulEmail() {
+	private loadDefaulEmail() {
 
 		this.dataSendingEmail.orderSendFromEmail = this.dataSendingEmail.stockSite + "@abc.com";
 		this.dataSendingEmail.orderSendToEmail = this.dataSendingEmail.supplierShortname + "@abc.com";
@@ -86,7 +86,7 @@ export class SendEmailComponent implements OnInit {
 
 	}
 
-	public PostSendEmail() {
+	public postSendEmail() {
 		var url = this.domainAPI.getUrlPO() + "/SendingEmail/PostSendEmailDetail";
 
 		var dataPOST = cloneDeep(this.dataSendingEmail);
@@ -97,10 +97,10 @@ export class SendEmailComponent implements OnInit {
 		this.serverHttp.postAPIWithData(url, body).subscribe((data) => {
 
 			if (data == "Update Success") {
-				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
+				this.alertMessage.createAlertSuccess(data, 'all-alert');
 				
 			} else {
-				this.alertMessage.CreateAlertError(data, 'all-alert')
+				this.alertMessage.createAlertError(data, 'all-alert')
 			}
 
 		});
@@ -108,14 +108,14 @@ export class SendEmailComponent implements OnInit {
 
 	
 
-	public CheckEmailToNotValid(): boolean {
+	public checkEmailToNotValid(): boolean {
 		var str = this.dataSendingEmail.orderSendToEmail;
 		if (str.includes('@')) {
 			return false;
 		}
 		return true;
 	}
-	public CheckEmailCCNotValid() {
+	public checkEmailCCNotValid() {
 		var str = this.dataSendingEmail.orderSendToEmailCc;
 		if (str == null || str == '') {
 

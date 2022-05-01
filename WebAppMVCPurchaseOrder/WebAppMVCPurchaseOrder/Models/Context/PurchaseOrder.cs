@@ -1,9 +1,15 @@
-﻿using WebAppMVCPurchaseOrder.Models.Context;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebAppMVCPurchaseOrder.Models
+namespace WebAppMVCPurchaseOrder.Models.Context
 {
-    public partial class PurchaseOrder:IModel
+    public partial class PurchaseOrder
     {
+        public PurchaseOrder()
+        {
+            PurchaseOrderLines = new HashSet<PurchaseOrderLine>();
+        }
+
         public int OrderNo { get; set; }
         public int IdSupplier { get; set; }
         public DateTime? OrderDate { get; set; }
@@ -21,5 +27,6 @@ namespace WebAppMVCPurchaseOrder.Models
         public string? EmailContent { get; set; }
 
         public virtual Supplier IdSupplierNavigation { get; set; } = null!;
+        public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; set; }
     }
 }

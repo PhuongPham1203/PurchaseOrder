@@ -5,8 +5,8 @@ namespace WebAppMVCPurchaseOrder.Services.PurchaseOrderServices
 {
     public class PurchaseOrderServices
     {
-        private PORepositoryServices pors;
-        public PurchaseOrderServices(PORepositoryServices porServices)
+        private IRepositoryServices pors;
+        public PurchaseOrderServices(IRepositoryServices porServices)
         {
             pors = porServices;
         }

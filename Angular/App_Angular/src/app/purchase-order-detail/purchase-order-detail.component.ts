@@ -36,13 +36,13 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		//var index = this.router.url.split("/").pop()
 		var index = this.route.snapshot.paramMap.get('id');
 
-		this.UpdatePurchaseOrderDetail(index);
+		this.updatePurchaseOrderDetail(index);
 
 
 	}
 
 	// display Purchase Order Detail
-	private UpdatePurchaseOrderDetail(index) {
+	private updatePurchaseOrderDetail(index) {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/GetPurchaseOrderDetail/" + index;
 
 		this.serverHttp.getAPI(url).subscribe((data) => {
@@ -62,7 +62,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 			} catch (e) {
 				if (data == null) {
-					this.alertMessage.CreateAlertError("This PO is not available", 'all-alert', 10000);
+					this.alertMessage.createAlertError("This PO is not available", 'all-alert', 10000);
 				}
 
 				setTimeout(()=>{
@@ -72,12 +72,12 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		}, (error) => {
 			console.log(error);
-			this.alertMessage.CreateAlertError(error, 'all-alert', 10000);
+			this.alertMessage.createAlertError(error, 'all-alert', 10000);
 		})
 	}
 
 	// sum price of all PO Line in PO
-	public TotalPricePO() {
+	public totalPricePO() {
 		var sum = 0;
 		for (let item of this.dataPODetail.purchaseOrderLines) {
 			sum += item.qtyOrdered * item.m2BuyPrice
@@ -88,11 +88,11 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 
 
-	public RemoveMultipleItemFromList(original, remove) {
+	public removeMultipleItemFromList(original, remove) {
 		return original.filter(value => !remove.includes(value));
 	}
 
-	public GetItemInListBy_PartNumber(listParts, partNumber) {
+	public getItemInListBy_PartNumber(listParts, partNumber) {
 		var part = null;
 		listParts.forEach((value, index) => {
 			if (value.partNumber === partNumber) {
@@ -103,7 +103,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		return part;
 	}
 
-	public RemoveItemInListBy_PartNumber(listParts, partNumber) {
+	public removeItemInListBy_PartNumber(listParts, partNumber) {
 		listParts.forEach((value, index) => {
 			if (value.partNumber == partNumber) {
 				listParts.splice(index, 1);
@@ -112,7 +112,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		return listParts;
 	}
 
-	public GetListPartCanSelectedInPOL(except) {
+	public getListPartCanSelectedInPOL(except) {
 
 		var listPart = cloneDeep(this.dataPODetail.listAvailablePart);
 		var listPS = cloneDeep(this.listPartNumberSelected);
@@ -120,19 +120,19 @@ export class PurchaseOrderDetailComponent implements OnInit {
 			if (value == except) listPS.splice(index, 1);
 		});
 		for (let pn of listPS) {
-			listPart = this.RemoveItemInListBy_PartNumber(listPart, pn);
+			listPart = this.removeItemInListBy_PartNumber(listPart, pn);
 		}
 
 		return listPart;
 	}
 
-	public OnChangePartNumberOnPOLine(event, indexPOL_In_purchaseOrderLines) {
+	public onChangePartNumberOnPOLine(event, indexPOL_In_purchaseOrderLines) {
 
 		var partNumberOnChange = event.target.value;
-		var partOnChange = this.GetItemInListBy_PartNumber(this.dataPODetail.listAvailablePart, partNumberOnChange);
+		var partOnChange = this.getItemInListBy_PartNumber(this.dataPODetail.listAvailablePart, partNumberOnChange);
 
 		var partNumberCurrent = this.dataPODetail.purchaseOrderLines[indexPOL_In_purchaseOrderLines].partNumber;
-		var partCurrent = this.GetItemInListBy_PartNumber(this.dataPODetail.listAvailablePart, partNumberCurrent);
+		var partCurrent = this.getItemInListBy_PartNumber(this.dataPODetail.listAvailablePart, partNumberCurrent);
 
 		// delete partNumber current in List Part Number Selected
 		this.listPartNumberSelected.forEach((value, index) => {
@@ -145,11 +145,11 @@ export class PurchaseOrderDetailComponent implements OnInit {
 		this.listPartNumberSelected.push(partNumberOnChange);
 
 		// change part in PO Line in PO Detail
-		this.ChangePOLine_In_PODetail(indexPOL_In_purchaseOrderLines, partOnChange);
+		this.changePOLine_In_PODetail(indexPOL_In_purchaseOrderLines, partOnChange);
 
 	}
 
-	public ChangePOLine_In_PODetail(idPOLine, part) {
+	public changePOLine_In_PODetail(idPOLine, part) {
 		this.dataPODetail.purchaseOrderLines[idPOLine].idPart = part.id;
 		this.dataPODetail.purchaseOrderLines[idPOLine].partNumber = part.partNumber;
 		this.dataPODetail.purchaseOrderLines[idPOLine].partDescripttion = part.partDescripttion;
@@ -163,12 +163,12 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 	// Add Purchase Order Line
-	public AddPurchaseOrderLine() {
+	public addPurchaseOrderLine() {
 		if (this.listPartNumberSelected.length == this.dataPODetail.listAvailablePart.length) {
 			alert("Cant Add More Purchase order Line!");
 			return;
 		}
-		var part = this.GetListPartCanSelectedInPOL(null)[0];
+		var part = this.getListPartCanSelectedInPOL(null)[0];
 		var pol = {
 			"id": 0,
 			"idPurchaseOrder": this.dataPODetail.orderNo,
@@ -191,7 +191,7 @@ export class PurchaseOrderDetailComponent implements OnInit {
 	}
 
 	// delete column POL in PO 
-	public DeletePurchaseOrderLine(indexPOL) {
+	public deletePurchaseOrderLine(indexPOL) {
 
 		if (this.listPartNumberSelected.length <= 1) {
 			alert("Waring: The PO must have at least one PO line!");
@@ -212,14 +212,14 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 
 	// Patch : Update Purchase Order Detail
-	public PATCHUpdatePurchaseOrderDetail() {
+	public pacthUpdatePurchaseOrderDetail() {
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/UpdatePurchaseOrderDetail";
 
 		var dataPOST = cloneDeep(this.dataPODetail);
 		delete dataPOST.listAvailablePart;
 
 		if (this.dataPODetail.purchaseOrderLines.length == 0) {
-			this.alertMessage.CreateAlertError('The PO must have at least one PO line!', 'all-alert');
+			this.alertMessage.createAlertError('The PO must have at least one PO line!', 'all-alert');
 			return;
 		}
 
@@ -228,19 +228,19 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
+				this.alertMessage.createAlertSuccess(data, 'all-alert');
 			} else {
-				this.alertMessage.CreateAlertError(data, 'all-alert');
+				this.alertMessage.createAlertError(data, 'all-alert');
 			}
 			
 		}, (error) => {
 
-			this.alertMessage.CreateAlertError(error, 'all-alert');
+			this.alertMessage.createAlertError(error, 'all-alert');
 		});
 	}
 
 	// Patch : Cancel Purchase Order
-	private CancelPurchaseOrder(index) {
+	private cancelPurchaseOrder(index) {
 
 		var url = this.domainAPI.getUrlPO() + "/PurchaseOrderDetail/CancelPurchaseOrderDetail";
 		let body = new FormData();
@@ -248,27 +248,27 @@ export class PurchaseOrderDetailComponent implements OnInit {
 
 		this.serverHttp.patchAPIWithData(url, body).subscribe((data) => {
 			if (data == "Update Success") {
-				this.alertMessage.CreateAlertSuccess(data, 'all-alert');
+				this.alertMessage.createAlertSuccess(data, 'all-alert');
 				window.location.reload();
 			} else {
-				this.alertMessage.CreateAlertError(data, 'all-alert');
+				this.alertMessage.createAlertError(data, 'all-alert');
 			}
 
 		});
 
 	}
 
-	public OpenModalCancel(content) {
+	public openModalCancel(content) {
 		//console.log("click open modal");
 		this.ngbModal.open(content).result.then((result) => {
 
-			this.CancelPurchaseOrder(this.dataPODetail.orderNo);
+			this.cancelPurchaseOrder(this.dataPODetail.orderNo);
 		}, (reason) => {
 			//console.log(this.GetDismissReason(reason));
 		});
 	}
 
-	private GetDismissReason(reason): string {
+	private getDismissReason(reason): string {
 		if (reason === ModalDismissReasons.ESC) {
 			return "click ESC";
 		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

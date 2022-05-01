@@ -2,6 +2,7 @@
 	<app-loading></app-loading>
 </ng-container>
 
+
 <br />
 <div id="all-alert" class="alert-z-index1">
 </div>
@@ -15,11 +16,11 @@
 			<tr>
 				<th i18n="@@orderNo">Order No</th>
 				<th i18n="@@supplier">Supplier</th>
-				<th>Stock Site</th>
-				<th>Stock Name</th>
-				<th>Ord Date</th>
-				<th>Last Update</th>
-				<th>Sent Email</th>
+				<th i18n="@@stockSite">Stock Site</th>
+				<th i18n="@@stockName">Stock Name</th>
+				<th i18n="@@orderDate">Ord Date</th>
+				<th i18n="@@lastUpdate">Last Update</th>
+				<th i18n="@@sentEmail">Sent Email</th>
 			</tr>
 		</thead>
 		<!--End Head-->
@@ -34,8 +35,8 @@
 				<td><span>{{item.supplierName}}</span></td>
 				<td><span>{{item.stockSite}}</span></td>
 				<td><span>{{item.stockName}}</span></td>
-				<td><span>{{datetimeFormat.string2DatetimeFormat(item.orderDate)}}</span></td>
-				<td><span>{{datetimeFormat.string2DatetimeFormat(item.lastUpdate)}}</span></td>
+				<td><span>{{item.orderDate | datetimelocal}} </span></td>
+				<td><span>{{item.lastUpdate | datetimelocal}}</span></td>
 
 				<td *ngIf="item.sendEmail==true"><input type="checkbox" checked disabled="disabled" /></td>
 
@@ -53,7 +54,7 @@
 		
 		<ul class="pagination">
 			<li class="page-item"><button [disabled]="this.pageIndex<1" class="page-link"
-					(click)="this.LoadPreviousPage()">Previous</button></li>
+					(click)="this.loadPreviousPage()" i18n="@@previous">Previous</button></li>
 
 			<li class="page-item"><a [hidden]="this.pageIndex < this.pageSize*3" class="page-link">...</a></li>
 
@@ -63,8 +64,8 @@
 					'text-danger text-underline':index==0
 				}"
 				[disabled]="index==0"
-				[hidden]="this.HiddenIndexPagination(index)"
-				class="page-link" (click)="this.LoadingListPurchaserOrder((this.pageIndex/this.pageSize+index)*this.pageSize)">
+				[hidden]="this.hiddenIndexPagination(index)"
+				class="page-link" (click)="this.loadingListPurchaserOrder((this.pageIndex/this.pageSize+index)*this.pageSize)">
 					{{this.pageIndex/this.pageSize+1+index}}
 				</button>
 				
@@ -75,7 +76,7 @@
 			<li class="page-item"><a [hidden]="(this.pageIndex+this.pageSize*3 )>= this.lengthPO"
 					class="page-link">...</a></li>
 			<li class="page-item"><button [disabled]="(this.pageIndex+this.pageSize )>= this.lengthPO" class="page-link"
-					(click)="this.LoadNextPage()">Next</button></li>
+					(click)="this.loadNextPage()" i18n="@@next">Next</button></li>
 		</ul>
 
 	</div>

@@ -157,8 +157,8 @@
 				<ng-template #notCancelPO_partNumber>
 					<td>
 						<select class="form-select" name="selectPart"
-							(change)="this.OnChangePartNumberOnPOLine($event,i)">
-							<option *ngFor="let part of this.GetListPartCanSelectedInPOL(pol.partNumber)"
+							(change)="this.onChangePartNumberOnPOLine($event,i)">
+							<option *ngFor="let part of this.getListPartCanSelectedInPOL(pol.partNumber)"
 								[selected]="part.partNumber == this.dataPODetail.purchaseOrderLines[i].partNumber"
 								[value]="part.partNumber">
 								{{part.partNumber}}
@@ -204,7 +204,7 @@
 					<input type="text" class="form-control" [(ngModel)]="this.dataPODetail.purchaseOrderLines[i].memo"
 						[disabled]="dataPODetail.cancelPo" />
 				</td>
-				<td class="text-end"><span>{{pol.qtyOrdered*pol.m2BuyPrice | number:'0.0-2'}}</span></td>
+				<td class="text-end"><span>{{pol.qtyOrdered*pol.m2BuyPrice | currencylocal}}</span></td>
 				<span *ngIf="dataPODetail.cancelPo==true; then cancelPO ;else notCancelPO"></span>
 				<ng-template #cancelPO>
 					<td class="text-center">
@@ -212,7 +212,7 @@
 					</td>
 				</ng-template>
 				<ng-template #notCancelPO>
-					<td class="text-center" (click)="this.DeletePurchaseOrderLine(i)">
+					<td class="text-center" (click)="this.deletePurchaseOrderLine(i)">
 						<span><i class="fa fa-times text-danger"></i></span>
 					</td>
 				</ng-template>
@@ -233,14 +233,14 @@
 		<div class="col-12 text-end">
 			<p>
 				<b>Purchase order price (£): </b><span
-					*ngIf="dataPODetail">{{this.TotalPricePO()|number:"0.0-2"}}</span>
+					*ngIf="dataPODetail">{{ this.totalPricePO() | currencylocal}}</span>
 				<br />
 				<span *ngIf="dataPODetail.cancelPo==true; then cancelPO ;else notCancelPO"></span>
 				<ng-template #cancelPO>
 					<p class="text-danger"><b>Warning:</b> This PO cannot be modified because already cancelled !</p>
 				</ng-template>
 				<ng-template #notCancelPO>
-					<a (click)="this.AddPurchaseOrderLine()" href="javascript:;">Add Purchase order Line</a>
+					<a (click)="this.addPurchaseOrderLine()" href="javascript:;">Add Purchase order Line</a>
 				</ng-template>
 			</p>
 		</div>
@@ -258,7 +258,7 @@
 			</ng-template>
 
 			<ng-template #notCancelPO>
-				<button type="button" class="btn btn-outline-danger" (click)="this.OpenModalCancel(content)">Cancel
+				<button type="button" class="btn btn-outline-danger" (click)="this.openModalCancel(content)">Cancel
 					PO</button>
 				&nbsp;
 				<button type="button" class="btn btn-outline-secondary"
@@ -266,7 +266,7 @@
 					routerLinkActive="router-link-active">Re-send email</button>
 				&nbsp;
 				<button type="button" class="btn btn-success"
-					(click)="this.PATCHUpdatePurchaseOrderDetail()">Save</button>
+					(click)="this.pacthUpdatePurchaseOrderDetail()">Save</button>
 			</ng-template>
 
 		</div>

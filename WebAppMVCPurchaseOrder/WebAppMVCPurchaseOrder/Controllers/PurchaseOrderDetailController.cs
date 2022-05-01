@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-using WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository;
-using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
-
-using Newtonsoft.Json;
+using WebAppMVCPurchaseOrder.Interfaces.Services;
 
 namespace WebAppMVCPurchaseOrder.Controllers
 {
     public class PurchaseOrderDetailController : Controller
     {
-        private PurchaseOrderDetailServices purchaseOrderServices;
+        private IPurchaseOrderDetailServices purchaseOrderServices;
         
-        public PurchaseOrderDetailController(PurchaseOrderDetailServices podServices)
+        public PurchaseOrderDetailController(IPurchaseOrderDetailServices podServices)
         {
            this.purchaseOrderServices = podServices;
         }
