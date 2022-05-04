@@ -3,7 +3,8 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<div class="container-fluid">
 			<span class="navbar-brand mb-0 h1">
-				<a i18n="@@navbarBrand" class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">Purchase Order</a>
+				<a i18n="@@navbarBrand" class="navbar-brand" [routerLink]="['/']"
+					routerLinkActive="router-link-active">Purchase Order</a>
 
 			</span>
 
@@ -16,14 +17,21 @@
 						<a class="nav-link active" routerLink="purchaseorder" appHighlight>Purchase Order</a>
 					</li>
 				</ul>
-				
+
 			</div>
 
 
 			<!--Start Internationalization-->
 			<div class="d-flex">
-				<button class="btn btn-success btn-sm" [routerLink]="['login']">Login</button>
-				<button class="btn btn-success btn-sm" [routerLink]="['logout']">Logout</button>
+				<ng-content *ngIf="this.user.authentication;then logout else login">
+				</ng-content>
+				<ng-template #login>
+					<button class="btn btn-success btn-sm" [routerLink]="['login']">Login</button>
+				</ng-template>
+				<ng-template #logout>
+					<button class="btn btn-success btn-sm" [routerLink]="['logout']">Logout</button>
+				</ng-template>
+				
 				&nbsp;
 				<app-internationalization></app-internationalization>
 			</div>

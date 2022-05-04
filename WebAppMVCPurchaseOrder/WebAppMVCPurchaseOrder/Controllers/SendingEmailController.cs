@@ -3,6 +3,7 @@ using WebAppMVCPurchaseOrder.Services.SendEmailServices;
 
 namespace WebAppMVCPurchaseOrder.Controllers
 {
+    //[Route("api/[controller]")]
     public class SendingEmailController : Controller
     {
         private SendEmailServices sendEmailServices;

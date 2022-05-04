@@ -3,6 +3,7 @@ using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
 
 namespace WebAppMVCPurchaseOrder.Controllers
 {
+    //[Route("[controller]/")]
     public class PurchaseOrderController : Controller
     {
 
@@ -30,6 +31,22 @@ namespace WebAppMVCPurchaseOrder.Controllers
 
 
             var data = this.purchaseOrderServices.GetListPurchaseOrder(index,10);
+
+            return Json(data);
+        }
+
+        [HttpGet("listpo")]
+        
+        public IActionResult GetListPO(string id)
+        {
+            int index = 0;
+            if (id != null)
+            {
+                index = int.Parse(id);
+            }
+
+
+            var data = this.purchaseOrderServices.GetListPurchaseOrder(index, 10);
 
             return Json(data);
         }

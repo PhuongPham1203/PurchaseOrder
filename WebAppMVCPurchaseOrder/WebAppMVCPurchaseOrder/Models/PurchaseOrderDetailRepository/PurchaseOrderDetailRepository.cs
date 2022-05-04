@@ -74,10 +74,10 @@ namespace WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository
             return null;
         }
 
-        public IEnumerable<IModel> GetListPart()
+        public IEnumerable<Part> GetListPart()
         {
 
-            return (IEnumerable<IModel>)ModelSQLserver.Parts.ToList();
+            return (IEnumerable<Part>)ModelSQLserver.Parts.ToList();
 
         }
 

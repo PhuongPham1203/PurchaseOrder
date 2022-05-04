@@ -32,8 +32,11 @@ export class ServerHttpService {
 	}
 
 	// Send Post API with data
-	public postAPIWithData(api_url, data): Observable<any> {
-		return this.httpClient.post<any>(api_url, data).pipe(catchError(this.handleError));
+	public postAPIWithData(api_url, data,header=null): Observable<any> {
+		if(header!=null){
+			this.httpOptions.headers = header;
+		}
+		return this.httpClient.post<any>(api_url, data,this.httpOptions).pipe(catchError(this.handleError));
 		
 	}
 

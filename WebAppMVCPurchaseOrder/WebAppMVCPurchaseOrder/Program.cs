@@ -2,23 +2,22 @@
 using Microsoft.EntityFrameworkCore;
 using WebAppMVCPurchaseOrder.Interfaces.Services;
 using WebAppMVCPurchaseOrder.Models.Context;
+using WebAppMVCPurchaseOrder.Services.AccountServices;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderDetailServices;
 using WebAppMVCPurchaseOrder.Services.PurchaseOrderServices;
 using WebAppMVCPurchaseOrder.Services.RepositoryServices;
 using WebAppMVCPurchaseOrder.Services.SendEmailServices;
-/// <summary>
-/// DDD :
-///     User Interface Layer : Views, angular
-///     Application Layer : Controllers
-///     Domain Layer : Services
-///     Infrastructure Layer : Models
-/// </summary>
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 
 // Add Services
 builder.Services.AddScoped<purchaseorderContext>();
+
+builder.Services.AddScoped<IAccountServices, AccountServices>();
+
 builder.Services.AddScoped<IRepositoryServices, PORepositoryServices>();
 builder.Services.AddScoped<SendEmailServices>();
 builder.Services.AddScoped<PurchaseOrderServices>();

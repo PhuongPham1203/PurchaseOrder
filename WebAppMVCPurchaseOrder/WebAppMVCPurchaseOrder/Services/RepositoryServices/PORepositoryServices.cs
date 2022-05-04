@@ -1,4 +1,6 @@
-﻿using WebAppMVCPurchaseOrder.Models.Context;
+﻿using WebAppMVCPurchaseOrder.Interfaces.Models;
+using WebAppMVCPurchaseOrder.Models.AccountRepository;
+using WebAppMVCPurchaseOrder.Models.Context;
 using WebAppMVCPurchaseOrder.Models.PurchaseOrderDetailRepository;
 using WebAppMVCPurchaseOrder.Models.PurchaseOrderRepository;
 
@@ -13,9 +15,11 @@ namespace WebAppMVCPurchaseOrder.Services.RepositoryServices
             this._context = context;
             PurchaseOrder = new PurchaseOrderRepository(this._context);
             PurchaseOrderDetail = new PurchaseOrderDetailRepository(this._context);
+            AccountRepository = new AccountRepository(this._context);
         }
         public IPurchaseOrderRepository PurchaseOrder { get; private set; }
         public IPurchaseOrderDetailRepository PurchaseOrderDetail { get; private set; }
+        public IAccountRepository AccountRepository { get; private set; }
 
         public int Complete()
         {

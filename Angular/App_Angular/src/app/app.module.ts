@@ -27,6 +27,7 @@ import { LogoutComponent } from './authentication/logout/logout.component';
 import { ValidateInputLoginDirective } from './Directives/authentication/validate-input-login.directive';
 import { DashboardComponent } from './authentication/dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
 	declarations: [
@@ -63,7 +64,8 @@ import {MatCardModule} from '@angular/material/card';
 		MatNativeDateModule,
 		MatInputModule,
 		MatDatepickerModule,
-		MatCardModule
+		MatCardModule,
+		ToastrModule.forRoot()
 
 
 	],
