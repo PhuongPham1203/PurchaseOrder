@@ -1,10 +1,14 @@
+<ng-container *ngIf="this.user">
 
-<app-header></app-header>
+	<app-header></app-header>
 
+	<div>{{this.user|json}}</div>
+	
 
-<!--router primary-->
-<router-outlet></router-outlet>
+	<!--router primary-->
+	<router-outlet></router-outlet>
 
+</ng-container>
 <!--
 <h2>
 	router add

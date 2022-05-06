@@ -1,15 +1,10 @@
-export interface IUserModel {
-	username: string;
-	token: string;
-	department:string;
-	authentication: boolean;
-}
+import { RoleUser } from "./enum-roles-user.model";
 
-export class UserModel implements IUserModel {
-	public username: string="";
-	public token: string="";
-	public department:string="";
-	public authentication: boolean=false;
+export class UserModel  {
+	public username?: string;
+	public token?: string;
+	public department?:string;
+	public roles?:RoleUser[]=[];
 
 	constructor(user){
 		Object.assign(this,user);

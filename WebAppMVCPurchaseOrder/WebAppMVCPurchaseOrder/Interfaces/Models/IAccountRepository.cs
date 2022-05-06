@@ -6,7 +6,7 @@ namespace WebAppMVCPurchaseOrder.Interfaces.Models
     {
         public Task<UserModel> ValidationUser(string username, string password); 
         public Task<UserModel> ValidationUser(string token);
-        public Task<UserModel> UpdateTokenUser(string username);
+        public Task<Boolean> UpdateTokenUser(UserModel userModel);
 
     }
 }

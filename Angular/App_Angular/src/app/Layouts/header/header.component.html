@@ -23,13 +23,13 @@
 
 			<!--Start Internationalization-->
 			<div class="d-flex">
-				<ng-content *ngIf="this.user.authentication;then logout else login">
+				<ng-content *ngIf="this.isAuthorized;then logout else login">
 				</ng-content>
 				<ng-template #login>
-					<button class="btn btn-success btn-sm" [routerLink]="['login']">Login</button>
+					<button class="btn btn-success btn-sm" [routerLink]="['/login']">Login</button>
 				</ng-template>
 				<ng-template #logout>
-					<button class="btn btn-success btn-sm" [routerLink]="['logout']">Logout</button>
+					<button class="btn btn-success btn-sm" [routerLink]="['/logout']">Logout</button>
 				</ng-template>
 				
 				&nbsp;

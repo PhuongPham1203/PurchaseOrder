@@ -21,6 +21,32 @@ namespace WebAppMVCPurchaseOrder.Models.AccountRepository
             throw new NotImplementedException();
         }
 
+        public async Task<Boolean> UpdateTokenUser(UserModel userModel)
+        {
+            try
+            {
+                var user = await ModelSQLserver
+                    .Users
+                    .Where(u=>u.Username == userModel.Username)
+                    .SingleAsync();
+                if (user == null)
+                {
+                    throw new Exception("User not exit");
+                }
+
+                user.Token = userModel.Token;
+
+                return true;
+
+                
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return false;
+        }
+
         public async Task<UserModel> ValidationUser(string username, string password)
         {
             try

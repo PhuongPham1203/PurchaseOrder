@@ -28,6 +28,9 @@ import { ValidateInputLoginDirective } from './Directives/authentication/validat
 import { DashboardComponent } from './authentication/dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthenticationService } from './Services/authentication/authentication.service';
+
+console.log("App-Module load");
 
 @NgModule({
 	declarations: [
@@ -73,6 +76,7 @@ import { ToastrModule } from 'ngx-toastr';
 		/*{
 			provide:LocationStrategy, useClass: HashLocationStrategy
 		}*/
+		AuthenticationService
 		
 	],
 	bootstrap: [AppComponent]

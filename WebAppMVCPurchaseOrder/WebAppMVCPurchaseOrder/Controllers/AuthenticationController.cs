@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAppMVCPurchaseOrder.Interfaces.Services;
+using WebAppMVCPurchaseOrder.Models.AccountRepository;
 using WebAppMVCPurchaseOrder.Models.Context;
 
 namespace WebAppMVCPurchaseOrder.Controllers
@@ -21,7 +22,7 @@ namespace WebAppMVCPurchaseOrder.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> PostLogin([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] User user)
         {
             try
             {
@@ -33,6 +34,19 @@ namespace WebAppMVCPurchaseOrder.Controllers
                 return BadRequest(ex);
             }
 
+        }
+
+        [HttpPost("checktoken")]
+        public async Task<IActionResult> CheckToken([FromBody] UserModel user)
+        {
+            try
+            {
+                var userModel = await this._accountService.CheckToken(user.Token);
+                return Ok(userModel);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

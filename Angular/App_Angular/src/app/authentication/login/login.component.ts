@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HeaderComponent } from 'src/app/Layouts/header/header.component';
 import { UserModel } from 'src/app/Models/authentication/user.model';
 import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
 import { ServerHttpService } from 'src/app/Services/server-http.service';
@@ -14,10 +15,9 @@ import { environment } from 'src/environments/environment';
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
 
-	public user: UserModel = new UserModel(null);
-
+	
 	public loginForm = new FormGroup({
 		username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
 		password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
@@ -28,26 +28,12 @@ export class LoginComponent implements OnInit {
 		private toastr: ToastrService,
 		private router: Router,
 		private authentication: AuthenticationService,
-		private cookieService: CookieService,
+		private cookieService: CookieService
 	) { }
-
+	
+	
 	ngOnInit(): void {
-		//console.log(this.user);
-		this.authentication.user$.subscribe(u => this.user = u);
-		console.log(this.cookieService.get("token"))
-		if (this.user.authentication == false) {
-			if (this.cookieService.check("token")) {
-				let userIsValid = this.authentication.isTokenValid(this.cookieService.get("token"));
-				if(userIsValid!=false){
-
-					this.authentication.setUser(userIsValid as UserModel);
-				}
-			}
-
-		}else{
-			this.router.navigate(["/dashboard"]);
-		}
-
+		
 	}
 
 	public onSubmit() {
@@ -65,10 +51,9 @@ export class LoginComponent implements OnInit {
 				this.toastr.error("Username or password is invalid!", "Error");
 			} else {
 				//console.log(res);
-				let userModel = new UserModel(res);
-				userModel.authentication = true;
-
-				this.authentication.login(userModel);
+				let newUser = new UserModel(res);
+				
+				this.authentication.setUser(newUser);
 
 				this.router.navigate(["/dashboard"]);
 			}
