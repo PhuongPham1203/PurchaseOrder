@@ -55,12 +55,8 @@ export class LoginActivateGuard implements CanActivate {
 
 				this.authenticationService.setUser(userModel);
 
-
-
 				this.router.navigate(["/dashboard"]);
 				
-
-
 			}
 
 		});

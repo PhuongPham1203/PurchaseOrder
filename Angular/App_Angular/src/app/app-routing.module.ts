@@ -8,10 +8,10 @@ import { DashboardActivateGuard } from './Guards/Authentication/dashboard-activa
 import { LoginActivateGuard } from './Guards/Authentication/login-activate.guard';
 import { CanLoadSaleModuleGuard } from './Guards/Sale/can-load-sale-module.guard';
 
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './sale/home/home.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
-import { SendEmailComponent } from './send-email/send-email.component';
+import { PurchaseOrderDetailComponent } from './sale/purchase-order-detail/purchase-order-detail.component';
+import { SendEmailComponent } from './sale/send-email/send-email.component';
 
 
 const routes: Routes = [
@@ -23,14 +23,13 @@ const routes: Routes = [
 	{ path: "logout", component: LogoutComponent },
 
 
-	{path:"purchaseorder",component:HomeComponent},
-	{ path: "purchaseorderdetail/:id", component: PurchaseOrderDetailComponent },
-	{ path: "sendemail/:id", component: SendEmailComponent },
+	
 
 	// Account Module
 	{path:"account",loadChildren:()=>import("./account-manager/account-manager.module").then(module=>module.AccountManagerModule),canLoad:[CanLoadAccountModuleGuard]},
 	{path:"sale",loadChildren:()=>import("./sale/sale.module").then(module=>module.SaleModule),canLoad:[CanLoadSaleModuleGuard]},
 
+	
 	/*
 	{path:"",children:[
 		{path:"",component:HomeComponent},

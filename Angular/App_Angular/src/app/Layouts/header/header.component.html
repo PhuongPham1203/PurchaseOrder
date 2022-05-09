@@ -8,6 +8,7 @@
 
 			</span>
 
+			<!--
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item me-3">
@@ -19,17 +20,20 @@
 				</ul>
 
 			</div>
+			-->
 
 
 			<!--Start Internationalization-->
-			<div class="d-flex">
+			<div class="d-flex align-items-center">
 				<ng-content *ngIf="this.isAuthorized;then logout else login">
 				</ng-content>
 				<ng-template #login>
+					<!--
 					<button class="btn btn-success btn-sm" [routerLink]="['/login']">Login</button>
+					-->
 				</ng-template>
 				<ng-template #logout>
-					<button class="btn btn-success btn-sm" [routerLink]="['/logout']">Logout</button>
+					<span>{{this.user.username}} (<a class="" [routerLink]="['/logout']">Logout</a>)</span>
 				</ng-template>
 				
 				&nbsp;

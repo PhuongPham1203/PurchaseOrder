@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit ,LOCALE_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertMessageService } from '../Services/alert-message.service';
-import { DatetimeService } from '../Services/datetime.service';
-import { DomainAPIService } from '../Services/domain-api.service';
-import { ServerHttpService } from '../Services/server-http.service';
+import { AlertMessageService } from '../../Services/alert-message.service';
+import { DatetimeService } from '../../Services/datetime.service';
+import { DomainAPIService } from '../../Services/domain-api.service';
+import { ServerHttpService } from '../../Services/server-http.service';
 
 @Component({
 	selector: 'app-home',

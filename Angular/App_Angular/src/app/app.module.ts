@@ -12,12 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoldDirective } from './Directives/bold.directive';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './sale/home/home.component';
 import { HeaderComponent } from './Layouts/header/header.component';
 import { LoadingComponent } from './Layouts/loading/loading.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
-import { SendEmailComponent } from './send-email/send-email.component';
+import { PurchaseOrderDetailComponent } from './sale/purchase-order-detail/purchase-order-detail.component';
+import { SendEmailComponent } from './sale/send-email/send-email.component';
 import { InternationalizationComponent } from './Layouts/internationalization/internationalization.component';
 import { DatetimeLocalPipe } from './Pipes/datetime-local.pipe';
 import { CurrencyLocalPipe } from './Pipes/currency-local.pipe';
@@ -29,6 +29,8 @@ import { DashboardComponent } from './authentication/dashboard/dashboard.compone
 import {MatCardModule} from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthenticationService } from './Services/authentication/authentication.service';
+import { RoleSaleDirective } from './Directives/authentication/role-sale.directive';
+import { RoleAccountDirective } from './Directives/authentication/role-account.directive';
 
 console.log("App-Module load");
 
@@ -51,7 +53,9 @@ console.log("App-Module load");
   LogoutComponent,
   ValidateInputLoginDirective,
   DashboardComponent,
-
+  RoleSaleDirective,
+  RoleAccountDirective,
+  
  
 	],
 	imports: [

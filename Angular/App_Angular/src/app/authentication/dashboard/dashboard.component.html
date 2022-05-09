@@ -1,31 +1,37 @@
 <div class="container mt-5">
 	<div class="row">
-		<div class="col-6 mb-3">
-			<mat-card routerLink="/account" routerLinkActive="router-link-active">
-				<mat-card-header>
-					<div mat-card-avatar></div>
-					<mat-card-title >Account Manager</mat-card-title>
-				</mat-card-header>
-				<img mat-card-image src="">
-				<mat-card-content>
-					
-					<p>Setup Account</p>
-				</mat-card-content>
-			</mat-card>
+		
+		
+		<div class="col-12" appRoleAccount [roles]="this.user.roles">
+			<div class="col-6 mb-3">
+				<mat-card routerLink="/account" routerLinkActive="router-link-active">
+					<mat-card-header>
+						<div mat-card-avatar></div>
+						<mat-card-title >Account Manager</mat-card-title>
+					</mat-card-header>
+					<img mat-card-image src="">
+					<mat-card-content>
+						
+						<p>Setup Account</p>
+					</mat-card-content>
+				</mat-card>
+			</div>
 		</div>
-		<div class="col-6 mb-3">
+		
+		<div class="col-12 " appRoleSale [roles]="this.user.roles">
+			<div class="col-6 mb-3" >
+				<mat-card routerLink="/sale" routerLinkActive="router-link-active">
+					<mat-card-header >
+						<div mat-card-avatar></div>
+						<mat-card-title >Purchase Order Manager</mat-card-title>
+					</mat-card-header>
+					<img mat-card-image src="">
+					<mat-card-content>
+						<p>List Purchase Order</p>
+					</mat-card-content>
+				</mat-card>
+			</div>
 		</div>
-		<div class="col-6 mb-3" >
-			<mat-card routerLink="/sale" routerLinkActive="router-link-active">
-				<mat-card-header >
-					<div mat-card-avatar></div>
-					<mat-card-title >Purchase Order Manager</mat-card-title>
-				</mat-card-header>
-				<img mat-card-image src="">
-				<mat-card-content>
-					<p>List Purchase Order</p>
-				</mat-card-content>
-			</mat-card>
-		</div>
+		
 	</div>
 </div>

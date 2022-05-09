@@ -13,7 +13,6 @@ export class CanLoadAccountModuleGuard implements CanLoad {
 	constructor(
 		private authentication: AuthenticationService,
 		private router: Router,
-		private location:Location,
 	) {
 		this.authentication.user.subscribe(u => this.user = u);
 	}
@@ -21,14 +20,19 @@ export class CanLoadAccountModuleGuard implements CanLoad {
 		route: Route,
 		segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-		if (this.user.roles.includes(RoleUser.IT_SUPPORT_VIEW)) {
-			return true;
-		} else {
+		try {
 
-			
+			if (this.user.roles.includes(RoleUser.IT_SUPPORT_VIEW)) {
+				return true;
+			} else {
+				this.router.navigate(["/dashboard"])
+				return false;
+			}
+		} catch (ex) {
+			this.router.navigate(["/dashboard"])
 			return false;
-
 		}
+
 
 	}
 }

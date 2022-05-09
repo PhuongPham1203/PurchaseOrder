@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatetimeService } from '../Services/datetime.service';
-import { DomainAPIService } from '../Services/domain-api.service';
-import { ServerHttpService } from '../Services/server-http.service';
+import { DatetimeService } from '../../Services/datetime.service';
+import { DomainAPIService } from '../../Services/domain-api.service';
+import { ServerHttpService } from '../../Services/server-http.service';
 import { cloneDeep } from 'lodash';
-import { AlertMessageService } from '../Services/alert-message.service';
+import { AlertMessageService } from '../../Services/alert-message.service';
 
 
 @Component({
