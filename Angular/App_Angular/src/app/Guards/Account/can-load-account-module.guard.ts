@@ -21,7 +21,7 @@ export class CanLoadAccountModuleGuard implements CanLoad {
 		segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
 		try {
-
+			console.log(this.authentication.getUser())
 			if (this.user.roles.includes(RoleUser.IT_SUPPORT_VIEW)) {
 				return true;
 			} else {

@@ -15,16 +15,18 @@ export class PurchaseOrderGuard implements CanActivate, CanActivateChild {
 		private router: Router,
 	) {
 		this.authentication.user.subscribe(u => this.user = u);
+
+		
 	}
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-		
-		if(this.user.roles.includes(RoleUser.SALE_VIEW)){
+		console.log(this.authentication.getUser().roles)
+		if(this.authentication.getUser().roles.includes(RoleUser.SALE_VIEW)){
 			return true;
 		}else{
-			this.router.navigate(["/dashboard"]);
+			//this.router.navigate(["/dashboard"]);
 			return false;
 
 		}

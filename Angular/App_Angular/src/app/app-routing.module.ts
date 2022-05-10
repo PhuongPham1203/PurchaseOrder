@@ -9,7 +9,7 @@ import { LoginActivateGuard } from './Guards/Authentication/login-activate.guard
 import { CanLoadSaleModuleGuard } from './Guards/Sale/can-load-sale-module.guard';
 
 import { HomeComponent } from './sale/home/home.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PagenotfoundComponent } from './Layouts/pagenotfound/pagenotfound.component';
 import { PurchaseOrderDetailComponent } from './sale/purchase-order-detail/purchase-order-detail.component';
 import { SendEmailComponent } from './sale/send-email/send-email.component';
 
@@ -29,26 +29,6 @@ const routes: Routes = [
 	{path:"account",loadChildren:()=>import("./account-manager/account-manager.module").then(module=>module.AccountManagerModule),canLoad:[CanLoadAccountModuleGuard]},
 	{path:"sale",loadChildren:()=>import("./sale/sale.module").then(module=>module.SaleModule),canLoad:[CanLoadSaleModuleGuard]},
 
-	
-	/*
-	{path:"",children:[
-		{path:"",component:HomeComponent},
-		//{path:":id",redirectTo:"purchaseorder/:id",pathMatch:"full"},
-		{path:"purchaseorder",component:HomeComponent},
-		//{path:"purchaseorder/:id",component:HomeComponent},
-	]},
-	{ path: "purchaseorderdetail/:id", component: PurchaseOrderDetailComponent },
-	{ path: "sendemail/:id", component: SendEmailComponent },
-
-	{path:"admin",loadChildren:()=>import("./users/admin/admin.module").then(mod=>mod.AdminModule)},
-	{path:"user",loadChildren:()=>import("./users/user/user.module").then(mod=>mod.UserModule)},
-
-	{ path: 'preferences', loadChildren: () => import('./preferences/preferences.module').then(m => m.PreferencesModule),canLoad:[PreferencesCheckGuard] },
-
-	//{path:"addcontact",component:AddContactComponent,outlet:"addContact"},
-	//{path:"editcontact",component:EditContactComponent,outlet:"editContact"},
-
-	*/
 	{ path: "**", component: PagenotfoundComponent }
 
 

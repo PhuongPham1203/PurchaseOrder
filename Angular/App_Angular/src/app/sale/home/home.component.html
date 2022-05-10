@@ -30,7 +30,7 @@
 
 			<!--Item-->
 			<tr *ngFor="let item of dataPO">
-				<td><a [routerLink]="['/purchaseorderdetail/'+item.orderNo]"
+				<td><a [routerLink]="['/sale/purchaseorderdetail/'+item.orderNo]"
 						routerLinkActive="router-link-active">{{item.orderNo}}</a></td>
 				<td><span>{{item.supplierName}}</span></td>
 				<td><span>{{item.stockSite}}</span></td>

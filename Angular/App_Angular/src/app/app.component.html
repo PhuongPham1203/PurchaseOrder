@@ -1,14 +1,26 @@
-<ng-container *ngIf="this.user">
+<ng-container *ngIf="this.isRunCheckToken">
 
+
+
+</ng-container>
+<span *ngIf="this.isRunCheckToken; then renderTemplate; else loadingTemplate"></span>
+
+<ng-template #renderTemplate>
 	<app-header></app-header>
 
 	<div>{{this.user|json}}</div>
-	
+
 
 	<!--router primary-->
 	<router-outlet></router-outlet>
+</ng-template>
 
-</ng-container>
+<ng-template #loadingTemplate>
+
+	<app-loading></app-loading>
+
+</ng-template>
+
 <!--
 <h2>
 	router add

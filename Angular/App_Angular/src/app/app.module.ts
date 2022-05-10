@@ -11,17 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BoldDirective } from './Directives/bold.directive';
 import { HomeComponent } from './sale/home/home.component';
 import { HeaderComponent } from './Layouts/header/header.component';
 import { LoadingComponent } from './Layouts/loading/loading.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PagenotfoundComponent } from './Layouts/pagenotfound/pagenotfound.component';
 import { PurchaseOrderDetailComponent } from './sale/purchase-order-detail/purchase-order-detail.component';
 import { SendEmailComponent } from './sale/send-email/send-email.component';
 import { InternationalizationComponent } from './Layouts/internationalization/internationalization.component';
 import { DatetimeLocalPipe } from './Pipes/datetime-local.pipe';
 import { CurrencyLocalPipe } from './Pipes/currency-local.pipe';
-import { HighlightDirective } from './Directives/highlight.directive';
 import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { ValidateInputLoginDirective } from './Directives/authentication/validate-input-login.directive';
@@ -31,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthenticationService } from './Services/authentication/authentication.service';
 import { RoleSaleDirective } from './Directives/authentication/role-sale.directive';
 import { RoleAccountDirective } from './Directives/authentication/role-account.directive';
+import { ValidateSCCEmailDirective } from './Directives/authentication/validate-sccemail.directive';
 
 console.log("App-Module load");
 
@@ -39,7 +38,6 @@ console.log("App-Module load");
 		AppComponent,
 		HomeComponent,
 		PagenotfoundComponent,
-		BoldDirective,
 		PurchaseOrderDetailComponent,
 		SendEmailComponent,
 		HeaderComponent,
@@ -48,13 +46,13 @@ console.log("App-Module load");
 
 		DatetimeLocalPipe,
 		CurrencyLocalPipe,
-  HighlightDirective,
   LoginComponent,
   LogoutComponent,
   ValidateInputLoginDirective,
   DashboardComponent,
   RoleSaleDirective,
   RoleAccountDirective,
+  ValidateSCCEmailDirective,
   
  
 	],
@@ -80,8 +78,7 @@ console.log("App-Module load");
 		/*{
 			provide:LocationStrategy, useClass: HashLocationStrategy
 		}*/
-		AuthenticationService
-		
+		AuthenticationService,		
 	],
 	bootstrap: [AppComponent]
 })

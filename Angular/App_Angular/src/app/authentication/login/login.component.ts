@@ -4,6 +4,7 @@ import { Router, Routes } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ValidateSCCEmailDirective } from 'src/app/Directives/authentication/validate-sccemail.directive';
 import { HeaderComponent } from 'src/app/Layouts/header/header.component';
 import { UserModel } from 'src/app/Models/authentication/user.model';
 import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit{
 
 	
 	public loginForm = new FormGroup({
-		username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+		username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(16), ValidateSCCEmailDirective.validateEmail("@scc.com")]),
 		password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
 	});
 
