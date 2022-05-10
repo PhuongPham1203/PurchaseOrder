@@ -21,19 +21,14 @@ export class LoginActivateGuard implements CanActivate {
 		private serverHttp: ServerHttpService,
 		private router: Router,
 	) {
-		console.log(this.user)
 		this.authenticationService.user.subscribe(u => this.user = u);
-		console.log(this.user)
-
-		this.authenticationService.isAuthenticated.pipe(debounceTime(500)).subscribe(isAuth => this.isAuthorized = isAuth);
+		this.authenticationService.isAuthenticated.subscribe(isAuth => this.isAuthorized = isAuth);
 	}
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		console.log(this.user)
-		console.log(route)
-		return true
-		/*
+		
+		
 		if (this.authenticationService.getIsAuthenticated() == false) {
 
 			if (this.cookieService.check("token")) {
@@ -45,8 +40,8 @@ export class LoginActivateGuard implements CanActivate {
 			return false;
 		}
 
-		return false
-		*/
+		return true
+		
 	}
 
 

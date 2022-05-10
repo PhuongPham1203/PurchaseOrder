@@ -10,36 +10,36 @@ import { AuthenticationService } from 'src/app/Services/authentication/authentic
 export class DashboardActivateGuard implements CanActivate {
 
 	private user: UserModel = new UserModel({});
-	//private isAuthorized:boolean = false;
+	private isAuthorized: boolean = false;
 
 	constructor(
 		private authentication: AuthenticationService,
 		private router: Router
 	) {
-		//this.authentication.user.subscribe(u => this.user = u);
-		//this.authentication.isAuthenticated.subscribe(isAuth=> this.isAuthorized = isAuth)
+		this.authentication.user.subscribe(u => this.user = u);
+		this.authentication.isAuthenticated.subscribe(isAuth => this.isAuthorized = isAuth)
 	}
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-			
-			/*
-			if(this.authentication.getIsAuthenticated()){
-				return true;
-
-			}else{
-				this.router.navigate(["/"])
-				return false
-			}
-			*/
 
 
-			return true
+		if (this.authentication.getIsAuthenticated()) {
+			return true;
 
-			
+		} else {
+			this.router.navigate(["/"])
+			return false
+		}
+
+
+
+		return true
+
+
 
 
 	}
-	
+
 
 }

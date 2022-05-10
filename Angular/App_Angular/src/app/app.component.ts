@@ -23,9 +23,12 @@ export class AppComponent implements OnInit {
 	) {
 	}
 	ngOnInit(): void {
+		
 		this.authenticationService.user.subscribe(user => this.user = user)
 		if (this.cookieService.check("token")) {
 			this.checkToken(this.cookieService.get("token"));
+		}else{
+			this.isRunCheckToken = true;
 		}
 	}
 
@@ -43,7 +46,7 @@ export class AppComponent implements OnInit {
 				this.authenticationService.setUser(userModel);
 			}
 			this.isRunCheckToken = true
-			console.log(this.isRunCheckToken)
+			
 		});
 
 	}

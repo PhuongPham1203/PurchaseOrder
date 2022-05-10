@@ -20,7 +20,7 @@ export class CanLoadSaleModuleGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		
-		console.log( this.authentication.getUser())
+		
 		try{
 			if(this.user.roles.includes(RoleUser.SALE_VIEW)){
 				return true;
